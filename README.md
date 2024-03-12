@@ -1,5 +1,6 @@
-# ABGC 2025 - 2025
-The Vex Anti Bevel Gear Coalition's code repository and organization hub for 2023
+# ABGC 2024 - 2025
+The Vex Anti Bevel Gear Coalition's code repository and organization hub for 2024
+
 ### Guidelines
 - Only commit code to main branch
 - Comments are brief descriptions or explanations of logic
