@@ -15,11 +15,3 @@ temp.log
 temp.errors
 *.ini
 .d/
-
-# TEAM
-/*
-!include/
-!.gitignore
-!README.md
-!src/
-!documentation/

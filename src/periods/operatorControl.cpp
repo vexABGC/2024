@@ -15,4 +15,36 @@
  * operator control task will be stopped. Re-enabling the robot will restart the
  * task, not resume it from where it left off.
  */
-void opcontrol() {}
+void opcontrol() {
+    //create motor output variables
+    int lf_out = 0;
+    int lb_out = 0;
+    int rf_out = 0;
+    int rb_out = 0;
+
+    //take joystick input
+    int leftJoyX = master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_X);
+    int leftJoyY = master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);
+    int rightJoyX = master.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X);
+    int rightJoyY = master.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_Y);
+
+    //modify outputs with dead zones
+    if (abs(leftJoyX) > deadZone){
+        lf_out += leftJoyY;
+        lb_out -= leftJoyY;
+        rf_out -= leftJoyY;
+        rb_out += leftJoyY;
+    }
+    if (abs(leftJoyY) > deadZone){
+        lf_out += leftJoyY;
+        lb_out += leftJoyY;
+        rf_out += leftJoyY;
+        rb_out += leftJoyY;
+    }
+    if (abs(rightJoyX) > deadZone){
+        lf_out -= leftJoyY;
+        lb_out -= leftJoyY;
+        rf_out += leftJoyY;
+        rb_out += leftJoyY;
+    }
+}
