@@ -6,7 +6,7 @@ The Vex Anti Bevel Gear Coalition's code repository and organization hub for 202
 - Document any major changes in program code in the notebook extensively
 - Use snake case for global variables
   - EX: test_test_test
-- Use camel case for regular variables, and methods
+- Use camel case for regular variables, most files, and methods
   - EX: testTestTest
-- Use pascal case for classes
+- Use pascal case for classes, and class files
   - EX: TestTestTest

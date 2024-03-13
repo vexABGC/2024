@@ -1,6 +1,15 @@
 //include
 #include "main.h"
 
+//GUI style/object declarations
+extern lv_style_t rStyle; //released button style
+extern lv_style_t pStyle; //pressed button style
+extern lv_style_t dStyle; //display button style
+extern lv_obj_t* lSelect; //left select button
+extern lv_obj_t* rSelect; //right select button
+extern lv_obj_t* sSelect; //skills select button
+extern lv_obj_t* dSelect; //display select button
+
 //settings
 extern int deadZone;
 
