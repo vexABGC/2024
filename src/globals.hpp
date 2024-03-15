@@ -12,6 +12,7 @@ extern lv_obj_t* dSelect; //display select button
 
 //settings
 extern int deadZone;
+extern int autonomousSelected;
 
 //electronics
 extern pros::Controller master;
@@ -19,3 +20,5 @@ extern pros::Motor lf_mtr;
 extern pros::Motor lb_mtr;
 extern pros::Motor rf_mtr;
 extern pros::Motor rb_mtr;
+extern pros::Rotation l_rot;
+extern pros::Rotation r_rot;

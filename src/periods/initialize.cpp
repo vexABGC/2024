@@ -1,6 +1,8 @@
 //includes
 #include "main.h"
 #include "../src/globals.hpp"
+#include "../src/control/buttonMethod.hpp"
+#include "../src/control/ledStrobe.hpp"
 
 /**
  * Runs initialization code. This occurs as soon as the program is started.
@@ -27,12 +29,13 @@ void initialize() {
     //display button style
     lv_style_copy(&dStyle, &lv_style_plain);
     dStyle.body.main_color = LV_COLOR_MAKE(255, 255, 255);
-    dStyle.body.grad_color = LV_COLOR_MAKE(127, 127, 127);
+    dStyle.body.grad_color = LV_COLOR_MAKE(255, 225, 255);
     dStyle.body.radius = 0;
     dStyle.text.color = LV_COLOR_MAKE(0, 0, 0);
 
+    //setup select buttons and display
     lv_obj_set_free_num(lSelect, 0);
-    //lv_btn_set_action(lSelect, LV_BTN_ACTION_CLICK, );
+    lv_btn_set_action(lSelect, LV_BTN_ACTION_CLICK, buttonMethod);
     lv_btn_set_style(lSelect, LV_BTN_STYLE_REL, &rStyle);
     lv_btn_set_style(lSelect, LV_BTN_STYLE_PR, &pStyle);
     lv_obj_set_size(lSelect, 150, 70);
@@ -40,7 +43,7 @@ void initialize() {
     lv_label_set_text(lv_label_create(lSelect, NULL), "left");
 
     lv_obj_set_free_num(rSelect, 1);
-    //lv_btn_set_action(rSelect, LV_BTN_ACTION_CLICK, );
+    lv_btn_set_action(rSelect, LV_BTN_ACTION_CLICK, buttonMethod);
     lv_btn_set_style(rSelect, LV_BTN_STYLE_REL, &rStyle);
     lv_btn_set_style(rSelect, LV_BTN_STYLE_PR, &pStyle);
     lv_obj_set_size(rSelect, 150, 70);
@@ -48,7 +51,7 @@ void initialize() {
     lv_label_set_text(lv_label_create(rSelect, NULL), "right");
 
     lv_obj_set_free_num(sSelect, 2);
-    //lv_btn_set_action(sSelect, LV_BTN_ACTION_CLICK, );
+    lv_btn_set_action(sSelect, LV_BTN_ACTION_CLICK, buttonMethod);
     lv_btn_set_style(sSelect, LV_BTN_STYLE_REL, &rStyle);
     lv_btn_set_style(sSelect, LV_BTN_STYLE_PR, &pStyle);
     lv_obj_set_size(sSelect, 150, 70);
@@ -56,10 +59,13 @@ void initialize() {
     lv_label_set_text(lv_label_create(sSelect, NULL), "skills");
 
     lv_obj_set_free_num(dSelect, 3);
-    //lv_btn_set_action(dSelect, LV_BTN_ACTION_CLICK, );
+    lv_btn_set_action(dSelect, LV_BTN_ACTION_CLICK, buttonMethod);
     lv_btn_set_style(dSelect, LV_BTN_STYLE_REL, &dStyle);
     lv_btn_set_style(dSelect, LV_BTN_STYLE_PR, &dStyle);
     lv_obj_set_size(dSelect, 465, 150);
     lv_obj_align(dSelect, NULL, LV_ALIGN_IN_BOTTOM_MID, 0, -5);
     lv_label_set_text(lv_label_create(dSelect, NULL), "left");
+
+    //call led strobe effect
+    pros::Task strobe(ledStrobe);
 }
