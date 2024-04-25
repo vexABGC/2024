@@ -12,14 +12,15 @@ lv_obj_t* sSelect = lv_btn_create(lv_scr_act(), NULL); //skills select button
 lv_obj_t* dSelect = lv_btn_create(lv_scr_act(), NULL); //display select button
 
 //settings
-int deadZone = 10;
+int deadZone = 0;
 int autonomousSelected = 0;
+int maxDriveRPM = 100;
 
 //electronics
 pros::Controller master(pros::E_CONTROLLER_MASTER);
-pros::Motor lf_mtr(1, pros::E_MOTOR_GEAR_200, false);
-pros::Motor lb_mtr(2, pros::E_MOTOR_GEAR_200, false);
-pros::Motor rf_mtr(3, pros::E_MOTOR_GEAR_200, false);
-pros::Motor rb_mtr(4, pros::E_MOTOR_GEAR_200, false);
-pros::Rotation l_rot(5, false);
-pros::Rotation r_rot(6, false);
+pros::Motor lf_mtr(13, pros::E_MOTOR_GEAR_200, false);
+pros::Motor lb_mtr(12, pros::E_MOTOR_GEAR_200, false);
+pros::Motor rf_mtr(14, pros::E_MOTOR_GEAR_200, true);
+pros::Motor rb_mtr(11, pros::E_MOTOR_GEAR_200, true);
+//pros::Rotation l_rot(5, false);
+//pros::Rotation r_rot(6, false);

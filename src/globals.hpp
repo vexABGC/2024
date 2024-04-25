@@ -13,6 +13,7 @@ extern lv_obj_t* dSelect; //display select button
 //settings
 extern int deadZone;
 extern int autonomousSelected;
+extern int maxDriveRPM;
 
 //electronics
 extern pros::Controller master;

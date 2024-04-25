@@ -67,5 +67,5 @@ void initialize() {
     lv_label_set_text(lv_label_create(dSelect, NULL), "left");
 
     //call led strobe effect
-    pros::Task strobe(ledStrobe);
+    //pros::Task strobe(ledStrobe);
 }
