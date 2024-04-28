@@ -22,13 +22,7 @@ double rTrackPrev = 0;//r_rot.get_position();
  * task, not resume it from where it left off.
  */
 void opcontrol() {
-    //turning track for field relative strafing
-    //double deltaL = l_rot.get_position() - lTrackPrev;
-    //double deltaR = r_rot.get_position() - rTrackPrev;
-    //double deltaTheta = (deltaL - deltaR)/16;
-    //angleRadians += deltaTheta;
-    master.print(1, 1, "hi");
-
+    //set brake mode on motors
     lf_mtr.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
     lb_mtr.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
     rf_mtr.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
@@ -48,10 +42,9 @@ void opcontrol() {
         rightJoyY = (abs(rightJoyY) < deadZone) ? 0 : rightJoyY;
 
         //create drive, strafe, and turn desired values based on rotation
-        double strafe = leftJoyX;
-        double drive = leftJoyY;
-        double turn = rightJoyX;
-        drive /= sqrt(2);
+        double strafe = leftJoyX / 127;
+        double drive = leftJoyY / 127;
+        double turn = rightJoyX / 127;
 
         //create outputs with global strafe
         double lf_out = (drive + strafe + turn);
@@ -60,23 +53,23 @@ void opcontrol() {
         double rb_out = (drive + strafe - turn);
 
         //fix scaling if output > 1
-        //int max = lf_out;
-        //if (max < lb_out) max = lb_out;
-        //if (max < rf_out) max = rf_out;
-        //if (max < rb_out) max = rb_out;
-        //if (max > maxDriveRPM){
-        //    lf_out *= maxDriveRPM / max;
-        //    lb_out *= maxDriveRPM / max;
-        //    rf_out *= maxDriveRPM / max;
-        //    rb_out *= maxDriveRPM / max;
-        //}
+        int max = lf_out;
+        if (max < lb_out) max = lb_out;
+        if (max < rf_out) max = rf_out;
+        if (max < rb_out) max = rb_out;
+        if (max > 1){
+            lf_out /= max;
+            lb_out /= max;
+            rf_out /= max;
+            rb_out /= max;
+        }
 
-        //update motor velocity
+        //update motor velocity, if velocity = 0 then brake
         if (lf_out != 0 && lb_out != 0 && rf_out != 0 && rb_out != 0){
-            lf_mtr.move_velocity(lf_out);
-            lb_mtr.move_velocity(lb_out);
-            rf_mtr.move_velocity(rf_out);
-            rb_mtr.move_velocity(rb_out);
+            lf_mtr.move_velocity(lf_out * maxDriveRPM);
+            lb_mtr.move_velocity(lb_out * maxDriveRPM);
+            rf_mtr.move_velocity(rf_out * maxDriveRPM);
+            rb_mtr.move_velocity(rb_out * maxDriveRPM);
         }else{
             lf_mtr.brake();
             lb_mtr.brake();

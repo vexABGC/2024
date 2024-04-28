@@ -15,6 +15,12 @@ extern int deadZone;
 extern int autonomousSelected;
 extern int maxDriveRPM;
 
+//ports
+#define lf_prt 13
+#define lb_prt 12
+#define rf_prt 14
+#define rb_prt 11
+
 //electronics
 extern pros::Controller master;
 extern pros::Motor lf_mtr;
