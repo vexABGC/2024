@@ -45,6 +45,11 @@ void opcontrol() {
         double strafe = leftJoyX / 127;
         double drive = leftJoyY / 127;
         double turn = rightJoyX / 127;
+        
+        //square strafe and drive to perform a non-linear scaling normalization, while doing the same to turn to make it feel the same scaling wise
+        strafe *= strafe;
+        drive *= drive;
+        turn *= turn;
 
         //create outputs with global strafe
         double lf_out = (drive + strafe + turn);
@@ -53,16 +58,16 @@ void opcontrol() {
         double rb_out = (drive + strafe - turn);
 
         //fix scaling if output > 1
-        int max = lf_out;
-        if (max < lb_out) max = lb_out;
-        if (max < rf_out) max = rf_out;
-        if (max < rb_out) max = rb_out;
-        if (max > 1){
-            lf_out /= max;
-            lb_out /= max;
-            rf_out /= max;
-            rb_out /= max;
-        }
+        //int max = lf_out;
+        //if (max < lb_out) max = lb_out;
+        //if (max < rf_out) max = rf_out;
+        //if (max < rb_out) max = rb_out;
+        //if (max > 1){
+        //    lf_out /= max;
+        //    lb_out /= max;
+        //    rf_out /= max;
+        //    rb_out /= max;
+        //}
 
         //update motor velocity, if velocity = 0 then brake
         if (lf_out != 0 && lb_out != 0 && rf_out != 0 && rb_out != 0){
