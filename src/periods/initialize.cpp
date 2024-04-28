@@ -2,7 +2,6 @@
 #include "main.h"
 #include "../src/globals.hpp"
 #include "../src/control/buttonMethod.hpp"
-#include "../src/control/ledStrobe.hpp"
 
 /**
  * Runs initialization code. This occurs as soon as the program is started.
@@ -65,7 +64,4 @@ void initialize() {
     lv_obj_set_size(dSelect, 465, 150);
     lv_obj_align(dSelect, NULL, LV_ALIGN_IN_BOTTOM_MID, 0, -5);
     lv_label_set_text(lv_label_create(dSelect, NULL), "left");
-
-    //call led strobe effect
-    //pros::Task strobe(ledStrobe);
 }
