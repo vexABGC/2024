@@ -29,6 +29,11 @@ void opcontrol() {
     //angleRadians += deltaTheta;
     master.print(1, 1, "hi");
 
+    lf_mtr.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+    lb_mtr.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+    rf_mtr.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+    rb_mtr.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+
     while (true){
         //take joystick input with dead zones
         int leftJoyX = master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_X);
@@ -42,25 +47,17 @@ void opcontrol() {
         rightJoyX = (abs(rightJoyX) < deadZone) ? 0 : rightJoyX;
         rightJoyY = (abs(rightJoyY) < deadZone) ? 0 : rightJoyY;
 
-        std::cout << leftJoyX << " ";
-        std::cout << leftJoyY << " ";
-        std::cout << rightJoyX << " ";
-        std::cout << rightJoyY << std::endl;
-
         //create drive, strafe, and turn desired values based on rotation
         double strafe = leftJoyX;
         double drive = leftJoyY;
         double turn = rightJoyX;
-
-        //scale down drive and strafe by sqrt(2) to help with maxing out early
-        strafe /= sqrt(2);
         drive /= sqrt(2);
 
         //create outputs with global strafe
-        int lf_out = maxDriveRPM * (drive + strafe + turn);
-        int lb_out = maxDriveRPM * (drive - strafe + turn);
-        int rf_out = maxDriveRPM * (drive - strafe - turn);
-        int rb_out = maxDriveRPM * (drive + strafe - turn);
+        double lf_out = (drive + strafe + turn);
+        double lb_out = (drive - strafe + turn);
+        double rf_out = (drive - strafe - turn);
+        double rb_out = (drive + strafe - turn);
 
         //fix scaling if output > 1
         //int max = lf_out;
@@ -75,9 +72,17 @@ void opcontrol() {
         //}
 
         //update motor velocity
-        lf_mtr.move_velocity(200*lf_out);
-        lb_mtr.move_velocity(200*lb_out);
-        rf_mtr.move_velocity(200*rf_out);
-        rb_mtr.move_velocity(200*rb_out);
+        if (lf_out != 0 && lb_out != 0 && rf_out != 0 && rb_out != 0){
+            lf_mtr.move_velocity(lf_out);
+            lb_mtr.move_velocity(lb_out);
+            rf_mtr.move_velocity(rf_out);
+            rb_mtr.move_velocity(rb_out);
+        }else{
+            lf_mtr.brake();
+            lb_mtr.brake();
+            rf_mtr.brake();
+            rb_mtr.brake();
+        }
+        
     }
 }

@@ -14,7 +14,7 @@ lv_obj_t* dSelect = lv_btn_create(lv_scr_act(), NULL); //display select button
 //settings
 int deadZone = 0;
 int autonomousSelected = 0;
-int maxDriveRPM = 100;
+int maxDriveRPM = 200;
 
 //electronics
 pros::Controller master(pros::E_CONTROLLER_MASTER);
