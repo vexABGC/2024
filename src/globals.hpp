@@ -20,6 +20,9 @@ extern int maxDriveRPM;
 #define lb_prt 12
 #define rf_prt 14
 #define rb_prt 11
+#define l_rot_prt 1
+#define r_rot_prt 2
+#define gyro_prt 6
 
 //electronics
 extern pros::Controller master;
@@ -27,5 +30,8 @@ extern pros::Motor lf_mtr;
 extern pros::Motor lb_mtr;
 extern pros::Motor rf_mtr;
 extern pros::Motor rb_mtr;
+extern pros::Motor_Group left_mtrs;
+extern pros::Motor_Group right_mtrs;
 extern pros::Rotation l_rot;
 extern pros::Rotation r_rot;
+extern pros::Imu gyro;

@@ -29,57 +29,25 @@ void opcontrol() {
     rb_mtr.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
 
     while (true){
-        //take joystick input with dead zones
-        int leftJoyX = master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_X);
-        int leftJoyY = master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);
-        int rightJoyX = master.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X);
-        int rightJoyY = master.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_Y);
+        //take joystick input
+        double leftJoyY = master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);
+        double rightJoyX = master.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X);
 
         //apply dead zones to joysticks
-        leftJoyX = (abs(leftJoyX) < deadZone) ? 0 : leftJoyX;
         leftJoyY = (abs(leftJoyY) < deadZone) ? 0 : leftJoyY;
         rightJoyX = (abs(rightJoyX) < deadZone) ? 0 : rightJoyX;
-        rightJoyY = (abs(rightJoyY) < deadZone) ? 0 : rightJoyY;
 
-        //create drive, strafe, and turn desired values based on rotation
-        double strafe = leftJoyX / 127;
-        double drive = leftJoyY / 127;
-        double turn = rightJoyX / 127;
-        
-        //square strafe and drive to perform a non-linear scaling normalization, while doing the same to turn to make it feel the same scaling wise
-        strafe *= strafe;
-        drive *= drive;
-        turn *= turn;
+        //scale down inputs to 0 - 1
+        leftJoyY /= 127;
+        rightJoyX /= 127;
 
-        //create outputs with global strafe
-        double lf_out = (drive + strafe + turn);
-        double lb_out = (drive - strafe + turn);
-        double rf_out = (drive - strafe - turn);
-        double rb_out = (drive + strafe - turn);
-
-        //fix scaling if output > 1
-        //int max = lf_out;
-        //if (max < lb_out) max = lb_out;
-        //if (max < rf_out) max = rf_out;
-        //if (max < rb_out) max = rb_out;
-        //if (max > 1){
-        //    lf_out /= max;
-        //    lb_out /= max;
-        //    rf_out /= max;
-        //    rb_out /= max;
-        //}
-
-        //update motor velocity, if velocity = 0 then brake
-        if (lf_out != 0 && lb_out != 0 && rf_out != 0 && rb_out != 0){
-            lf_mtr.move_velocity(lf_out * maxDriveRPM);
-            lb_mtr.move_velocity(lb_out * maxDriveRPM);
-            rf_mtr.move_velocity(rf_out * maxDriveRPM);
-            rb_mtr.move_velocity(rb_out * maxDriveRPM);
+        //update motor when neither input is 0
+        if (leftJoyY != 0 || rightJoyX != 0){
+            left_mtrs.move_velocity((leftJoyY + rightJoyX) * maxDriveRPM);
+            right_mtrs.move_velocity((leftJoyY - rightJoyX) * maxDriveRPM);
         }else{
-            lf_mtr.brake();
-            lb_mtr.brake();
-            rf_mtr.brake();
-            rb_mtr.brake();
+            left_mtrs.brake();
+            right_mtrs.brake();
         }
         
     }

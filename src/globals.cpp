@@ -12,15 +12,18 @@ lv_obj_t* sSelect = lv_btn_create(lv_scr_act(), NULL); //skills select button
 lv_obj_t* dSelect = lv_btn_create(lv_scr_act(), NULL); //display select button
 
 //settings
-int deadZone = 0;
+int deadZone = 10;
 int autonomousSelected = 0;
-int maxDriveRPM = 200;
+int maxDriveRPM = 0.6 * 600;
 
 //electronics
 pros::Controller master(pros::E_CONTROLLER_MASTER);
-pros::Motor lf_mtr(lf_prt, pros::E_MOTOR_GEAR_200, false);
-pros::Motor lb_mtr(lb_prt, pros::E_MOTOR_GEAR_200, false);
-pros::Motor rf_mtr(rf_prt, pros::E_MOTOR_GEAR_200, true);
-pros::Motor rb_mtr(rb_prt, pros::E_MOTOR_GEAR_200, true);
-//pros::Rotation l_rot(5, false);
-//pros::Rotation r_rot(6, false);
+pros::Motor lf_mtr(lf_prt, pros::E_MOTOR_GEAR_600, false);
+pros::Motor lb_mtr(lb_prt, pros::E_MOTOR_GEAR_600, false);
+pros::Motor rf_mtr(rf_prt, pros::E_MOTOR_GEAR_600, true);
+pros::Motor rb_mtr(rb_prt, pros::E_MOTOR_GEAR_600, true);
+pros::Motor_Group left_mtrs({lf_mtr, lb_mtr});
+pros::Motor_Group right_mtrs({rf_mtr, rb_mtr});
+pros::Rotation l_rot(l_rot_prt, false);
+pros::Rotation r_rot(r_rot_prt, false);
+pros::Imu gyro(gyro_prt);

@@ -1,7 +1,60 @@
 //includes
 #include "main.h"
 #include "../src/globals.hpp"
-using namespace okapi;
+using std::min, std::max;
+
+//auton constants
+#define PI 3.141592653589793
+#define WHEEL_DIAMETER 4
+#define WHEEL_TREAD 16.5
+#define TURN_ERROR 1
+
+//auton globals
+double pos_x;
+double pox_y;
+double angle;
+
+//auton methods
+void turnAngle(double degrees, double maxWheelRPM){
+    double targetAngle = gyro.get_rotation() + degrees;
+    double delta = degrees;
+
+    while (abs(delta) > TURN_ERROR){
+        double wheelSpeed = min(maxWheelRPM * abs(delta) / 100, maxWheelRPM);
+        if (delta > 0){
+            left_mtrs.move_velocity(wheelSpeed);
+            right_mtrs.move_velocity(-wheelSpeed);
+        }else{
+            left_mtrs.move_velocity(-wheelSpeed);
+            right_mtrs.move_velocity(wheelSpeed);
+        }
+        delta = targetAngle - gyro.get_rotation();
+    }
+}
+
+void driveDistance(double inches, double maxWheelRPM){
+    double deltaLeft = 36000 * inches / (WHEEL_DIAMETER * PI);
+    double deltaRight = deltaLeft;
+    double targetLeft = l_rot.get_position() + deltaLeft;
+    double targetRight = r_rot.get_position() + deltaRight;
+
+    while (abs(deltaLeft) > TURN_ERROR || abs(deltaRight) > TURN_ERROR){
+        if (deltaLeft > TURN_ERROR){
+            left_mtrs.move_velocity(min(maxWheelRPM * deltaLeft / 10000, maxWheelRPM));
+        }
+        if (-deltaLeft > TURN_ERROR){
+            left_mtrs.move_velocity(max(maxWheelRPM * deltaLeft / 10000, -maxWheelRPM));
+        }
+        if (deltaRight > TURN_ERROR){
+            right_mtrs.move_velocity(min(maxWheelRPM * deltaRight / 10000, maxWheelRPM));
+        }
+        if (-deltaRight > TURN_ERROR){
+            right_mtrs.move_velocity(max(maxWheelRPM * deltaRight / 10000, -maxWheelRPM));
+        }
+        deltaLeft = targetLeft - l_rot.get_position();
+        deltaRight = targetRight - r_rot.get_position();
+    }
+}
 
 /**
  * Runs the user autonomous code. This function will be started in its own task
@@ -15,23 +68,11 @@ using namespace okapi;
  * from where it left off.
  */
 void autonomous() {
-    //create chassis
-    std::shared_ptr<okapi::OdomChassisController> chassis = ChassisControllerBuilder()
-        .withMotors(lf_prt, rf_prt, rb_prt, lf_prt)
-        .withDimensions(AbstractMotor::gearset::green, {{2.75_in, 13_in, 2_in, 2.75_in}, imev5GreenTPR})
-        .withGains(
-            {0.001, 0.001, 0.001}, // Lateral error
-            {0.001, 0.001, 0.001}, // Turning error
-            {0.001, 0.001, 0.001} // Straight drive assist error
-        )
-        //.withSensors(
-        //    okapi::ADIEncoder{'B', 'C'}, // left encoder
-        //    okapi::ADIEncoder{'D', 'E', true}, // right encoder
-        //    okapi::ADIEncoder{'F', 'G'}  // middle encoder
-        //)
-        .withOdometry()
-        .buildOdometry();
+    //auton test code
     
-    //drive test
-    chassis->driveToPoint({1_ft, 1_ft});
+    //Angle test
+    //turnAngle(90, 200);
+
+    //Drive test
+    driveDistance(24, 200);
 }
