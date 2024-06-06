@@ -22,33 +22,28 @@ double rTrackPrev = 0;//r_rot.get_position();
  * task, not resume it from where it left off.
  */
 void opcontrol() {
-    //set brake mode on motors
-    lf_mtr.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
-    lb_mtr.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
-    rf_mtr.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
-    rb_mtr.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
-
     while (true){
         //take joystick input
-        double leftJoyY = master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);
-        double rightJoyX = master.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X);
+        int leftJoyY = master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);
+        int rightJoyX = master.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X);
 
         //apply dead zones to joysticks
-        leftJoyY = (abs(leftJoyY) < deadZone) ? 0 : leftJoyY;
-        rightJoyX = (abs(rightJoyX) < deadZone) ? 0 : rightJoyX;
+        leftJoyY = (abs(leftJoyY) < DEAD_ZONE) ? 0 : leftJoyY;
+        rightJoyX = (abs(rightJoyX) < DEAD_ZONE) ? 0 : rightJoyX;
 
-        //scale down inputs to 0 - 1
-        leftJoyY /= 127;
-        rightJoyX /= 127;
+        //update motors
+        left_mtrs.move((leftJoyY + rightJoyX) * SPEED_MULTIPLIER);
+        right_mtrs.move((leftJoyY - rightJoyX) * SPEED_MULTIPLIER);
 
-        //update motor when neither input is 0
-        if (leftJoyY != 0 || rightJoyX != 0){
-            left_mtrs.move_velocity((leftJoyY + rightJoyX) * maxDriveRPM);
-            right_mtrs.move_velocity((leftJoyY - rightJoyX) * maxDriveRPM);
-        }else{
-            left_mtrs.brake();
-            right_mtrs.brake();
-        }
-        
+        //pneumatics
+        mogo_piston.set_value(master.get_digital(pros::E_CONTROLLER_DIGITAL_R1));
+
+        //intake
+        intake_mtr.move(127 * (
+            master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)
+            - master.get_digital(pros::E_CONTROLLER_DIGITAL_L2)
+        ));
+
+        pros::delay(20);     
     }
 }

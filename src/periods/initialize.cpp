@@ -12,6 +12,7 @@
 void initialize() {
     //GUI Setup
     //released button style
+    return;
     lv_style_copy(&rStyle, &lv_style_plain);
     rStyle.body.main_color = LV_COLOR_MAKE(50, 168, 82);
     rStyle.body.grad_color = LV_COLOR_MAKE(82, 168, 50);
