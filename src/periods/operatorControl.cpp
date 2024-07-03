@@ -3,10 +3,7 @@
 #include "../src/globals.hpp"
 
 //local globals
-double angleRadians = 0; //1.57079632679;
-double deltaL = 0;
-double lTrackPrev = 0;//l_rot.get_position();
-double rTrackPrev = 0;//r_rot.get_position();
+double armAngle = 0;
 
 /**
  * Runs the operator control code. This function will be started in its own task
@@ -22,6 +19,13 @@ double rTrackPrev = 0;//r_rot.get_position();
  * task, not resume it from where it left off.
  */
 void opcontrol() {
+    //brake setup
+    double lastLF{lf_mtr.get_position()};
+    double lastLB{lb_mtr.get_position()};
+    double lastRF{rf_mtr.get_position()};
+    double lastRB{rb_mtr.get_position()};
+
+    //Main loop
     while (true){
         //take joystick input
         int leftJoyY = master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);
@@ -32,17 +36,52 @@ void opcontrol() {
         rightJoyX = (abs(rightJoyX) < DEAD_ZONE) ? 0 : rightJoyX;
 
         //update motors
-        left_mtrs.move((leftJoyY + rightJoyX) * SPEED_MULTIPLIER);
-        right_mtrs.move((leftJoyY - rightJoyX) * SPEED_MULTIPLIER);
+        if (leftJoyY != 0 || rightJoyX != 0){
+            left_mtrs.move((leftJoyY + rightJoyX) * SPEED_MULTIPLIER);
+            right_mtrs.move((leftJoyY - rightJoyX) * SPEED_MULTIPLIER);
+            lastLF = lf_mtr.get_position();
+            lastLB = lb_mtr.get_position();
+            lastRF = rf_mtr.get_position();
+            lastRB = rb_mtr.get_position();
+        }else{
+            lf_mtr.move_absolute(lastLF, 600 * SPEED_MULTIPLIER);
+            lb_mtr.move_absolute(lastLB, 600 * SPEED_MULTIPLIER);
+            rf_mtr.move_absolute(lastRF, 600 * SPEED_MULTIPLIER);
+            rb_mtr.move_absolute(lastRB, 600 * SPEED_MULTIPLIER);
+        }
 
         //pneumatics
         mogo_piston.set_value(master.get_digital(pros::E_CONTROLLER_DIGITAL_R1));
 
         //intake
-        intake_mtr.move(127 * (
+        intake_mtr.move(127 * 0.6 * (
             master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)
             - master.get_digital(pros::E_CONTROLLER_DIGITAL_L2)
         ));
+
+        //arm movement
+        if (master.get_digital(pros::E_CONTROLLER_DIGITAL_X)
+        - master.get_digital(pros::E_CONTROLLER_DIGITAL_Y) != 0){
+            arm_mtr.move_velocity(ARM_VELOCITY * (
+                master.get_digital(pros::E_CONTROLLER_DIGITAL_X)
+                - master.get_digital(pros::E_CONTROLLER_DIGITAL_Y)
+            ));
+            armAngle = arm_mtr.get_position();
+        }else{
+            arm_mtr.move_absolute(armAngle, ARM_VELOCITY);
+        }
+
+        //arm pos hold
+        if (master.get_digital(pros::E_CONTROLLER_DIGITAL_X) != 0 &&
+            master.get_digital(pros::E_CONTROLLER_DIGITAL_Y) != 0){
+            if (master.get_digital(pros::E_CONTROLLER_DIGITAL_UP)){ //shared wall stake (high)
+                arm_mtr.move_absolute(ARM_HIGH_ANGLE, ARM_VELOCITY);
+            }else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_RIGHT)){ //alliance wall stake (medium)
+                arm_mtr.move_absolute(ARM_MED_ANGLE, ARM_VELOCITY);
+            }else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_DOWN)){ //ground (low)
+                arm_mtr.move_absolute(ARM_LOW_ANGLE, ARM_VELOCITY);
+            }
+        }
 
         pros::delay(20);     
     }

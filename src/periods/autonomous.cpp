@@ -29,7 +29,12 @@ void turnAngle(double degrees, double maxWheelRPM){
             right_mtrs.move_velocity(wheelSpeed);
         }
         delta = targetAngle - gyro.get_rotation();
+        std::cout << delta << std::endl;
+        pros::delay(20);
     }
+
+    left_mtrs.move(0);
+    right_mtrs.move(0);
 }
 
 void driveDistance(double inches, double maxWheelRPM){
@@ -38,7 +43,7 @@ void driveDistance(double inches, double maxWheelRPM){
     double targetLeft = l_rot.get_position() + deltaLeft;
     double targetRight = r_rot.get_position() + deltaRight;
 
-    while (abs(deltaLeft) > TURN_ERROR || abs(deltaRight) > TURN_ERROR){
+    while (abs(deltaLeft) > TURN_ERROR || abs(deltaRight) > TURN_ERROR || fabs(left_mtrs.get_voltages().at(0)) > 5 || fabs(right_mtrs.get_voltages().at(0)) > 5){
         if (deltaLeft > TURN_ERROR){
             left_mtrs.move_velocity(min(maxWheelRPM * deltaLeft / 10000, maxWheelRPM));
         }
@@ -71,8 +76,8 @@ void autonomous() {
     //auton test code
     
     //Angle test
-    //turnAngle(90, 200);
+    turnAngle(90, 150);
 
     //Drive test
-    driveDistance(24, 200);
+    //driveDistance(24, 200);
 }
