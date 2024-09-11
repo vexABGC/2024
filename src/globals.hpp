@@ -18,8 +18,8 @@ extern int autonomousSelected;
 #define SPEED_MULTIPLIER 0.6
 #define ARM_RATIO 1
 #define ARM_LOW_ANGLE 0
-#define ARM_MED_ANGLE 90
-#define ARM_HIGH_ANGLE 180
+#define ARM_MED_ANGLE 60
+#define ARM_HIGH_ANGLE 120
 #define ARM_VELOCITY 60
 
 //ports

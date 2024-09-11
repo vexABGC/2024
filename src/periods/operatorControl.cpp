@@ -60,11 +60,11 @@ void opcontrol() {
         ));
 
         //arm movement
-        if (master.get_digital(pros::E_CONTROLLER_DIGITAL_X)
-        - master.get_digital(pros::E_CONTROLLER_DIGITAL_Y) != 0){
+        if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R1)
+        - master.get_digital(pros::E_CONTROLLER_DIGITAL_L1) != 0){
             arm_mtr.move_velocity(ARM_VELOCITY * (
-                master.get_digital(pros::E_CONTROLLER_DIGITAL_X)
-                - master.get_digital(pros::E_CONTROLLER_DIGITAL_Y)
+                master.get_digital(pros::E_CONTROLLER_DIGITAL_R1)
+                - master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)
             ));
             armAngle = arm_mtr.get_position();
         }else{
@@ -72,14 +72,16 @@ void opcontrol() {
         }
 
         //arm pos hold
-        if (master.get_digital(pros::E_CONTROLLER_DIGITAL_X) != 0 &&
-            master.get_digital(pros::E_CONTROLLER_DIGITAL_Y) != 0){
-            if (master.get_digital(pros::E_CONTROLLER_DIGITAL_UP)){ //shared wall stake (high)
+        if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R1) != 0 &&
+            master.get_digital(pros::E_CONTROLLER_DIGITAL_L1) != 0){
+            if (master.get_digital(pros::E_CONTROLLER_DIGITAL_Y)){ //shared wall stake (high)
                 arm_mtr.move_absolute(ARM_HIGH_ANGLE, ARM_VELOCITY);
-            }else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_RIGHT)){ //alliance wall stake (medium)
+            }else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_B)){ //alliance wall stake (medium)
                 arm_mtr.move_absolute(ARM_MED_ANGLE, ARM_VELOCITY);
-            }else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_DOWN)){ //ground (low)
+            }else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_RIGHT)){ //ground (low)
                 arm_mtr.move_absolute(ARM_LOW_ANGLE, ARM_VELOCITY);
+            }else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_DOWN)){ //recalibrate
+                //not implemented
             }
         }
 
