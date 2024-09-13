@@ -23,17 +23,17 @@ extern int autonomousSelected;
 #define ARM_VELOCITY 60
 
 //ports
-#define LF_PRT 11
-#define LB_PRT 14
-#define RF_PRT 12
-#define RB_PRT 13
-#define STRAFE_PRT 15
-#define L_ROT_PRT 1
-#define R_ROT_PRT 2
+#define LF_PRT 20
+#define LB_PRT 18
+#define RF_PRT 13
+#define RB_PRT 19
+#define STRAFE_PRT 1 // Not installed, placeholder port I don't think we're using
+#define L_ROT_PRT 17
+#define R_ROT_PRT 16
 #define GYRO_PRT 5
 #define MOGO_PRT 'A'
-#define INTAKE_PRT 16
-#define ARM_PRT 20
+#define INTAKE_PRT 12
+#define ARM_PRT 11
 
 //electronics
 extern pros::Controller master;
