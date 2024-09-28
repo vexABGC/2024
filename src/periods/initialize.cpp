@@ -57,11 +57,27 @@ void initialize() {
     lv_obj_align(sSelect, NULL, LV_ALIGN_IN_TOP_MID, 0, 5);
     lv_label_set_text(lv_label_create(sSelect, NULL), "skills");
 
-    lv_obj_set_free_num(dSelect, 3);
+    lv_obj_set_free_num(replaySelect, 3);
+    lv_btn_set_action(replaySelect, LV_BTN_ACTION_CLICK, buttonMethod);
+    lv_btn_set_style(replaySelect, LV_BTN_STYLE_REL, &rStyle);
+    lv_btn_set_style(replaySelect, LV_BTN_STYLE_PR, &pStyle);
+    lv_obj_set_size(replaySelect, 150, 70);
+    lv_obj_align(replaySelect, NULL, LV_ALIGN_IN_RIGHT_MID, -7.5, 0);
+    lv_label_set_text(lv_label_create(replaySelect, NULL), "replay");
+
+    lv_obj_set_free_num(rActivate, 4);
+    lv_btn_set_action(rActivate, LV_BTN_ACTION_CLICK, buttonMethod);
+    lv_btn_set_style(rActivate, LV_BTN_STYLE_REL, &rStyle);
+    lv_btn_set_style(rActivate, LV_BTN_STYLE_PR, &pStyle);
+    lv_obj_set_size(rActivate, 150, 70);
+    lv_obj_align(rActivate, NULL, LV_ALIGN_IN_BOTTOM_RIGHT, -7.5, -5);
+    lv_label_set_text(lv_label_create(rActivate, NULL), "record");
+
+    lv_obj_set_free_num(dSelect, 5);
     lv_btn_set_action(dSelect, LV_BTN_ACTION_CLICK, buttonMethod);
     lv_btn_set_style(dSelect, LV_BTN_STYLE_REL, &dStyle);
     lv_btn_set_style(dSelect, LV_BTN_STYLE_PR, &dStyle);
-    lv_obj_set_size(dSelect, 465, 150);
+    lv_obj_set_size(dSelect, 150, 150);
     lv_obj_align(dSelect, NULL, LV_ALIGN_IN_BOTTOM_MID, 0, -5);
     lv_label_set_text(lv_label_create(dSelect, NULL), "left");
 }

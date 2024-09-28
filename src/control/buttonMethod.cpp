@@ -26,6 +26,18 @@ lv_res_t buttonMethod(lv_obj_t* btn){
             lv_label_set_text(lv_label_create(dSelect, NULL), "skills");
             break;
         case 3:
+            //replay select
+            autonomousSelected = 3;
+            lv_obj_clean(dSelect);
+            lv_label_set_text(lv_label_create(dSelect, NULL), "replay");
+            break;
+        case 4:
+            //record activate
+            lv_obj_clean(dSelect);
+            lv_label_set_text(lv_label_create(dSelect, NULL), "recording");
+            shouldRecord = true;
+            break;
+        case 5:
             //selector display (IGNORE)
             break;
     }
