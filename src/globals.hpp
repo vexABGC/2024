@@ -31,10 +31,6 @@ extern int mogoVal;
 #define LB_PRT 15
 #define RF_PRT 12
 #define RB_PRT 14
-#define LF_PRT 13
-#define LB_PRT 15
-#define RF_PRT 12
-#define RB_PRT 14
 #define STRAFE_PRT 1 // Not installed, placeholder port I don't think we're using
 #define L_ROT_PRT 17
 #define R_ROT_PRT 11
