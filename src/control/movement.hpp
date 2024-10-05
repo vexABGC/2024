@@ -2,4 +2,4 @@
 #include "main.h"
 
 //method declaration
-void movement(char inputs[14]);
+void movement(int inputs[14]);

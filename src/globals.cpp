@@ -17,14 +17,19 @@ lv_obj_t* replaySelect = lv_btn_create(lv_scr_act(), NULL); //replay select butt
 int autonomousSelected{0};
 bool shouldRecord{false};
 int mogoVal{0};
+double lastLF = 0;
+double lastLB = 0;
+double lastRF = 0;
+double lastRB = 0;
+double armAngle = 0;
 
 //electronics
 pros::Controller master(pros::E_CONTROLLER_MASTER);
 pros::Controller partner(pros::E_CONTROLLER_PARTNER);
-pros::Motor lf_mtr(LF_PRT, pros::E_MOTOR_GEAR_600, true);
-pros::Motor lb_mtr(LB_PRT, pros::E_MOTOR_GEAR_600, true);
-pros::Motor rf_mtr(RF_PRT, pros::E_MOTOR_GEAR_600, false);
-pros::Motor rb_mtr(RB_PRT, pros::E_MOTOR_GEAR_600, false);
+pros::Motor lf_mtr(LF_PRT, pros::E_MOTOR_GEAR_600, false);
+pros::Motor lb_mtr(LB_PRT, pros::E_MOTOR_GEAR_600, false);
+pros::Motor rf_mtr(RF_PRT, pros::E_MOTOR_GEAR_600, true);
+pros::Motor rb_mtr(RB_PRT, pros::E_MOTOR_GEAR_600, true);
 pros::Motor strafe_mtr(STRAFE_PRT, pros::E_MOTOR_GEAR_200, true);
 pros::Motor_Group left_mtrs({lf_mtr, lb_mtr});
 pros::Motor_Group right_mtrs({rf_mtr, rb_mtr});
@@ -32,5 +37,5 @@ pros::Rotation l_rot(L_ROT_PRT, false);
 pros::Rotation r_rot(R_ROT_PRT, false);
 pros::Imu gyro(GYRO_PRT);
 pros::ADIDigitalOut mogo_piston(MOGO_PRT);
-pros::Motor intake_mtr(INTAKE_PRT, pros::E_MOTOR_GEAR_200, false);
-pros::Motor arm_mtr(ARM_PRT, pros::E_MOTOR_GEAR_100, false);
+pros::Motor intake_mtr(INTAKE_PRT, pros::E_MOTOR_GEAR_200, true);
+pros::Motor arm_mtr(ARM_PRT, pros::E_MOTOR_GEAR_100, true);

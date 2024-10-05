@@ -1,7 +1,8 @@
 //includes
 #include "main.h"
 #include "../src/globals.hpp"
-using std::min, std::max;
+//using std::min, std::max;
+using namespace okapi;
 
 //auton constants
 #define PI 3.141592653589793
@@ -15,6 +16,7 @@ double pox_y;
 double angle;
 
 //auton methods
+/*
 void turnAngle(double degrees, double maxWheelRPM){
     double targetAngle = gyro.get_rotation() + degrees;
     double delta = degrees;
@@ -60,6 +62,7 @@ void driveDistance(double inches, double maxWheelRPM){
         deltaRight = targetRight - r_rot.get_position();
     }
 }
+*/
 
 //replay function
 //TBD
@@ -79,8 +82,31 @@ void autonomous() {
     //auton test code
     
     //Angle test
-    turnAngle(90, 150);
+    //turnAngle(90, 150);
 
     //Drive test
     //driveDistance(24, 200);
+
+    //okapi setup
+    std::shared_ptr<OdomChassisController> chassis = ChassisControllerBuilder()
+        //Blue inserts, 4.125" omni wheels, 15" wheel track
+        .withMotors({LF_PRT, LB_PRT}, {RF_PRT, RB_PRT})
+        .withDimensions(AbstractMotor::gearset::blue, {{4.125_in, 15_in}, imev5BlueTPR})
+        .withSensors(
+            RotationSensor({L_ROT_PRT, false}),
+            RotationSensor({R_ROT_PRT, true})
+        )
+        .withOdometry({{4.125_in, 15_in}, quadEncoderTPR}, StateMode::FRAME_TRANSFORMATION)
+        .buildOdometry();
+    
+    
+    chassis->setState({0_in, 0_in, 0_deg});
+    chassis->setMaxVelocity(50);
+    chassis->driveToPoint({1_ft, 1_ft});
+    pros::delay(2000);
+    chassis->driveToPoint({1_ft, 2_ft});
+    pros::delay(2000);
+    chassis->driveToPoint({0_ft, 0_ft});
+    pros::delay(2000);
+    chassis->turnToAngle(0_deg);
 }

@@ -26,6 +26,11 @@ void opcontrol() {
     //Local globals
     int loopCount{0};
     int recordCount{0};
+    lastLF = lf_mtr.get_position();
+    lastLB = lb_mtr.get_position();
+    lastRF = rf_mtr.get_position();
+    lastRB = rb_mtr.get_position();
+    armAngle = arm_mtr.get_position();
 
     //Main loop
     while (true){
@@ -125,7 +130,7 @@ void opcontrol() {
             partner.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_X) << 2 |
             partner.get_digital(pros::E_CONTROLLER_DIGITAL_Y) << 1 |
             partner.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_Y) << 0;
-        char inputs[14] = {
+        int inputs[14] = {
             master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_X),
             master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y),
             master.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X),

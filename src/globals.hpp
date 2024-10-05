@@ -16,15 +16,22 @@ extern lv_obj_t* replaySelect; //replay select button
 extern int autonomousSelected;
 extern bool shouldRecord;
 extern int mogoVal;
+extern double lastLF;
+extern double lastLB;
+extern double lastRF;
+extern double lastRB;
+extern double armAngle;
 
 //settings
-#define DEAD_ZONE 10
+#define DEAD_ZONE 5
 #define SPEED_MULTIPLIER 0.6
-#define ARM_RATIO 1
+#define BRAKE_MULTIPLIER 0.6
+#define ARM_RATIO 5
 #define ARM_LOW_ANGLE 0
 #define ARM_MID_ANGLE 60
 #define ARM_HIGH_ANGLE 120
-#define ARM_VELOCITY 60
+#define ARM_VELOCITY_MOVE 60
+#define ARM_VELOCITY_BRAKE 20
 
 //ports
 #define LF_PRT 13
@@ -32,12 +39,12 @@ extern int mogoVal;
 #define RF_PRT 12
 #define RB_PRT 14
 #define STRAFE_PRT 1 // Not installed, placeholder port I don't think we're using
-#define L_ROT_PRT 17
+#define L_ROT_PRT 18
 #define R_ROT_PRT 11
-#define GYRO_PRT 19
+#define GYRO_PRT 20
 #define MOGO_PRT 'H'
-#define INTAKE_PRT 16
-#define ARM_PRT 18
+#define INTAKE_PRT 17
+#define ARM_PRT 19
 
 //electronics
 extern pros::Controller master;

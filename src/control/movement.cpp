@@ -3,15 +3,8 @@
 #include "../src/control/movement.hpp"
 #include "../src/globals.hpp"
 
-//Local globals
-double lastLF{lf_mtr.get_position()};
-double lastLB{lb_mtr.get_position()};
-double lastRF{rf_mtr.get_position()};
-double lastRB{rb_mtr.get_position()};
-double armAngle{arm_mtr.get_position()};
-
 //Method definition
-void movement(char inputs[14]){
+void movement(int inputs[14]){
     //Make simple master values
     int masterLeftX = inputs[0];
     int masterLeftY = inputs[1];
@@ -76,25 +69,27 @@ void movement(char inputs[14]){
     masterLeftX = (abs(masterLeftX) < DEAD_ZONE) ? 0 : masterLeftX;
     masterLeftY = (abs(masterLeftY) < DEAD_ZONE) ? 0 : masterLeftY;
     masterRightX = (abs(masterRightX) < DEAD_ZONE) ? 0 : masterRightX;
-    masterRightX = (abs(masterRightY) < DEAD_ZONE) ? 0 : masterRightY;
+    masterRightY = (abs(masterRightY) < DEAD_ZONE) ? 0 : masterRightY;
     partnerLeftX = (abs(partnerLeftX) < DEAD_ZONE) ? 0 : partnerLeftX;
     partnerLeftY = (abs(partnerLeftY) < DEAD_ZONE) ? 0 : partnerLeftY;
     partnerRightX = (abs(partnerRightX) < DEAD_ZONE) ? 0 : partnerRightX;
-    partnerRightX = (abs(partnerRightY) < DEAD_ZONE) ? 0 : partnerRightY;
+    partnerRightY = (abs(partnerRightY) < DEAD_ZONE) ? 0 : partnerRightY;
 
     //Movement
     if (masterLeftY != 0 || masterRightX != 0){
-        left_mtrs.move((masterLeftY - masterRightX) * SPEED_MULTIPLIER);
         left_mtrs.move((masterLeftY + masterRightX) * SPEED_MULTIPLIER);
+        right_mtrs.move((masterLeftY - masterRightX) * SPEED_MULTIPLIER);
+        std::cout << masterLeftY << std::endl;
         lastLF = lf_mtr.get_position();
         lastLB = lb_mtr.get_position();
         lastRF = rf_mtr.get_position();
         lastRB = rb_mtr.get_position();
+
     }else{
-        lf_mtr.move_absolute(lastLF, 600 * SPEED_MULTIPLIER);
-        lb_mtr.move_absolute(lastLB, 600 * SPEED_MULTIPLIER);
-        rf_mtr.move_absolute(lastRF, 600 * SPEED_MULTIPLIER);
-        rb_mtr.move_absolute(lastRB, 600 * SPEED_MULTIPLIER);
+        lf_mtr.move_absolute(lastLF, 600 * BRAKE_MULTIPLIER);
+        lb_mtr.move_absolute(lastLB, 600 * BRAKE_MULTIPLIER);
+        rf_mtr.move_absolute(lastRF, 600 * BRAKE_MULTIPLIER);
+        rb_mtr.move_absolute(lastRB, 600 * BRAKE_MULTIPLIER);
     }
 
     //Pneumatics
@@ -107,59 +102,61 @@ void movement(char inputs[14]){
     if (masterCurR1 || masterCurR2){
         //Master control
         intake_mtr.move(127 * 0.6 * (
-            masterCurR2 - masterCurR1
+            masterCurR1 - masterCurR2
         ));
-    }else if (masterCurL1 || masterCurL2){
+    }else if (partnerCurL1 || partnerCurL2){
         //Partner control
         intake_mtr.move(127 * 0.6 * (
-            partnerCurR2 - partnerCurR1
+            partnerCurR1 - partnerCurR2
         ));
-    }else if (partnerLeftY != 0){
-        intake_mtr.move(0.6 * partnerLeftY);
+    }else if (partnerRightY != 0){
+        intake_mtr.move(0.6 * partnerRightY);
     }else{
         intake_mtr.move(0);
     }
 
     //Arm
     if (masterCurL1 || masterCurL2){
-        intake_mtr.move_velocity(ARM_VELOCITY * (
-            masterCurL2 - masterCurL1
+        arm_mtr.move_velocity(ARM_VELOCITY_MOVE * (
+            masterCurL1 - masterCurL2
         ));
         armAngle = arm_mtr.get_position();
     }else if (masterCurY){
         //shared wall stake (high)
-        armAngle = ARM_HIGH_ANGLE;
+        armAngle = ARM_RATIO * ARM_HIGH_ANGLE;
     }else if (masterCurB){
         //alliance wall stake (medium)
-        armAngle = ARM_MID_ANGLE;
+        armAngle = ARM_RATIO * ARM_MID_ANGLE;
     }else if (masterCurRight){
         //pick up (low)
-        armAngle = ARM_LOW_ANGLE;
+        armAngle = ARM_RATIO * ARM_LOW_ANGLE;
     }else if (masterCurDown){
         //recalibrate
         arm_mtr.tare_position();
         armAngle = 0;
     }else if(partnerCurL1 || partnerCurL2){
-        intake_mtr.move_velocity(ARM_VELOCITY * (
-            partnerCurL2 - partnerCurL1
+        arm_mtr.move_velocity(ARM_VELOCITY_MOVE * (
+            partnerCurL1 - partnerCurL2
         ));
         armAngle = arm_mtr.get_position();
-    }else if(partnerRightY != 0){
-        intake_mtr.move_velocity(ARM_VELOCITY * partnerRightY);
+    }else if(partnerLeftY != 0){
+        arm_mtr.move_velocity(4.0 * ARM_VELOCITY_MOVE * partnerLeftY/(127.0 * 3.0));
         armAngle = arm_mtr.get_position();
     }else if (partnerCurY){
         //shared wall stake (high)
-        armAngle = ARM_HIGH_ANGLE;
+        armAngle = ARM_RATIO * ARM_HIGH_ANGLE;
     }else if (partnerCurB){
         //alliance wall stake (medium)
-        armAngle = ARM_MID_ANGLE;
+        armAngle = ARM_RATIO * ARM_MID_ANGLE;
     }else if (partnerCurRight){
         //pick up (low)
-        armAngle = ARM_LOW_ANGLE;
+        armAngle = ARM_RATIO * ARM_LOW_ANGLE;
     }else if (partnerCurDown){
         //recalibrate
         arm_mtr.tare_position();
         armAngle = 0;
+    }else{
+        arm_mtr.move_absolute(armAngle, ARM_VELOCITY_BRAKE);
     }
-    arm_mtr.move_absolute(armAngle, ARM_VELOCITY);
+    std::cout << armAngle << " " << arm_mtr.get_encoder_units() << std::endl;
 }

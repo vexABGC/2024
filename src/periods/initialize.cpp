@@ -80,4 +80,17 @@ void initialize() {
     lv_obj_set_size(dSelect, 150, 150);
     lv_obj_align(dSelect, NULL, LV_ALIGN_IN_BOTTOM_MID, 0, -5);
     lv_label_set_text(lv_label_create(dSelect, NULL), "left");
+
+    //Motor setup
+    lf_mtr.tare_position();
+    lb_mtr.tare_position();
+    rf_mtr.tare_position();
+    rb_mtr.tare_position();
+    arm_mtr.tare_position();
+    lastLF = 0;
+    lastLB = 0;
+    lastRF = 0;
+    lastRB = 0;
+    armAngle = 0;
+    arm_mtr.set_encoder_units(pros::E_MOTOR_ENCODER_DEGREES);
 }
