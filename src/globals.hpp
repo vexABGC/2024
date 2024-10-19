@@ -24,11 +24,11 @@ extern double armAngle;
 
 //settings
 #define DEAD_ZONE 5
-#define SPEED_MULTIPLIER 0.6
+#define SPEED_MULTIPLIER 0.8
 #define BRAKE_MULTIPLIER 0.6
 #define ARM_RATIO 5
-#define ARM_LOW_ANGLE 0
-#define ARM_MID_ANGLE 60
+#define ARM_LOW_ANGLE 8.92
+#define ARM_MID_ANGLE 80
 #define ARM_HIGH_ANGLE 120
 #define ARM_VELOCITY_MOVE 60
 #define ARM_VELOCITY_BRAKE 20
@@ -38,13 +38,14 @@ extern double armAngle;
 #define LB_PRT 15
 #define RF_PRT 12
 #define RB_PRT 14
-#define STRAFE_PRT 1 // Not installed, placeholder port I don't think we're using
-#define L_ROT_PRT 18
+#define STRAFE_PRT 10 //Not installed, placeholder port I don't think we're using
+#define L_ROT_PRT 19
 #define R_ROT_PRT 11
-#define GYRO_PRT 20
+#define GYRO_PRT 9 //Note installed, placeholder port I don't think we're using
 #define MOGO_PRT 'H'
-#define INTAKE_PRT 17
-#define ARM_PRT 19
+#define INTAKE_BOT_PRT 18
+#define INTAKE_TOP_PRT 1
+#define ARM_PRT 20
 
 //electronics
 extern pros::Controller master;
@@ -60,5 +61,7 @@ extern pros::Rotation l_rot;
 extern pros::Rotation r_rot;
 extern pros::Imu gyro;
 extern pros::ADIDigitalOut mogo_piston;
-extern pros::Motor intake_mtr;
+extern pros::Motor intake_top_mtr;
+extern pros::Motor intake_bot_mtr;
+extern pros::Motor_Group intake_mtrs;
 extern pros::Motor arm_mtr;

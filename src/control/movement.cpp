@@ -101,18 +101,18 @@ void movement(int inputs[14]){
     //Intake
     if (masterCurR1 || masterCurR2){
         //Master control
-        intake_mtr.move(127 * 0.6 * (
+        intake_mtrs.move(127 * 0.6 * (
             masterCurR1 - masterCurR2
         ));
     }else if (partnerCurL1 || partnerCurL2){
         //Partner control
-        intake_mtr.move(127 * 0.6 * (
+        intake_mtrs.move(127 * 0.6 * (
             partnerCurR1 - partnerCurR2
         ));
     }else if (partnerRightY != 0){
-        intake_mtr.move(0.6 * partnerRightY);
+        intake_mtrs.move(0.6 * partnerRightY);
     }else{
-        intake_mtr.move(0);
+        intake_mtrs.move(0);
     }
 
     //Arm
@@ -121,19 +121,15 @@ void movement(int inputs[14]){
             masterCurL1 - masterCurL2
         ));
         armAngle = arm_mtr.get_position();
-    }else if (masterCurY){
+    }else if (masterCurRight){
         //shared wall stake (high)
         armAngle = ARM_RATIO * ARM_HIGH_ANGLE;
-    }else if (masterCurB){
+    }else if (masterCurDown){
         //alliance wall stake (medium)
         armAngle = ARM_RATIO * ARM_MID_ANGLE;
-    }else if (masterCurRight){
+    }else if (masterCurB){
         //pick up (low)
         armAngle = ARM_RATIO * ARM_LOW_ANGLE;
-    }else if (masterCurDown){
-        //recalibrate
-        arm_mtr.tare_position();
-        armAngle = 0;
     }else if(partnerCurL1 || partnerCurL2){
         arm_mtr.move_velocity(ARM_VELOCITY_MOVE * (
             partnerCurL1 - partnerCurL2
@@ -142,21 +138,17 @@ void movement(int inputs[14]){
     }else if(partnerLeftY != 0){
         arm_mtr.move_velocity(4.0 * ARM_VELOCITY_MOVE * partnerLeftY/(127.0 * 3.0));
         armAngle = arm_mtr.get_position();
-    }else if (partnerCurY){
+    }else if (partnerCurRight){
         //shared wall stake (high)
         armAngle = ARM_RATIO * ARM_HIGH_ANGLE;
-    }else if (partnerCurB){
+    }else if (partnerCurDown){
         //alliance wall stake (medium)
         armAngle = ARM_RATIO * ARM_MID_ANGLE;
-    }else if (partnerCurRight){
+    }else if (partnerCurB){
         //pick up (low)
         armAngle = ARM_RATIO * ARM_LOW_ANGLE;
-    }else if (partnerCurDown){
-        //recalibrate
-        arm_mtr.tare_position();
-        armAngle = 0;
     }else{
         arm_mtr.move_absolute(armAngle, ARM_VELOCITY_BRAKE);
     }
-    std::cout << armAngle << " " << arm_mtr.get_encoder_units() << std::endl;
+    std::cout << armAngle << std::endl;
 }
