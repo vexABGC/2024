@@ -34,28 +34,38 @@ void turnAngle(double degrees, double maxWheelRPM){
 }
 
 void driveDistance(double inches, double maxWheelRPM){
-    double deltaLeft = 36000 * inches / (WHEEL_DIAMETER * PI);
-    double deltaRight = deltaLeft;
-    double targetLeft = l_rot.get_position() + deltaLeft;
-    double targetRight = r_rot.get_position() + deltaRight;
+    //Setup
+    gyro.tare_heading();
+    l_rot.set_position(0);
+    r_rot.set_position(0);
+    int targetAngle = 0;
+    double target = 2 * 36000 * inches / (WHEEL_DIAMETER * PI);
+    double delta = target - l_rot.get_position() - r_rot.get_position();
+    int error = 0;
+    int heading = 0;
 
-    while (abs(deltaLeft) > TURN_ERROR || abs(deltaRight) > TURN_ERROR || fabs(left_mtrs.get_actual_velocities().at(0)) > 1 || fabs(right_mtrs.get_actual_velocities().at(0)) > 1){
-        if (deltaLeft > TURN_ERROR){
-            left_mtrs.move_velocity(min(maxWheelRPM * pow(deltaLeft / 10000,5), maxWheelRPM));
+    //Drive loop
+    while (abs(delta) > 2 * TURN_ERROR && pros::competition::is_autonomous()){
+        //Update motors
+        if (delta > 0){
+            left_mtrs.move_velocity(min(maxWheelRPM * delta / 72000 + error * 10, maxWheelRPM + error * 10));
+            right_mtrs.move_velocity(min(maxWheelRPM * delta / 72000 - error * 10, maxWheelRPM - error * 10));
         }
-        if (-deltaLeft > TURN_ERROR){
-            left_mtrs.move_velocity(max(maxWheelRPM * pow(deltaLeft / 10000,5), -maxWheelRPM));
-        }
-        if (deltaRight > TURN_ERROR){
-            right_mtrs.move_velocity(min(maxWheelRPM * pow(deltaRight / 10000,5), maxWheelRPM));
-        }
-        if (-deltaRight > TURN_ERROR){
-            right_mtrs.move_velocity(max(maxWheelRPM * pow(deltaRight / 10000,5), -maxWheelRPM));
-        }
-        deltaLeft = targetLeft - l_rot.get_position();
-        deltaRight = targetRight - r_rot.get_position();
+        //else if (delta < 0){
+        //    left_mtrs.move_velocity(max(maxWheelRPM * delta / 72000 - error * 10, -maxWheelRPM - error * 10));
+        //    right_mtrs.move_velocity(max(maxWheelRPM * delta / 72000 + error * 10, -maxWheelRPM + error * 10));
+        //}
+
+        //Delay
+        pros::delay(50);
+        heading = (l_rot.get_position() - r_rot.get_position())/(WHEEL_TREAD * 100);
+
+        //Calculate delta and error
+        delta = target - l_rot.get_position() - r_rot.get_position();
+        error = targetAngle - heading;
     }
-    
+
+    //Stop
     left_mtrs.move(0);
     right_mtrs.move(0);
 }
