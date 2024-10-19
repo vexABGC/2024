@@ -1,28 +1,22 @@
 //includes
 #include "main.h"
 #include "../src/globals.hpp"
-//using std::min, std::max;
+using std::min, std::max;
 using namespace okapi;
 
 //auton constants
 #define PI 3.141592653589793
-#define WHEEL_DIAMETER 4
-#define WHEEL_TREAD 16.5
-#define TURN_ERROR 1
-
-//auton globals
-double pos_x;
-double pox_y;
-double angle;
+#define WHEEL_DIAMETER 4.125
+#define WHEEL_TREAD 15.25
+#define TURN_ERROR 300
 
 //auton methods
-/*
 void turnAngle(double degrees, double maxWheelRPM){
     double targetAngle = gyro.get_rotation() + degrees;
     double delta = degrees;
 
-    while (abs(delta) > TURN_ERROR){
-        double wheelSpeed = min(maxWheelRPM * abs(delta) / 100, maxWheelRPM);
+    while ((abs(delta) > 2) || (abs(left_mtrs.get_actual_velocities().at(0)) < 8) || (abs(right_mtrs.get_actual_velocities().at(0)) < 8)){
+        double wheelSpeed = min(maxWheelRPM * abs(delta) / 25, maxWheelRPM);
         if (delta > 0){
             left_mtrs.move_velocity(wheelSpeed);
             right_mtrs.move_velocity(-wheelSpeed);
@@ -40,29 +34,61 @@ void turnAngle(double degrees, double maxWheelRPM){
 }
 
 void driveDistance(double inches, double maxWheelRPM){
-    double deltaLeft = 36000 * inches / (WHEEL_DIAMETER * PI);
-    double deltaRight = deltaLeft;
-    double targetLeft = l_rot.get_position() + deltaLeft;
-    double targetRight = r_rot.get_position() + deltaRight;
+    //Variable setup
+    l_rot.reset_position();
+    r_rot.reset_position();
+    gyro.tare();
+    double lEncoder = l_rot.get_position()/100.0;
+    double rEncoder = r_rot.get_position()/100.0;
+    double angle = 0;
+    double posX = 0;
+    double posY = 0;
+    double targetAngle = 0;
+    double targetX = 0;
+    double targetY = inches;
 
-    while (abs(deltaLeft) > TURN_ERROR || abs(deltaRight) > TURN_ERROR || fabs(left_mtrs.get_voltages().at(0)) > 5 || fabs(right_mtrs.get_voltages().at(0)) > 5){
-        if (deltaLeft > TURN_ERROR){
-            left_mtrs.move_velocity(min(maxWheelRPM * deltaLeft / 10000, maxWheelRPM));
+    //Main loop
+    while ((abs(targetY - posY) > 1 || abs(targetAngle - angle) > 3) && pros::competition::is_autonomous()){
+        //Caclulate delta encoder values
+        double deltaL = l_rot.get_position()/100.0 - lEncoder;
+        double deltaR = r_rot.get_position()/100.0 - rEncoder;
+
+        //Update previous values
+        lEncoder += deltaL;
+        rEncoder += deltaR;
+
+        //Calculate new orientation
+        double newAngle = (lEncoder - rEncoder)/(WHEEL_TREAD * 100);
+        double deltaAngle = newAngle - angle;
+        angle = newAngle;
+
+        //Calculate local offset
+        double localOffset;
+        if (deltaAngle == 0){
+            localOffset = deltaR;
+        }else{
+            localOffset = 2 * sin(angle / 2.0) * (deltaR/deltaAngle + WHEEL_TREAD/2.0);
         }
-        if (-deltaLeft > TURN_ERROR){
-            left_mtrs.move_velocity(max(maxWheelRPM * deltaLeft / 10000, -maxWheelRPM));
-        }
-        if (deltaRight > TURN_ERROR){
-            right_mtrs.move_velocity(min(maxWheelRPM * deltaRight / 10000, maxWheelRPM));
-        }
-        if (-deltaRight > TURN_ERROR){
-            right_mtrs.move_velocity(max(maxWheelRPM * deltaRight / 10000, -maxWheelRPM));
-        }
-        deltaLeft = targetLeft - l_rot.get_position();
-        deltaRight = targetRight - r_rot.get_position();
+
+        //Calculate average orientation
+        double averageAngle = angle - deltaAngle/2.0;
+
+        //Calculate new position
+        double deltaX = localOffset * cos(-averageAngle);
+        double deltaY = localOffset * sin(-averageAngle);
+        posX += deltaX;
+        posY += deltaY;
+        
+        //Drive
+        left_mtrs.move_velocity((targetY-posY));//+(targetAngle - angle)*0.1)*2);
+        right_mtrs.move_velocity((targetY-posY));//-(targetAngle - angle)*0.1)*2);
+
+        //Delay
+        pros::delay(50);
     }
+    left_mtrs.move(0);
+    right_mtrs.move(0);
 }
-*/
 
 //replay function
 //TBD
@@ -80,33 +106,12 @@ void driveDistance(double inches, double maxWheelRPM){
  */
 void autonomous() {
     //auton test code
+    left_mtrs.move_velocity(0);
+    right_mtrs.move_velocity(0);
     
     //Angle test
-    //turnAngle(90, 150);
+    turnAngle(90, 50);
 
     //Drive test
-    //driveDistance(24, 200);
-
-    //okapi setup
-    std::shared_ptr<OdomChassisController> chassis = ChassisControllerBuilder()
-        //Blue inserts, 4.125" omni wheels, 15" wheel track
-        .withMotors({LF_PRT, LB_PRT}, {RF_PRT, RB_PRT})
-        .withDimensions(AbstractMotor::gearset::blue, {{4.125_in, 15_in}, imev5BlueTPR})
-        .withSensors(
-            RotationSensor({L_ROT_PRT, false}),
-            RotationSensor({R_ROT_PRT, true})
-        )
-        .withOdometry({{4.125_in, 15_in}, quadEncoderTPR}, StateMode::FRAME_TRANSFORMATION)
-        .buildOdometry();
-    
-    
-    chassis->setState({0_in, 0_in, 0_deg});
-    chassis->setMaxVelocity(50);
-    chassis->driveToPoint({1_ft, 1_ft});
-    pros::delay(2000);
-    chassis->driveToPoint({1_ft, 2_ft});
-    pros::delay(2000);
-    chassis->driveToPoint({0_ft, 0_ft});
-    pros::delay(2000);
-    chassis->turnToAngle(0_deg);
+    driveDistance(12, 50);
 }
