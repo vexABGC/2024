@@ -34,58 +34,28 @@ void turnAngle(double degrees, double maxWheelRPM){
 }
 
 void driveDistance(double inches, double maxWheelRPM){
-    //Variable setup
-    l_rot.reset_position();
-    r_rot.reset_position();
-    gyro.tare();
-    double lEncoder = l_rot.get_position()/100.0;
-    double rEncoder = r_rot.get_position()/100.0;
-    double angle = 0;
-    double posX = 0;
-    double posY = 0;
-    double targetAngle = 0;
-    double targetX = 0;
-    double targetY = inches;
+    double deltaLeft = 36000 * inches / (WHEEL_DIAMETER * PI);
+    double deltaRight = deltaLeft;
+    double targetLeft = l_rot.get_position() + deltaLeft;
+    double targetRight = r_rot.get_position() + deltaRight;
 
-    //Main loop
-    while ((abs(targetY - posY) > 1 || abs(targetAngle - angle) > 3) && pros::competition::is_autonomous()){
-        //Caclulate delta encoder values
-        double deltaL = l_rot.get_position()/100.0 - lEncoder;
-        double deltaR = r_rot.get_position()/100.0 - rEncoder;
-
-        //Update previous values
-        lEncoder += deltaL;
-        rEncoder += deltaR;
-
-        //Calculate new orientation
-        double newAngle = (lEncoder - rEncoder)/(WHEEL_TREAD * 100);
-        double deltaAngle = newAngle - angle;
-        angle = newAngle;
-
-        //Calculate local offset
-        double localOffset;
-        if (deltaAngle == 0){
-            localOffset = deltaR;
-        }else{
-            localOffset = 2 * sin(angle / 2.0) * (deltaR/deltaAngle + WHEEL_TREAD/2.0);
+    while (abs(deltaLeft) > TURN_ERROR || abs(deltaRight) > TURN_ERROR || fabs(left_mtrs.get_actual_velocities().at(0)) > 1 || fabs(right_mtrs.get_actual_velocities().at(0)) > 1){
+        if (deltaLeft > TURN_ERROR){
+            left_mtrs.move_velocity(min(maxWheelRPM * pow(deltaLeft / 10000,5), maxWheelRPM));
         }
-
-        //Calculate average orientation
-        double averageAngle = angle - deltaAngle/2.0;
-
-        //Calculate new position
-        double deltaX = localOffset * cos(-averageAngle);
-        double deltaY = localOffset * sin(-averageAngle);
-        posX += deltaX;
-        posY += deltaY;
-        
-        //Drive
-        left_mtrs.move_velocity((targetY-posY));//+(targetAngle - angle)*0.1)*2);
-        right_mtrs.move_velocity((targetY-posY));//-(targetAngle - angle)*0.1)*2);
-
-        //Delay
-        pros::delay(50);
+        if (-deltaLeft > TURN_ERROR){
+            left_mtrs.move_velocity(max(maxWheelRPM * pow(deltaLeft / 10000,5), -maxWheelRPM));
+        }
+        if (deltaRight > TURN_ERROR){
+            right_mtrs.move_velocity(min(maxWheelRPM * pow(deltaRight / 10000,5), maxWheelRPM));
+        }
+        if (-deltaRight > TURN_ERROR){
+            right_mtrs.move_velocity(max(maxWheelRPM * pow(deltaRight / 10000,5), -maxWheelRPM));
+        }
+        deltaLeft = targetLeft - l_rot.get_position();
+        deltaRight = targetRight - r_rot.get_position();
     }
+    
     left_mtrs.move(0);
     right_mtrs.move(0);
 }
