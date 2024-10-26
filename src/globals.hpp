@@ -42,7 +42,8 @@ extern double armAngle;
 #define L_ROT_PRT 19
 #define R_ROT_PRT 11
 #define GYRO_PRT 9 //Note installed, placeholder port I don't think we're using
-#define MOGO_PRT 'H'
+#define MOGO_PIS_PRT 'H'
+#define ARM_PIS_PRT 'G'
 #define INTAKE_BOT_PRT 18
 #define INTAKE_TOP_PRT 1
 #define ARM_PRT 20
@@ -61,6 +62,7 @@ extern pros::Rotation l_rot;
 extern pros::Rotation r_rot;
 extern pros::Imu gyro;
 extern pros::ADIDigitalOut mogo_piston;
+extern pros::ADIDigitalOut arm_piston;
 extern pros::Motor intake_top_mtr;
 extern pros::Motor intake_bot_mtr;
 extern pros::Motor_Group intake_mtrs;

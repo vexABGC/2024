@@ -1,5 +1,6 @@
 //includes
 #include "main.h"
+#include "../src/control/movement.hpp"
 #include "../src/globals.hpp"
 
 /**
@@ -7,4 +8,8 @@
  * the VEX Competition Switch, following either autonomous or opcontrol. When
  * the robot is enabled, this task will exit.
  */
-void disabled() {}
+void disabled() {
+    //End movement
+    int inputs[14] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+    movement(inputs);
+}

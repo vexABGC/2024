@@ -9,7 +9,7 @@
 | 2   | RG    | Front left motor  | 13   |
 | 3   | RB    | Back right motor  | 14   |
 | 4   | YR    | Back left motor   | 15   |
-| 5   | YY    | Left sensor       | 17   |
-| 6   | YG    | Intake            | 16   |
-| 7   | YB    | Arm               | 18   |
-| 8   | GR    | Gyro              | 19   |
+| 5   | YY    | Left sensor       | 18   |
+| 6   | YG    | Intake            | 29   |
+| 7   | YB    | Arm               | 20   |
+| 8   | GR    | Gyro              | 9    |

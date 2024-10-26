@@ -31,6 +31,7 @@ void opcontrol() {
     lastRF = rf_mtr.get_position();
     lastRB = rb_mtr.get_position();
     armAngle = arm_mtr.get_position();
+    arm_piston.set_value(1);
 
     //Main loop
     while (true){
@@ -176,11 +177,11 @@ void opcontrol() {
             }
 
             //Save if end of record
-            if (recordCount == 20*2){
+            if (recordCount == 299){
                 //Open file
                 std::ofstream file("/usd/sigma.auton", std::ios::binary);
 
-                for (int i = 0; i < 20*2*14; i++){
+                for (int i = 0; i < 299*14; i++){
                     file.write(reinterpret_cast<const char*>(&(inputsRecord[i])), 1);
                 }
                 file.close();
