@@ -81,15 +81,19 @@ void movement(int inputs[14]){
         right_mtrs.move((masterLeftY - masterRightX) * SPEED_MULTIPLIER);
         std::cout << masterLeftY << std::endl;
         lastLF = lf_mtr.get_position();
+        lastLM = lm_mtr.get_position();
         lastLB = lb_mtr.get_position();
         lastRF = rf_mtr.get_position();
+        lastRM = rm_mtr.get_position();
         lastRB = rb_mtr.get_position();
 
     }else{
-        lf_mtr.move_absolute(lastLF, 600 * BRAKE_MULTIPLIER);
-        lb_mtr.move_absolute(lastLB, 600 * BRAKE_MULTIPLIER);
-        rf_mtr.move_absolute(lastRF, 600 * BRAKE_MULTIPLIER);
-        rb_mtr.move_absolute(lastRB, 600 * BRAKE_MULTIPLIER);
+        lf_mtr.move_absolute(lastLF, 200 * BRAKE_MULTIPLIER);
+        lm_mtr.move_absolute(lastLM, 200 * BRAKE_MULTIPLIER);
+        lb_mtr.move_absolute(lastLB, 200 * BRAKE_MULTIPLIER);
+        rf_mtr.move_absolute(lastRF, 200 * BRAKE_MULTIPLIER);
+        rm_mtr.move_absolute(lastRM, 200 * BRAKE_MULTIPLIER);
+        rb_mtr.move_absolute(lastRB, 200 * BRAKE_MULTIPLIER);
     }
 
     //Pneumatics

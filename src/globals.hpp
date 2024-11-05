@@ -17,8 +17,10 @@ extern int autonomousSelected;
 extern bool shouldRecord;
 extern int mogoVal;
 extern double lastLF;
+extern double lastLM;
 extern double lastLB;
 extern double lastRF;
+extern double lastRM;
 extern double lastRB;
 extern double armAngle;
 
@@ -34,13 +36,13 @@ extern double armAngle;
 #define ARM_VELOCITY_BRAKE 20
 
 //ports
-#define LF_PRT 13
+#define LF_PRT 19
+#define LM_PRT 13
 #define LB_PRT 15
-#define RF_PRT 12
+#define RF_PRT 11
+#define RM_PRT 12
 #define RB_PRT 14
 #define STRAFE_PRT 10 //Not installed, placeholder port I don't think we're using
-#define L_ROT_PRT 19
-#define R_ROT_PRT 11
 #define GYRO_PRT 9 //Note installed, placeholder port I don't think we're using
 #define MOGO_PIS_PRT 'H'
 #define ARM_PIS_PRT 'G'
@@ -52,14 +54,14 @@ extern double armAngle;
 extern pros::Controller master;
 extern pros::Controller partner;
 extern pros::Motor lf_mtr;
+extern pros::Motor lm_mtr;
 extern pros::Motor lb_mtr;
 extern pros::Motor rf_mtr;
+extern pros::Motor rm_mtr;
 extern pros::Motor rb_mtr;
 extern pros::Motor strafe_mtr;
 extern pros::Motor_Group left_mtrs;
 extern pros::Motor_Group right_mtrs;
-extern pros::Rotation l_rot;
-extern pros::Rotation r_rot;
 extern pros::Imu gyro;
 extern pros::ADIDigitalOut mogo_piston;
 extern pros::ADIDigitalOut arm_piston;

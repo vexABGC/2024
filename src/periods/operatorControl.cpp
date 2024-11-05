@@ -27,8 +27,10 @@ void opcontrol() {
     int loopCount{0};
     int recordCount{0};
     lastLF = lf_mtr.get_position();
+    lastLM = lm_mtr.get_position();
     lastLB = lb_mtr.get_position();
     lastRF = rf_mtr.get_position();
+    lastRM = rm_mtr.get_position();
     lastRB = rb_mtr.get_position();
     armAngle = arm_mtr.get_position();
     arm_piston.set_value(1);

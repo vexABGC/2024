@@ -83,13 +83,17 @@ void initialize() {
 
     //Motor and piston setup
     lf_mtr.tare_position();
+    lm_mtr.tare_position();
     lb_mtr.tare_position();
     rf_mtr.tare_position();
+    rm_mtr.tare_position();
     rb_mtr.tare_position();
     arm_mtr.tare_position();
     lastLF = 0;
+    lastLM = 0;
     lastLB = 0;
     lastRF = 0;
+    lastRM = 0;
     lastRB = 0;
     armAngle = 0;
     arm_mtr.set_encoder_units(pros::E_MOTOR_ENCODER_DEGREES);

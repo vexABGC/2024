@@ -32,18 +32,13 @@ void autonomous() {
     right_mtrs.move_velocity(0);
     std::shared_ptr<OdomChassisController> chassis = ChassisControllerBuilder()
         //Green inserts, 4.125" omni wheels, 15" wheel track
-        .withMotors({LF_PRT, LB_PRT}, {RF_PRT, RB_PRT})
+        .withMotors({LF_PRT, LM_PRT, LB_PRT}, {RF_PRT, RM_PRT, RB_PRT})
         .withGains(
             {0.004, 0, 0.0003}, //Distance gain
             {0.001, 0, 0.0001}, //Turn gains
             {0.0003, 0, 0.0003}  //Angle gains
         )
         .withDimensions(AbstractMotor::gearset::blue, {{4_in, 15.125_in}, imev5GreenTPR})
-        .withSensors(
-            RotationSensor{L_ROT_PRT, false},
-            RotationSensor{R_ROT_PRT, false}
-        )
-        .withOdometry({{4.125_in, 15_in}, quadEncoderTPR}, StateMode::CARTESIAN)
         .buildOdometry();
     
     
