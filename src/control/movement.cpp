@@ -77,9 +77,8 @@ void movement(int inputs[14]){
 
     //Movement
     if (masterLeftY != 0 || masterRightX != 0){
-        left_mtrs.move((masterLeftY + masterRightX) * SPEED_MULTIPLIER);
-        right_mtrs.move((masterLeftY - masterRightX) * SPEED_MULTIPLIER);
-        std::cout << masterLeftY << std::endl;
+        left_mtrs.move_velocity(200.0 * SPEED_MULTIPLIER * (masterLeftY + masterRightX) / 127.0);
+        right_mtrs.move_velocity(200.0 * SPEED_MULTIPLIER * (masterLeftY - masterRightX) / 127.0);
         lastLF = lf_mtr.get_position();
         lastLM = lm_mtr.get_position();
         lastLB = lb_mtr.get_position();
