@@ -36,7 +36,7 @@ void opcontrol() {
 
     //Main loop
     while (true){
-        //Controller screen overheat display (staggered to not violate 50ms in bewteen updates)
+        //Controller screen overheat display (staggered to not violate 50ms in between updates)
         if (loopCount % 80 == 0){
             master.clear();
         }
@@ -45,27 +45,31 @@ void opcontrol() {
         }
         else if (loopCount % 8 == 2){
             std::stringstream line("");
-            line << "LF-" << lf_mtr.is_over_temp() << " ";
-            line << "LB-" << lb_mtr.is_over_temp() << " ";
-            line << "RF-" << rf_mtr.is_over_temp() << " ";
-            line << "RB-" << rb_mtr.is_over_temp() << " ";
+            line << "LF-" << (lf_mtr.is_over_temp() != 0) << " ";
+            line << "LM-" << (lm_mtr.is_over_temp() != 0) << " ";
+            line << "LB-" << (lb_mtr.is_over_temp() != 0) << " ";
+            line << "RF-" << (rf_mtr.is_over_temp() != 0) << " ";
+            line << "RM-" << (rm_mtr.is_over_temp() != 0) << " ";
+            line << "RB-" << (rb_mtr.is_over_temp() != 0);
             master.set_text(0, 0, line.str());
         }else if (loopCount % 8 == 3){
             std::stringstream line("");
-            line << "LF-" << lf_mtr.is_over_temp() << " ";
-            line << "LB-" << lb_mtr.is_over_temp() << " ";
-            line << "RF-" << rf_mtr.is_over_temp() << " ";
-            line << "RB-" << rb_mtr.is_over_temp() << " ";
+            line << "LF-" << (lf_mtr.is_over_temp() != 0) << " ";
+            line << "LM-" << (lm_mtr.is_over_temp() != 0) << " ";
+            line << "LB-" << (lb_mtr.is_over_temp() != 0) << " ";
+            line << "RF-" << (rf_mtr.is_over_temp() != 0) << " ";
+            line << "RM-" << (rm_mtr.is_over_temp() != 0) << " ";
+            line << "RB-" << (rb_mtr.is_over_temp() != 0);
             partner.set_text(0, 0, line.str());
         }else if (loopCount % 8 == 4){
             std::stringstream line("");
-            line << "ARM-" << 0 << " ";
-            line << "INT-" << intake_mtrs.are_over_temp().at(0) + intake_mtrs.are_over_temp().at(1) << " ";
+            line << "BOT-" << (intake_bot_mtr.is_over_temp() != 0) << " ";
+            line << "TOP-" << (intake_top_mtr.is_over_temp() != 0);
             master.set_text(1, 0, line.str());
         }else if (loopCount % 8 == 5){
             std::stringstream line("");
-            line << "ARM-" << 0 << " ";
-            line << "INT-" << intake_mtrs.are_over_temp().at(0) + intake_mtrs.are_over_temp().at(1) << " ";
+            line << "BOT-" << (intake_bot_mtr.is_over_temp() != 0) << " ";
+            line << "TOP-" << (intake_top_mtr.is_over_temp() != 0);
             partner.set_text(1, 0, line.str());
         }else if (loopCount % 8 == 6){
             std::stringstream line("");
