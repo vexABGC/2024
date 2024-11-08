@@ -41,12 +41,9 @@ extern double lastRB;
 #define RF_PRT 11
 #define RM_PRT 12
 #define RB_PRT 14
-#define STRAFE_PRT 10 //Not installed, placeholder port I don't think we're using
-#define GYRO_PRT 9 //Note installed, placeholder port I don't think we're using
-#define MOGO_PIS_PRT 'H'
-#define ARM_PIS_PRT 'G'
 #define INTAKE_BOT_PRT 20
 #define INTAKE_TOP_PRT 18
+#define MOGO_PISTON_PRT 'H'
 
 //electronics
 extern pros::Controller master;
@@ -57,12 +54,9 @@ extern pros::Motor lb_mtr;
 extern pros::Motor rf_mtr;
 extern pros::Motor rm_mtr;
 extern pros::Motor rb_mtr;
-extern pros::Motor strafe_mtr;
 extern pros::Motor_Group left_mtrs;
 extern pros::Motor_Group right_mtrs;
-extern pros::Imu gyro;
 extern pros::ADIDigitalOut mogo_piston;
-extern pros::ADIDigitalOut arm_piston;
 extern pros::Motor intake_top_mtr;
 extern pros::Motor intake_bot_mtr;
 extern pros::Motor_Group intake_mtrs;

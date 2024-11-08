@@ -33,12 +33,8 @@ pros::Motor lb_mtr(LB_PRT, pros::E_MOTOR_GEAR_200, false, pros::E_MOTOR_ENCODER_
 pros::Motor rf_mtr(RF_PRT, pros::E_MOTOR_GEAR_200, true, pros::E_MOTOR_ENCODER_DEGREES);
 pros::Motor rm_mtr(RM_PRT, pros::E_MOTOR_GEAR_200, true, pros::E_MOTOR_ENCODER_DEGREES);
 pros::Motor rb_mtr(RB_PRT, pros::E_MOTOR_GEAR_200, true, pros::E_MOTOR_ENCODER_DEGREES);
-pros::Motor strafe_mtr(STRAFE_PRT, pros::E_MOTOR_GEAR_200, true);
 pros::Motor_Group left_mtrs({lf_mtr, lm_mtr, lb_mtr});
 pros::Motor_Group right_mtrs({rf_mtr, rm_mtr, rb_mtr});
-pros::Imu gyro(GYRO_PRT);
-pros::ADIDigitalOut mogo_piston(MOGO_PIS_PRT);
-pros::ADIDigitalOut arm_piston(ARM_PIS_PRT);
 pros::Motor intake_bot_mtr(INTAKE_BOT_PRT, pros::E_MOTOR_GEAR_100, true);
 pros::Motor intake_top_mtr(INTAKE_TOP_PRT, pros::E_MOTOR_GEAR_600, false);
-pros::Motor_Group intake_mtrs({intake_bot_mtr, intake_top_mtr});
+pros::ADIDigitalOut mogo_piston(MOGO_PISTON_PRT);

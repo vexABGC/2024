@@ -24,9 +24,6 @@ using namespace okapi;
  * from where it left off.
  */
 void autonomous() {
-    //Extend piston
-    arm_piston.set_value(1);
-
     //Setup odom
     left_mtrs.move_velocity(0);
     right_mtrs.move_velocity(0);
@@ -38,7 +35,7 @@ void autonomous() {
             {0.001, 0, 0.0001}, //Turn gains
             {0.0003, 0, 0.0003}  //Angle gains
         )
-        .withDimensions(AbstractMotor::gearset::blue, {{4_in, 15.125_in}, imev5GreenTPR})
+        .withDimensions(AbstractMotor::gearset::green, {{4.125_in, 15.125_in}, imev5GreenTPR})
         .buildOdometry();
     
     
@@ -49,7 +46,7 @@ void autonomous() {
     if (autonomousSelected == 0){
         //Left
         //start of auton
-        //arm & piston up
+        //mogo piston up
         mogo_piston.set_value(1);
         pros::delay(700);
         //move forward by amount
@@ -70,7 +67,7 @@ void autonomous() {
     else if (autonomousSelected == 1){
         //Right
         //start of auton
-        //arm & piston up
+        //mogo piston up
         mogo_piston.set_value(1);
         pros::delay(700);
         //move forward by amount

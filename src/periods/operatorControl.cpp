@@ -32,7 +32,6 @@ void opcontrol() {
     lastRF = rf_mtr.get_position();
     lastRM = rm_mtr.get_position();
     lastRB = rb_mtr.get_position();
-    arm_piston.set_value(1);
 
     //Main loop
     while (true){
