@@ -22,7 +22,6 @@ extern double lastLB;
 extern double lastRF;
 extern double lastRM;
 extern double lastRB;
-extern double armAngle;
 
 //settings
 #define DEAD_ZONE 5
@@ -46,9 +45,8 @@ extern double armAngle;
 #define GYRO_PRT 9 //Note installed, placeholder port I don't think we're using
 #define MOGO_PIS_PRT 'H'
 #define ARM_PIS_PRT 'G'
-#define INTAKE_BOT_PRT 18
-#define INTAKE_TOP_PRT 1
-#define ARM_PRT 20
+#define INTAKE_BOT_PRT 20
+#define INTAKE_TOP_PRT 18
 
 //electronics
 extern pros::Controller master;
@@ -68,4 +66,3 @@ extern pros::ADIDigitalOut arm_piston;
 extern pros::Motor intake_top_mtr;
 extern pros::Motor intake_bot_mtr;
 extern pros::Motor_Group intake_mtrs;
-extern pros::Motor arm_mtr;

@@ -102,57 +102,37 @@ void movement(int inputs[14]){
         mogo_piston.set_value(mogoVal % 2);
     }
 
-    //Intake
+    //Intake top
     if (masterCurR1 || masterCurR2){
         //Master control
-        intake_mtrs.move(127 * 0.6 * (
+        intake_top_mtr.move(127 * 0.8 * (
             masterCurR1 - masterCurR2
         ));
-    }else if (partnerCurL1 || partnerCurL2){
+    }else if (partnerCurR1 || partnerCurR2){
         //Partner control
-        intake_mtrs.move(127 * 0.6 * (
+        intake_top_mtr.move(127 * 0.8 * (
             partnerCurR1 - partnerCurR2
         ));
     }else if (partnerRightY != 0){
-        intake_mtrs.move(0.6 * partnerRightY);
+        intake_top_mtr.move(partnerRightY);
     }else{
-        intake_mtrs.move(0);
+        intake_top_mtr.move(0);
     }
 
-    //Arm
+    //Intake bottom
     if (masterCurL1 || masterCurL2){
-        arm_mtr.move_velocity(ARM_VELOCITY_MOVE * (
+        //Master control
+        intake_bot_mtr.move(127 * 0.8 * (
             masterCurL1 - masterCurL2
         ));
-        armAngle = arm_mtr.get_position();
-    }else if (masterCurRight){
-        //shared wall stake (high)
-        armAngle = ARM_RATIO * ARM_HIGH_ANGLE;
-    }else if (masterCurDown){
-        //alliance wall stake (medium)
-        armAngle = ARM_RATIO * ARM_MID_ANGLE;
-    }else if (masterCurB){
-        //pick up (low)
-        armAngle = ARM_RATIO * ARM_LOW_ANGLE;
-    }else if(partnerCurL1 || partnerCurL2){
-        arm_mtr.move_velocity(ARM_VELOCITY_MOVE * (
+    }else if (partnerCurL1 || partnerCurL2){
+        //Partner control
+        intake_bot_mtr.move(127 * 0.8 * (
             partnerCurL1 - partnerCurL2
         ));
-        armAngle = arm_mtr.get_position();
-    }else if(partnerLeftY != 0){
-        arm_mtr.move_velocity(4.0 * ARM_VELOCITY_MOVE * partnerLeftY/(127.0 * 3.0));
-        armAngle = arm_mtr.get_position();
-    }else if (partnerCurRight){
-        //shared wall stake (high)
-        armAngle = ARM_RATIO * ARM_HIGH_ANGLE;
-    }else if (partnerCurDown){
-        //alliance wall stake (medium)
-        armAngle = ARM_RATIO * ARM_MID_ANGLE;
-    }else if (partnerCurB){
-        //pick up (low)
-        armAngle = ARM_RATIO * ARM_LOW_ANGLE;
+    }else if (partnerLeftY != 0){
+        intake_bot_mtr.move(partnerLeftY);
     }else{
-        arm_mtr.move_absolute(armAngle, ARM_VELOCITY_BRAKE);
+        intake_bot_mtr.move(0);
     }
-    std::cout << armAngle << std::endl;
 }

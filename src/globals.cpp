@@ -23,7 +23,6 @@ double lastLB = 0;
 double lastRF = 0;
 double lastRM = 0;
 double lastRB = 0;
-double armAngle = 0;
 
 //electronics
 pros::Controller master(pros::E_CONTROLLER_MASTER);
@@ -40,7 +39,6 @@ pros::Motor_Group right_mtrs({rf_mtr, rm_mtr, rb_mtr});
 pros::Imu gyro(GYRO_PRT);
 pros::ADIDigitalOut mogo_piston(MOGO_PIS_PRT);
 pros::ADIDigitalOut arm_piston(ARM_PIS_PRT);
-pros::Motor intake_bot_mtr(INTAKE_BOT_PRT, pros::E_MOTOR_GEAR_200, false);
-pros::Motor intake_top_mtr(INTAKE_TOP_PRT, pros::E_MOTOR_GEAR_200, false);
+pros::Motor intake_bot_mtr(INTAKE_BOT_PRT, pros::E_MOTOR_GEAR_100, true);
+pros::Motor intake_top_mtr(INTAKE_TOP_PRT, pros::E_MOTOR_GEAR_600, false);
 pros::Motor_Group intake_mtrs({intake_bot_mtr, intake_top_mtr});
-pros::Motor arm_mtr(ARM_PRT, pros::E_MOTOR_GEAR_100, true);

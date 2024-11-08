@@ -51,7 +51,6 @@ void autonomous() {
         //start of auton
         //arm & piston up
         mogo_piston.set_value(1);
-        arm_mtr.move(0.6 * 127);
         pros::delay(700);
         //move forward by amount
         chassis->moveDistance(-36.0_in);
@@ -73,7 +72,6 @@ void autonomous() {
         //start of auton
         //arm & piston up
         mogo_piston.set_value(1);
-        arm_mtr.move(0.6 * 127);
         pros::delay(700);
         //move forward by amount
         chassis->moveDistance(-36.0_in);

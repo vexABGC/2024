@@ -32,7 +32,6 @@ void opcontrol() {
     lastRF = rf_mtr.get_position();
     lastRM = rm_mtr.get_position();
     lastRB = rb_mtr.get_position();
-    armAngle = arm_mtr.get_position();
     arm_piston.set_value(1);
 
     //Main loop
@@ -60,12 +59,12 @@ void opcontrol() {
             partner.set_text(0, 0, line.str());
         }else if (loopCount % 8 == 4){
             std::stringstream line("");
-            line << "ARM-" << arm_mtr.is_over_temp() << " ";
+            line << "ARM-" << 0 << " ";
             line << "INT-" << intake_mtrs.are_over_temp().at(0) + intake_mtrs.are_over_temp().at(1) << " ";
             master.set_text(1, 0, line.str());
         }else if (loopCount % 8 == 5){
             std::stringstream line("");
-            line << "ARM-" << arm_mtr.is_over_temp() << " ";
+            line << "ARM-" << 0 << " ";
             line << "INT-" << intake_mtrs.are_over_temp().at(0) + intake_mtrs.are_over_temp().at(1) << " ";
             partner.set_text(1, 0, line.str());
         }else if (loopCount % 8 == 6){
