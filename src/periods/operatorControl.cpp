@@ -46,37 +46,37 @@ void opcontrol() {
             std::stringstream line("");
             line << "LF-" << (lf_mtr.is_over_temp() != 0) << " ";
             line << "LM-" << (lm_mtr.is_over_temp() != 0) << " ";
-            line << "LB-" << (lb_mtr.is_over_temp() != 0) << " ";
-            line << "RF-" << (rf_mtr.is_over_temp() != 0) << " ";
-            line << "RM-" << (rm_mtr.is_over_temp() != 0) << " ";
-            line << "RB-" << (rb_mtr.is_over_temp() != 0);
+            line << "LB-" << (lb_mtr.is_over_temp() != 0);
             master.set_text(0, 0, line.str());
         }else if (loopCount % 8 == 3){
             std::stringstream line("");
             line << "LF-" << (lf_mtr.is_over_temp() != 0) << " ";
             line << "LM-" << (lm_mtr.is_over_temp() != 0) << " ";
-            line << "LB-" << (lb_mtr.is_over_temp() != 0) << " ";
-            line << "RF-" << (rf_mtr.is_over_temp() != 0) << " ";
-            line << "RM-" << (rm_mtr.is_over_temp() != 0) << " ";
-            line << "RB-" << (rb_mtr.is_over_temp() != 0);
+            line << "LB-" << (lb_mtr.is_over_temp() != 0);
             partner.set_text(0, 0, line.str());
         }else if (loopCount % 8 == 4){
             std::stringstream line("");
-            line << "BOT-" << (intake_bot_mtr.is_over_temp() != 0) << " ";
-            line << "TOP-" << (intake_top_mtr.is_over_temp() != 0);
+            line << "RF-" << (rf_mtr.is_over_temp() != 0) << " ";
+            line << "RM-" << (rm_mtr.is_over_temp() != 0) << " ";
+            line << "RB-" << (rb_mtr.is_over_temp() != 0);
             master.set_text(1, 0, line.str());
         }else if (loopCount % 8 == 5){
             std::stringstream line("");
-            line << "BOT-" << (intake_bot_mtr.is_over_temp() != 0) << " ";
-            line << "TOP-" << (intake_top_mtr.is_over_temp() != 0);
+            line << "RF-" << (rf_mtr.is_over_temp() != 0) << " ";
+            line << "RM-" << (rm_mtr.is_over_temp() != 0) << " ";
+            line << "RB-" << (rb_mtr.is_over_temp() != 0);
             partner.set_text(1, 0, line.str());
         }else if (loopCount % 8 == 6){
             std::stringstream line("");
-            line << "MOGO COUNT-" << mogoVal;
+            line << "BOT-" << (intake_bot_mtr.is_over_temp() != 0) << " ";
+            line << "TOP-" << (intake_top_mtr.is_over_temp() != 0) << " ";
+            line << "MC-" << mogoVal;
             master.set_text(2, 0, line.str());
         }else if (loopCount % 8 == 7){
             std::stringstream line("");
-            line << "MOGO COUNT-" << mogoVal;
+            line << "BOT-" << (intake_bot_mtr.is_over_temp() != 0) << " ";
+            line << "TOP-" << (intake_top_mtr.is_over_temp() != 0) << " ";
+            line << "MC-" << mogoVal;
             partner.set_text(2, 0, line.str());
         }
 
