@@ -1,3 +1,0 @@
-# 6645A Autonomous Selector
-
-Today I finished developing a aesthetically appealing autonomous selector. I designed it such that there is a big widget displaying the current action / selected autonomous. This display widget is surrounded by different buttons. The display widget normally will display the select autonomous, however during/after a recording for our to be implemented autonomous capture/replay system it will display the recording status. I have purposely left space for an extra one or two buttons. I plan to add a motor port list that can be dynamically changed in runtime later. I have attached a few screenshots of the autonomous GUI.

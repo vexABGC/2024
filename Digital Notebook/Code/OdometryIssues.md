@@ -1,4 +1,0 @@
-# 6645A Custom Odometry Attempt
-Over the last few months I have bene focusing a large portion of my coding effort on developing odometry using our tracking wheels for the robot. I have also added a gyroscope to the robot to more precisely get the robot's absolute rotation. After multiple attempted algorithms for reliably turning and driving forward, I was able to iron out a reliable P loop for the robot's autonomous turning using the gyroscope that I have attached on the next page.
-
-However, I was unable to get a working drive system. I tried using positioning to drive the robot forward but couldn't really get that to work right. I also tried just calculating target encoder values to drive to, but that had issues to. Though I was only using a P loop in these tests, the P loop should have been able to get mostly accurate just a little slowly before I changed into full PID. After much contemplation we have decided to use okapi lib implemented odometry.
