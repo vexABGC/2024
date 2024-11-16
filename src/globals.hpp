@@ -22,6 +22,7 @@ extern double lastLB;
 extern double lastRF;
 extern double lastRM;
 extern double lastRB;
+extern int cornerAngle;
 
 //settings
 #define DEAD_ZONE 5
@@ -43,6 +44,7 @@ extern double lastRB;
 #define RB_PRT 14
 #define INTAKE_BOT_PRT 20
 #define INTAKE_TOP_PRT 18
+#define CORNER_PRT 17
 #define MOGO_PISTON_PRT 'H'
 
 //electronics
@@ -56,7 +58,7 @@ extern pros::Motor rm_mtr;
 extern pros::Motor rb_mtr;
 extern pros::Motor_Group left_mtrs;
 extern pros::Motor_Group right_mtrs;
-extern pros::ADIDigitalOut mogo_piston;
 extern pros::Motor intake_top_mtr;
 extern pros::Motor intake_bot_mtr;
-extern pros::Motor_Group intake_mtrs;
+extern pros::Motor corner_mtr;
+extern pros::ADIDigitalOut mogo_piston;

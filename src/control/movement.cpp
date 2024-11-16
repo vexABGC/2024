@@ -134,4 +134,13 @@ void movement(int inputs[14]){
     }else{
         intake_bot_mtr.move(0);
     }
+
+    //Corner mech
+    if (masterNewRight){
+        cornerAngle = (cornerAngle + 170) % 340;
+    }else 
+    if (partnerNewRight){
+        cornerAngle = (cornerAngle + 170) % 340;
+    }
+    corner_mtr.move_absolute(cornerAngle, 50);
 }
