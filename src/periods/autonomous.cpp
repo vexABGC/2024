@@ -31,10 +31,11 @@ void autonomous() {
         //Green inserts, 4.125" omni wheels, 15" wheel track
         .withMotors({LF_PRT, LM_PRT, LB_PRT}, {RF_PRT, RM_PRT, RB_PRT})
         .withGains(
-            {0.004, 0, 0.0003}, //Distance gain
-            {0.001, 0, 0.0001}, //Turn gains
-            {0.0003, 0, 0.0003}  //Angle gains
+            {0.003, 0, 0}, //Distance gain
+            {0.003, 0.0005}, //Turn gains
+            {0.0000, 0, 0}  //Angle gains
         )
+        .withOdometry()
         .withDimensions(AbstractMotor::gearset::green, {{4.125_in, 15.125_in}, imev5GreenTPR})
         .buildOdometry();
     
@@ -48,42 +49,38 @@ void autonomous() {
         //start of auton
         //mogo piston up
         mogo_piston.set_value(1);
-        pros::delay(700);
         //move forward by amount
-        chassis->moveDistance(-36.0_in);
+        chassis->moveDistance(-28.0_in);
         //turn by angle
-        chassis->turnAngle(-90.0_deg);
+        chassis->turnAngle(-45.0_deg);
         //move forward by amount
-        chassis->moveDistance(-12.0_in);
-        //turn by angle
-        chassis->turnAngle(90.0_deg);
-        //move forward by amount
-        chassis->moveDistance(-12.0_in);
-        //mogo mech
+        chassis->moveDistance(-14.0_in);
+        chassis->moveDistance(0.25_in);
+        //mogo piston down
         mogo_piston.set_value(0);
-        //move forward by amount
-        chassis->moveDistance(12.0_in);
+        pros::delay(250);
+        mogo_piston.set_value(1);
     }
     else if (autonomousSelected == 1){
-        //Right
+        //Left old (Right)
         //start of auton
         //mogo piston up
         mogo_piston.set_value(1);
-        pros::delay(700);
         //move forward by amount
-        chassis->moveDistance(-36.0_in);
+        chassis->moveDistance(-12.0_in);
+        chassis->moveDistance(9_in);
         //turn by angle
         chassis->turnAngle(90.0_deg);
         //move forward by amount
-        chassis->moveDistance(-12.0_in);
+        chassis->moveDistance(-32.0_in);
         //turn by angle
-        chassis->turnAngle(-90.0_deg);
+        chassis->turnAngle(100.0_deg);
         //move forward by amount
-        chassis->moveDistance(-12.0_in);
-        //mogo mech
-        mogo_piston.set_value(0);
-        //move forward by amount
-        chassis->moveDistance(12.0_in);
+        chassis->moveDistance(-5.5_in);
+        //conveyor
+        intake_top_mtr.move(127);
+        pros::delay(2000);
+        intake_top_mtr.move(0);
     }
     else if (autonomousSelected == 2){
         //Skills
