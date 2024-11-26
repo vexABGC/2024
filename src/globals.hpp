@@ -36,16 +36,16 @@ extern int cornerAngle;
 #define ARM_VELOCITY_BRAKE 20
 
 //ports
-#define LF_PRT 19
-#define LM_PRT 13
-#define LB_PRT 15
-#define RF_PRT 11
-#define RM_PRT 12
-#define RB_PRT 14
-#define INTAKE_BOT_PRT 20
-#define INTAKE_TOP_PRT 18
-#define CORNER_PRT 17
-#define MOGO_PISTON_PRT 'H'
+#define LF_PRT 10
+#define LM_PRT 9
+#define LB_PRT 8
+#define RF_PRT 7
+#define RM_PRT 6
+#define RB_PRT 5
+#define INTAKE_TOP_PRT 4
+#define INTAKE_BOT_PRT 3
+#define CORNER_PRT 2
+#define MOGO_PISTON_PRT 'A'
 
 //electronics
 extern pros::Controller master;
@@ -60,5 +60,6 @@ extern pros::Motor_Group left_mtrs;
 extern pros::Motor_Group right_mtrs;
 extern pros::Motor intake_top_mtr;
 extern pros::Motor intake_bot_mtr;
+extern pros::Motor_Group intake_mtrs;
 extern pros::Motor corner_mtr;
 extern pros::ADIDigitalOut mogo_piston;
