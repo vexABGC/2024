@@ -1,5 +1,0 @@
-# 6645A Autonomous Editor
-
-This year we early on wanted to implement a graphical autonomous editor. This editor would allow us a hybrid between the reliability of odometry autonomous and the development speed of capture replay autonomous. In our vision we wanted to be able to simply plan a route, have it visualized instantly, and then generate code that we could paste in to our codebase and modify to move systems like intake. We accomplished this goal.
-
-Our autonomous editor visualizes a field on the left, showing robot initial position and final position in the current version. On the right is a code box allowing simplifed commands to be entered that will move the virtual robot. And in the terminal, outputted after every new command is a new code version that will run the designed autonomous using our odometry system when placed into the autonomous routine area of the code.

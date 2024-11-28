@@ -1,9 +1,0 @@
-# 6645A Capture Replay Autonomous
-
-Over the last week I have been implementing our 2024 capture replay autonomuos system. This system is an improved version of our 2023 version. How this is system works is that during operator control practice, we can use our autonomou selector to initate a recording. When a recording is initiated, for the next 15 seconds inputs are tracked each time they are proccsed, and they are stored in an array. At the end of the period the user is notified, and the recordinds are processed into a 4.2KB file storing every button / joystick the master and partner controller reported during processed periods of time.
-
-Then when autonomous is played this file is loaded and chunked back into arrays that are passed into identical controller input execution system that will then replay the recorded autonomous. Though its not perfect like odometry in executing movements, it is roughly accurate and good for adjusting our autonomous routine on the fly to differing teammates.
-
-Implenting this required separating operator control and main movement in two. This is because the movement code that operator control uses must also be used for autonomous movement. However since the autonomous has to emulate the controller, there is no controller object, and instead just an array of inputs. Meaning, that operator control must to just pass in an array of inputs to a method. This took a bit of time to get the array passying through the function right and translating the movement code to use the array instead.
-
-I also had to implement a replay system to load the file byte by byte, passing it into input arrays, and executing those arrays with the same frequency as in operator control.
