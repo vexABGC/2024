@@ -31,12 +31,13 @@ void autonomous() {
         //Green inserts, 4.125" omni wheels, 15" wheel track
         .withMotors({LF_PRT, LM_PRT, LB_PRT}, {RF_PRT, RM_PRT, RB_PRT})
         .withGains(
-            {0.003, 0, 0}, //Distance gain
-            {0.003, 0.0005}, //Turn gains
-            {0.0000, 0, 0}  //Angle gains
+            //KP,     KI,      KD
+            {0.0055, 0.00015, 0.0002}, //Distance gain
+            {0.0055, 0.00018, 0.0003}, //Turn gains
+            {0.0030, 0.00000, 0.0000}  //Angle gains
         )
+        .withDimensions(AbstractMotor::gearset::green, {{104.775_mm, 400_mm}, imev5GreenTPR})
         .withOdometry()
-        .withDimensions(AbstractMotor::gearset::green, {{4.125_in, 15.125_in}, imev5GreenTPR})
         .buildOdometry();
     
     
@@ -46,41 +47,10 @@ void autonomous() {
     //Auton select
     if (autonomousSelected == 0){
         //Left
-        //start of auton
-        //mogo piston up
-        mogo_piston.set_value(1);
-        //move forward by amount
-        chassis->moveDistance(-28.0_in);
-        //turn by angle
-        chassis->turnAngle(-45.0_deg);
-        //move forward by amount
-        chassis->moveDistance(-14.0_in);
-        chassis->moveDistance(0.25_in);
-        //mogo piston down
-        mogo_piston.set_value(0);
-        pros::delay(250);
-        mogo_piston.set_value(1);
+        chassis->turnAngle(360_deg);
     }
     else if (autonomousSelected == 1){
-        //Left old (Right)
-        //start of auton
-        //mogo piston up
-        mogo_piston.set_value(1);
-        //move forward by amount
-        chassis->moveDistance(-12.0_in);
-        chassis->moveDistance(9_in);
-        //turn by angle
-        chassis->turnAngle(90.0_deg);
-        //move forward by amount
-        chassis->moveDistance(-32.0_in);
-        //turn by angle
-        chassis->turnAngle(100.0_deg);
-        //move forward by amount
-        chassis->moveDistance(-5.5_in);
-        //conveyor
-        intake_top_mtr.move(127);
-        pros::delay(2000);
-        intake_top_mtr.move(0);
+        //Right
     }
     else if (autonomousSelected == 2){
         //Skills
