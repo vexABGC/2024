@@ -3,15 +3,27 @@
 #include "../src/globals.hpp"
 
 //GUI style/object declarations
-lv_style_t rStyle = lv_style_t(); //released button style
-lv_style_t pStyle = lv_style_t(); //pressed button style
-lv_style_t dStyle = lv_style_t(); //display button style
-lv_obj_t* lSelect = lv_btn_create(lv_scr_act(), NULL); //left select button
-lv_obj_t* rSelect = lv_btn_create(lv_scr_act(), NULL); //right select button
-lv_obj_t* sSelect = lv_btn_create(lv_scr_act(), NULL); //skills select button
-lv_obj_t* dSelect = lv_btn_create(lv_scr_act(), NULL); //display select button
-lv_obj_t* rActivate = lv_btn_create(lv_scr_act(), NULL); //record activate button
-lv_obj_t* replaySelect = lv_btn_create(lv_scr_act(), NULL); //replay select button
+lv_style_t main_page_style;
+lv_style_t motor_page_style;
+lv_style_t record_button_style;
+lv_style_t replay_button_style;
+lv_style_t location_button_style_rel;
+lv_style_t location_button_style_pr;
+lv_style_t skills_button_style_pr;
+lv_obj_t* main_page;
+lv_obj_t* motor_page;
+lv_obj_t* main_page_button;
+lv_obj_t* motor_page_button;
+lv_obj_t* record_button;
+lv_obj_t* record_text;
+lv_obj_t* replay_button;
+lv_obj_t* replay_text;
+lv_obj_t* map_image;
+lv_obj_t* lr_button;
+lv_obj_t* rb_button;
+lv_obj_t* rr_button;
+lv_obj_t* lb_button;
+lv_obj_t* skills_button;
 
 //general globals
 int autonomousSelected{0};

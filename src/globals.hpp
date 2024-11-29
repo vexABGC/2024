@@ -2,15 +2,27 @@
 #include "main.h"
 
 //GUI style/object declarations
-extern lv_style_t rStyle; //released button style
-extern lv_style_t pStyle; //pressed button style
-extern lv_style_t dStyle; //display button style
-extern lv_obj_t* lSelect; //left select button
-extern lv_obj_t* rSelect; //right select button
-extern lv_obj_t* sSelect; //skills select button
-extern lv_obj_t* dSelect; //display select button
-extern lv_obj_t* rActivate; //record activate button
-extern lv_obj_t* replaySelect; //replay select button
+extern lv_style_t main_page_style;
+extern lv_style_t motor_page_style;
+extern lv_style_t record_button_style;
+extern lv_style_t replay_button_style;
+extern lv_style_t location_button_style_rel;
+extern lv_style_t location_button_style_pr;
+extern lv_style_t skills_button_style_pr;
+extern lv_obj_t* main_page;
+extern lv_obj_t* motor_page;
+extern lv_obj_t* main_page_button;
+extern lv_obj_t* motor_page_button;
+extern lv_obj_t* record_button;
+extern lv_obj_t* record_text;
+extern lv_obj_t* replay_button;
+extern lv_obj_t* replay_text;
+extern lv_obj_t* map_image;
+extern lv_obj_t* lr_button;
+extern lv_obj_t* rb_button;
+extern lv_obj_t* rr_button;
+extern lv_obj_t* lb_button;
+extern lv_obj_t* skills_button;
 
 //general globals
 extern int autonomousSelected;

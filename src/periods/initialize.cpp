@@ -11,75 +11,146 @@
  */
 void initialize() {
     //GUI Setup
-    //released button style
-    lv_style_copy(&rStyle, &lv_style_plain);
-    rStyle.body.main_color = LV_COLOR_MAKE(50, 168, 82);
-    rStyle.body.grad_color = LV_COLOR_MAKE(82, 168, 50);
-    rStyle.body.radius = 0;
-    rStyle.text.color = LV_COLOR_MAKE(255,255,255);
+    //Setup main page
+    main_page_style = lv_style_t();
+    lv_style_copy(&main_page_style, &lv_style_plain);
+    main_page_style.body.main_color = LV_COLOR_BLACK;
+    main_page_style.body.grad_color = LV_COLOR_BLACK;
+    main_page_style.body.padding.ver = 0;
+    main_page_style.body.padding.hor = 0;
+    main_page = lv_page_create(lv_scr_act(), NULL);
+    lv_obj_set_size(main_page, 480, 240);
+    lv_obj_set_pos(main_page, 0, 0);
+    lv_obj_set_style(main_page, &main_page_style);
+    lv_page_set_sb_mode(main_page, LV_SB_MODE_OFF);
+    lv_obj_t* fakeButtonMain = lv_btn_create(main_page, NULL);
+    lv_btn_set_style(fakeButtonMain, LV_BTN_STYLE_REL, &lv_style_transp);
+    lv_btn_set_style(fakeButtonMain, LV_BTN_STYLE_PR, &lv_style_transp);
 
-    //pressed button style
-    lv_style_copy(&pStyle, &lv_style_plain);
-    pStyle.body.main_color = LV_COLOR_MAKE(25, 84, 41);
-    pStyle.body.grad_color = LV_COLOR_MAKE(41, 84, 25);
-    pStyle.body.radius = 0;
-    pStyle.text.color = LV_COLOR_MAKE(255,255,255);
+    //Setup motor page
+    motor_page_style = lv_style_t();
+    lv_style_copy(&motor_page_style, &lv_style_plain);
+    motor_page_style.body.main_color = LV_COLOR_BLACK;
+    motor_page_style.body.grad_color = LV_COLOR_BLACK;
+    motor_page_style.body.padding.ver = 0;
+    motor_page_style.body.padding.hor = 0;
+    motor_page = lv_page_create(lv_scr_act(), NULL);
+    lv_obj_set_size(motor_page, 480, 240);
+    lv_obj_set_pos(motor_page, 0, 0);
+    lv_obj_set_style(motor_page, &main_page_style);
+    lv_page_set_sb_mode(motor_page, LV_SB_MODE_OFF);
+    lv_btn_set_style(lv_btn_create(motor_page, NULL), LV_BTN_STYLE_REL, &lv_style_transp);
+    lv_obj_t* fakeButtonMotor = lv_btn_create(motor_page, NULL);
+    lv_btn_set_style(fakeButtonMotor, LV_BTN_STYLE_REL, &lv_style_transp);
+    lv_btn_set_style(fakeButtonMotor, LV_BTN_STYLE_PR, &lv_style_transp);
+    lv_obj_set_hidden(motor_page, true);
 
-    //display button style
-    lv_style_copy(&dStyle, &lv_style_plain);
-    dStyle.body.main_color = LV_COLOR_MAKE(255, 255, 255);
-    dStyle.body.grad_color = LV_COLOR_MAKE(255, 225, 255);
-    dStyle.body.radius = 0;
-    dStyle.text.color = LV_COLOR_MAKE(0, 0, 0);
+    //Setup main page content
+    //Menu button
+    main_page_button = lv_imgbtn_create(lv_scr_act(), NULL);
+    LV_IMG_DECLARE(logo);
+    lv_obj_set_size(main_page_button, 80, 80);
+    lv_obj_set_pos(main_page_button, 313, 10);
+    lv_imgbtn_set_src(main_page_button, LV_BTN_STATE_REL, &logo);
+    lv_imgbtn_set_src(main_page_button, LV_BTN_STATE_PR, &logo);
+    lv_obj_set_free_num(main_page_button, 0);
+    lv_imgbtn_set_action(main_page_button, LV_BTN_ACTION_CLICK, buttonMethod);
 
-    //setup select buttons and display
-    lv_obj_set_free_num(lSelect, 0);
-    lv_btn_set_action(lSelect, LV_BTN_ACTION_CLICK, buttonMethod);
-    lv_btn_set_style(lSelect, LV_BTN_STYLE_REL, &rStyle);
-    lv_btn_set_style(lSelect, LV_BTN_STYLE_PR, &pStyle);
-    lv_obj_set_size(lSelect, 150, 70);
-    lv_obj_align(lSelect, NULL, LV_ALIGN_IN_TOP_LEFT, 7.5, 5);
-    lv_label_set_text(lv_label_create(lSelect, NULL), "left");
+    //Record/replay buttons
+    record_button_style = lv_style_t();
+    lv_style_copy(&record_button_style, &lv_style_plain);
+    record_button_style.body.main_color = LV_COLOR_BLACK;
+    record_button_style.body.grad_color = LV_COLOR_BLACK;
+    record_button_style.body.border.color = LV_COLOR_WHITE;
+    record_button_style.text.color = LV_COLOR_WHITE;
+    record_button_style.body.radius = 10;
+    record_button_style.body.border.width = 3;
+    record_button = lv_btn_create(main_page, NULL);
+    lv_btn_set_style(record_button, LV_BTN_STYLE_REL, &record_button_style);
+    lv_btn_set_style(record_button, LV_BTN_STYLE_PR, &record_button_style);
+    lv_obj_set_size(record_button, 192, 50);
+    lv_obj_set_pos(record_button, 264, 100);
+    record_text = lv_label_create(record_button, NULL);
+    lv_label_set_text(record_text, "Record");
+    lv_obj_set_free_num(record_button, 1);
+    lv_btn_set_action(record_button, LV_BTN_ACTION_CLICK, buttonMethod);
+    replay_button_style = lv_style_t();
+    lv_style_copy(&replay_button_style, &lv_style_plain);
+    replay_button_style.body.main_color = LV_COLOR_BLACK;
+    replay_button_style.body.grad_color = LV_COLOR_BLACK;
+    replay_button_style.body.border.color = LV_COLOR_WHITE;
+    replay_button_style.text.color = LV_COLOR_WHITE;
+    replay_button_style.body.radius = 10;
+    replay_button_style.body.border.width = 3;
+    replay_button = lv_btn_create(main_page, NULL);
+    lv_btn_set_style(replay_button, LV_BTN_STYLE_REL, &replay_button_style);
+    lv_btn_set_style(replay_button, LV_BTN_STYLE_PR, &replay_button_style);
+    lv_obj_set_size(replay_button, 192, 50);
+    lv_obj_set_pos(replay_button, 264, 160);
+    replay_text = lv_label_create(replay_button, NULL);
+    lv_label_set_text(replay_text, "Replay");
+    lv_obj_set_free_num(replay_button, 2);
+    lv_btn_set_action(replay_button, LV_BTN_ACTION_CLICK, buttonMethod);
 
-    lv_obj_set_free_num(rSelect, 1);
-    lv_btn_set_action(rSelect, LV_BTN_ACTION_CLICK, buttonMethod);
-    lv_btn_set_style(rSelect, LV_BTN_STYLE_REL, &rStyle);
-    lv_btn_set_style(rSelect, LV_BTN_STYLE_PR, &pStyle);
-    lv_obj_set_size(rSelect, 150, 70);
-    lv_obj_align(rSelect, NULL, LV_ALIGN_IN_TOP_RIGHT, -7.5, 5);
-    lv_label_set_text(lv_label_create(rSelect, NULL), "right");
-
-    lv_obj_set_free_num(sSelect, 2);
-    lv_btn_set_action(sSelect, LV_BTN_ACTION_CLICK, buttonMethod);
-    lv_btn_set_style(sSelect, LV_BTN_STYLE_REL, &rStyle);
-    lv_btn_set_style(sSelect, LV_BTN_STYLE_PR, &pStyle);
-    lv_obj_set_size(sSelect, 150, 70);
-    lv_obj_align(sSelect, NULL, LV_ALIGN_IN_TOP_MID, 0, 5);
-    lv_label_set_text(lv_label_create(sSelect, NULL), "skills");
-
-    lv_obj_set_free_num(replaySelect, 3);
-    lv_btn_set_action(replaySelect, LV_BTN_ACTION_CLICK, buttonMethod);
-    lv_btn_set_style(replaySelect, LV_BTN_STYLE_REL, &rStyle);
-    lv_btn_set_style(replaySelect, LV_BTN_STYLE_PR, &pStyle);
-    lv_obj_set_size(replaySelect, 150, 70);
-    lv_obj_align(replaySelect, NULL, LV_ALIGN_IN_RIGHT_MID, -7.5, 0);
-    lv_label_set_text(lv_label_create(replaySelect, NULL), "replay");
-
-    lv_obj_set_free_num(rActivate, 4);
-    lv_btn_set_action(rActivate, LV_BTN_ACTION_CLICK, buttonMethod);
-    lv_btn_set_style(rActivate, LV_BTN_STYLE_REL, &rStyle);
-    lv_btn_set_style(rActivate, LV_BTN_STYLE_PR, &pStyle);
-    lv_obj_set_size(rActivate, 150, 70);
-    lv_obj_align(rActivate, NULL, LV_ALIGN_IN_BOTTOM_RIGHT, -7.5, -5);
-    lv_label_set_text(lv_label_create(rActivate, NULL), "record");
-
-    lv_obj_set_free_num(dSelect, 5);
-    lv_btn_set_action(dSelect, LV_BTN_ACTION_CLICK, buttonMethod);
-    lv_btn_set_style(dSelect, LV_BTN_STYLE_REL, &dStyle);
-    lv_btn_set_style(dSelect, LV_BTN_STYLE_PR, &dStyle);
-    lv_obj_set_size(dSelect, 150, 150);
-    lv_obj_align(dSelect, NULL, LV_ALIGN_IN_BOTTOM_MID, 0, -5);
-    lv_label_set_text(lv_label_create(dSelect, NULL), "left");
+    //Map & map buttons
+    //Style
+    location_button_style_rel = lv_style_t();
+    location_button_style_rel.body.opa = 0;
+    location_button_style_rel.body.border.width = 0;
+    location_button_style_pr = lv_style_t();
+    location_button_style_pr.body.opa = 80;
+    location_button_style_pr.body.main_color = LV_COLOR_GREEN;
+    location_button_style_pr.body.grad_color = LV_COLOR_GREEN;
+    location_button_style_pr.body.border.width = 0;
+    skills_button_style_pr = lv_style_t();
+    skills_button_style_pr.body.opa = 80;
+    skills_button_style_pr.body.main_color = LV_COLOR_PURPLE;
+    skills_button_style_pr.body.grad_color = LV_COLOR_PURPLE;
+    skills_button_style_pr.body.border.width = 0;
+    //Image
+    map_image = lv_img_create(main_page, NULL);
+    LV_IMG_DECLARE(field_regular);
+    lv_img_set_src(map_image, &field_regular);
+    //left red (top left)
+    lr_button = lv_btn_create(main_page, NULL);
+    lv_obj_set_pos(lr_button, 0, 0);
+    lv_obj_set_size(lr_button, 120, 120);
+    lv_btn_set_style(lr_button, LV_BTN_STYLE_REL, &location_button_style_pr);
+    lv_btn_set_style(lr_button, LV_BTN_STYLE_PR, &location_button_style_pr);
+    lv_obj_set_free_num(lr_button, 3);
+    lv_btn_set_action(lr_button, LV_BTN_ACTION_CLICK, buttonMethod);
+    //right blue (top right)
+    rb_button = lv_btn_create(main_page, NULL);
+    lv_obj_set_pos(rb_button, 120, 0);
+    lv_obj_set_size(rb_button, 120, 120);
+    lv_btn_set_style(rb_button, LV_BTN_STYLE_REL, &location_button_style_rel);
+    lv_btn_set_style(rb_button, LV_BTN_STYLE_PR, &location_button_style_pr);
+    lv_obj_set_free_num(rb_button, 4);
+    lv_btn_set_action(rb_button, LV_BTN_ACTION_CLICK, buttonMethod);
+    //right red (bottom left)
+    rr_button = lv_btn_create(main_page, NULL);
+    lv_obj_set_pos(rr_button, 0, 120);
+    lv_obj_set_size(rr_button, 120, 120);
+    lv_btn_set_style(rr_button, LV_BTN_STYLE_REL, &location_button_style_rel);
+    lv_btn_set_style(rr_button, LV_BTN_STYLE_PR, &location_button_style_pr);
+    lv_obj_set_free_num(rr_button, 5);
+    lv_btn_set_action(rr_button, LV_BTN_ACTION_CLICK, buttonMethod);
+    //left blue (bottom right)
+    lb_button = lv_btn_create(main_page, NULL);
+    lv_obj_set_pos(lb_button, 120, 120);
+    lv_obj_set_size(lb_button, 120, 120);
+    lv_btn_set_style(lb_button, LV_BTN_STYLE_REL, &location_button_style_rel);
+    lv_btn_set_style(lb_button, LV_BTN_STYLE_PR, &location_button_style_pr);
+    lv_obj_set_free_num(lb_button, 6);
+    lv_btn_set_action(lb_button, LV_BTN_ACTION_CLICK, buttonMethod);
+    //skills (middle diagonal)
+    skills_button = lv_btn_create(main_page, NULL);
+    lv_obj_set_pos(skills_button, 80, 80);
+    lv_obj_set_size(skills_button, 80, 80);
+    lv_btn_set_style(skills_button, LV_BTN_STYLE_REL, &location_button_style_rel);
+    lv_btn_set_style(skills_button, LV_BTN_STYLE_PR, &skills_button_style_pr);
+    lv_obj_set_free_num(skills_button, 7);
+    lv_btn_set_action(skills_button, LV_BTN_ACTION_CLICK, buttonMethod);
 
     //Motor and piston setup
     lf_mtr.tare_position();
@@ -94,4 +165,7 @@ void initialize() {
     lastRF = 0;
     lastRM = 0;
     lastRB = 0;
+    master.set_text(0, 0, "Auton left red");
+    pros::delay(50);
+    master.set_text(0, 0, "Auton left red");
 }

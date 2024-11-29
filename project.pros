@@ -1,7 +1,7 @@
 {
   "py/object": "pros.conductor.project.Project",
   "py/state": {
-    "project_name": "vex2024",
+    "project_name": "ABGC 2024",
     "target": "v5",
     "templates": {
       "kernel": {

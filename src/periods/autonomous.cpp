@@ -46,16 +46,21 @@ void autonomous() {
 
     //Auton select
     if (autonomousSelected == 0){
-        //Left
-        chassis->turnAngle(360_deg);
-    }
-    else if (autonomousSelected == 1){
-        //Right
+        //Left red
     }
     else if (autonomousSelected == 2){
+        //Right blue
+    }
+    else if (autonomousSelected == 2){
+        //Right red
+    }
+    else if (autonomousSelected == 2){
+        //Left blue
+    }
+    else if (autonomousSelected == 4){
         //Skills
     }
-    else if (autonomousSelected == 3){
+    else if (autonomousSelected == 5){
         //Replay
         //Load file
         std::ifstream file("/usd/sigma.auton", std::ios::binary);
@@ -80,7 +85,7 @@ void autonomous() {
         movement(inputs);
     }
     else {
-        //Error
+        //Disabled auton
         master.rumble(".-.-");
     }
 }

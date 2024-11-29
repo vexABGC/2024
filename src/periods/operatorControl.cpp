@@ -194,8 +194,9 @@ void opcontrol() {
                 shouldRecord = false;
                 recordCount = 0;
                 master.rumble("..");
-                lv_obj_clean(dSelect);
-                lv_label_set_text(lv_label_create(dSelect, NULL), "recording finsihed");
+                record_button_style.body.main_color = LV_COLOR_BLACK;
+                record_button_style.body.grad_color = LV_COLOR_BLACK;
+                lv_btn_set_style(record_button, LV_BTN_STYLE_REL, &record_button_style);
             }
             recordCount++;
         }
