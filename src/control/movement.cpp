@@ -104,18 +104,35 @@ void movement(int inputs[14]){
     //Intake top
     if (masterCurR1 || masterCurR2){
         //Master control
-        intake_mtrs.move(127 * (
+        intake_top_mtr.move(127 * (
             masterCurR1 - masterCurR2
         ));
     }else if (partnerCurR1 || partnerCurR2){
         //Partner control
-        intake_mtrs.move(127 * (
+        intake_top_mtr.move(127 * (
             partnerCurR1 - partnerCurR2
         ));
     }else if (partnerRightY != 0){
-        intake_mtrs.move(partnerRightY);
+        intake_top_mtr.move(partnerRightY);
     }else{
-        intake_mtrs.move(0);
+        intake_top_mtr.move(0);
+    }
+
+    //Intake bottom
+    if (masterCurL1 || masterCurL2){
+        //Master control
+        intake_bot_mtr.move(127 * (
+            masterCurL1 - masterCurL2
+        ));
+    }else if (partnerCurL1 || partnerCurL2){
+        //Partner control
+        intake_bot_mtr.move(127 * (
+            partnerCurL1 - partnerCurL2
+        ));
+    }else if (partnerLeftY != 0){
+        intake_bot_mtr.move(partnerLeftY);
+    }else{
+        intake_bot_mtr.move(0);
     }
 
     //Corner mech
