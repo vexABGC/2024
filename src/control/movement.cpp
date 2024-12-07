@@ -137,10 +137,10 @@ void movement(int inputs[14]){
 
     //Corner mech
     if (masterNewRight){
-        cornerAngle = (cornerAngle + 175) % 350;
+        cornerAngle = (cornerAngle + 160) % 320;
     }else 
     if (partnerNewRight){
-        cornerAngle = (cornerAngle + 175) % 350;
+        cornerAngle = (cornerAngle + 160) % 320;
     }
     corner_mtr.move_absolute(cornerAngle, 50);
 }

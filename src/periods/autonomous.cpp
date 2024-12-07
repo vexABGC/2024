@@ -42,7 +42,7 @@ void autonomous() {
     
     
     chassis->setState({0_in, 0_in, 0_deg});
-    chassis->setMaxVelocity(100);
+    chassis->setMaxVelocity(50);
 
     //Auton select
     if (autonomousSelected == 0){
@@ -56,6 +56,59 @@ void autonomous() {
     }
     else if (autonomousSelected == 2){
         //Left blue
+        //Skills old
+        //mogo mech up
+        mogo_piston.set_value(0);
+        //reverse chain intake
+        intake_top_mtr.move(-127);
+        pros::delay(300);
+        intake_top_mtr.move(0);
+        //move forward by amount
+        chassis->moveDistance(320.0_mm);
+        //turn by angle
+        chassis->turnAngle(93.0_deg);
+        //move forward by amount
+        chassis->moveDistance(-600.0_mm);
+        //mogo mech down
+        mogo_piston.set_value(1);
+        pros::delay(500);
+        //intake on
+        intake_top_mtr.move(0.8*127);
+        intake_bot_mtr.move(0.8*127);
+        //turn by angle
+        chassis->turnAngle(190.0_deg);
+        //move forward by amount with shaking
+        chassis->moveDistance(600.0_mm);
+        intake_top_mtr.move(-0.8*127);
+        pros::delay(200);
+        intake_top_mtr.move(0.8*127);
+        chassis->moveDistance(100.0_mm);
+        intake_top_mtr.move(-0.8*127);
+        pros::delay(200);
+        intake_top_mtr.move(0.8*127);
+        chassis->moveDistance(100.0_mm);
+        intake_top_mtr.move(-0.8*127);
+        pros::delay(200);
+        intake_top_mtr.move(0.8*127);
+        chassis->moveDistance(100.0_mm);
+        intake_top_mtr.move(-0.8*127);
+        pros::delay(200);
+        intake_top_mtr.move(0.8*127);
+        //turn by angle
+        chassis->turnAngle(9.0_deg);
+        //move forward by amount
+        chassis->moveDistance(-250.0_mm);
+        //turn by angle
+        chassis->turnAngle(-140.0_deg);
+        chassis->moveDistance(-600.0_mm);
+        //release mogo
+        mogo_piston.set_value(0);
+        //shake
+        chassis->moveDistance(20.0_mm);
+        chassis->moveDistance(-20.0_mm);
+        chassis->moveDistance(20.0_mm);
+        chassis->moveDistance(-20.0_mm);
+        chassis->moveDistance(20.0_mm);
     }
     else if (autonomousSelected == 4){
         //Skills
@@ -63,83 +116,57 @@ void autonomous() {
         mogo_piston.set_value(0);
         //reverse chain intake
         intake_top_mtr.move(-127);
-        //move forward by amount
-        chassis->moveDistance(-300.0_mm);
-        //turn off intake
+        pros::delay(300);
         intake_top_mtr.move(0);
-        //turn by angle
-        chassis->turnAngle(90.0_deg);
-        //move forward by amount
-        chassis->moveDistance(-600.0_mm);
-        //mogo mech down
+        //grab mogo
+        chassis->driveToPoint({320_mm,0_mm});
+        chassis->turnToPoint({320_mm,-600_mm});
+        chassis->driveToPoint({320_mm,650_mm}, true);
         mogo_piston.set_value(1);
-        pros::delay(500);
-        //turn by angle
-        chassis->turnAngle(180.0_deg);
-        //intake on
-        intake_top_mtr.move(127);
+        pros::delay(300);
+        chassis->driveToPoint({320_mm,600_mm});
+
+        //score preload, and pick up first two rings
+        intake_top_mtr.move(90);
         intake_bot_mtr.move(127);
-        //move forward by amount
-        chassis->moveDistance(900.0_mm);
-        //move forward by amount
-        chassis->moveDistance(-300.0_mm);
-        //turn by angle
-        chassis->turnAngle(-90.0_deg);
-        //move forward by amount
-        chassis->moveDistance(600.0_mm);
-        //turn by angle
-        chassis->turnAngle(-90.0_deg);
-        //move forward by amount
-        chassis->moveDistance(600.0_mm);
-        //turn by angle
-        chassis->turnAngle(-45.0_deg);
-        //mogo mech up and intake off
+        pros::delay(300);
+        chassis->turnToPoint({320_mm,1200_mm});
+        chassis->driveToPoint({320_mm,1350_mm});
+        pros::delay(700);
+
+        //move back to where mogo was
+        chassis->turnToPoint({320_mm,1600_mm});
+        chassis->driveToPoint({320_mm,600_mm}, true);
+
+        //pick up ring to front-left
+        chassis->turnToPoint({920_mm,1200_mm});
+        chassis->driveToPoint({920_mm,1200_mm});
+        chassis->moveDistance(50_mm);
+
+        //pick up ring even more to front-left
+        chassis->turnToPoint({1520_mm,1500_mm});
+        chassis->driveToPoint({1520_mm,1500_mm});
+        chassis->moveDistance(50_mm);
+
+        //move back to 1st ring pick up area
+        chassis->driveToPoint({320_mm,1200_mm}, true);
+
+        //move to corner
+        chassis->driveToPoint({65_mm,1455_mm}, true);
+        
+        //drop mogo mech
         mogo_piston.set_value(0);
-        intake_top_mtr.move(0);
-        intake_bot_mtr.move(0);
-        pros::delay(500);
-        //move forward by amount
-        chassis->moveDistance(848.5_mm);
-        //turn by angle
-        chassis->turnAngle(-135.0_deg);
-        //move forward by amount
-        chassis->moveDistance(-600.0_mm);
-        //mogo down and intake on
+        pros::delay(300);
         mogo_piston.set_value(1);
-        intake_top_mtr.move(127);
-        intake_bot_mtr.move(127);
-        pros::delay(500);
-        //turn by angle
-        chassis->turnAngle(-90.0_deg);
-        //move forward by amount
-        chassis->moveDistance(600.0_mm);
-        //turn by angle
-        chassis->turnAngle(-90.0_deg);
-        //move forward by amount
-        chassis->moveDistance(600.0_mm);
-        //turn by angle
-        chassis->turnAngle(-90.0_deg);
-        //move forward by amount
-        chassis->moveDistance(900.0_mm);
-        //move forward by amount
-        chassis->moveDistance(-900.0_mm);
-        //turn by angle
-        chassis->turnAngle(180.0_deg);
-        //move forward by amount
-        chassis->moveDistance(1200.0_mm);
-        //turn by angle
-        chassis->turnAngle(90.0_deg);
-        //move forward by amount
-        chassis->moveDistance(600.0_mm);
-        //mogo up and intake off
+        pros::delay(300);
         mogo_piston.set_value(0);
-        intake_top_mtr.move(0);
-        intake_bot_mtr.move(0);
-        pros::delay(500);
-        //turn by angle
-        chassis->turnAngle(-90.0_deg);
-        //move forward by amount
-        chassis->moveDistance(600.0_mm);
+
+        //jiggle out mogo mech
+        chassis->moveDistance(100_mm);
+        chassis->moveDistance(-100_mm);
+        chassis->moveDistance(100_mm);
+        chassis->moveDistance(-100_mm);
+        chassis->moveDistance(100_mm);
     }
     else if (autonomousSelected == 5){
         //Replay
@@ -169,4 +196,8 @@ void autonomous() {
         //Disabled auton
         master.rumble(".-.-");
     }
+    pros::delay(1000);
+    chassis->stop();
+    intake_top_mtr.move(0);
+    intake_bot_mtr.move(0);
 }
