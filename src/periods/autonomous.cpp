@@ -50,65 +50,29 @@ void autonomous() {
     }
     else if (autonomousSelected == 2){
         //Right blue
-    }
-    else if (autonomousSelected == 2){
-        //Right red
-    }
-    else if (autonomousSelected == 2){
-        //Left blue
-        //Skills old
         //mogo mech up
         mogo_piston.set_value(0);
         //reverse chain intake
         intake_top_mtr.move(-127);
         pros::delay(300);
         intake_top_mtr.move(0);
-        //move forward by amount
-        chassis->moveDistance(320.0_mm);
-        //turn by angle
-        chassis->turnAngle(93.0_deg);
-        //move forward by amount
-        chassis->moveDistance(-600.0_mm);
-        //mogo mech down
+        //grab mogo
+        corner_mtr.move_absolute(120, 120);
+        chassis->driveToPoint({320_mm,0_mm});
+        chassis->driveToPoint({920_mm,-300_mm}, true);
         mogo_piston.set_value(1);
-        pros::delay(500);
-        //intake on
-        intake_top_mtr.move(0.8*127);
-        intake_bot_mtr.move(0.8*127);
-        //turn by angle
-        chassis->turnAngle(190.0_deg);
-        //move forward by amount with shaking
-        chassis->moveDistance(600.0_mm);
-        intake_top_mtr.move(-0.8*127);
-        pros::delay(200);
-        intake_top_mtr.move(0.8*127);
-        chassis->moveDistance(100.0_mm);
-        intake_top_mtr.move(-0.8*127);
-        pros::delay(200);
-        intake_top_mtr.move(0.8*127);
-        chassis->moveDistance(100.0_mm);
-        intake_top_mtr.move(-0.8*127);
-        pros::delay(200);
-        intake_top_mtr.move(0.8*127);
-        chassis->moveDistance(100.0_mm);
-        intake_top_mtr.move(-0.8*127);
-        pros::delay(200);
-        intake_top_mtr.move(0.8*127);
-        //turn by angle
-        chassis->turnAngle(9.0_deg);
-        //move forward by amount
-        chassis->moveDistance(-250.0_mm);
-        //turn by angle
-        chassis->turnAngle(-140.0_deg);
-        chassis->moveDistance(-600.0_mm);
-        //release mogo
-        mogo_piston.set_value(0);
-        //shake
-        chassis->moveDistance(20.0_mm);
-        chassis->moveDistance(-20.0_mm);
-        chassis->moveDistance(20.0_mm);
-        chassis->moveDistance(-20.0_mm);
-        chassis->moveDistance(20.0_mm);
+
+        //put back arm, grab first ring, and dump preload onto mogo
+        corner_mtr.move_absolute(0, 90);
+        intake_top_mtr.move(90);
+        intake_bot_mtr.move(127);
+        chassis->driveToPoint({870_mm,120_mm});
+    }
+    else if (autonomousSelected == 2){
+        //Right red
+    }
+    else if (autonomousSelected == 2){
+        //Left blue
     }
     else if (autonomousSelected == 4){
         //Skills

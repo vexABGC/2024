@@ -26,7 +26,7 @@ lv_obj_t* lb_button;
 lv_obj_t* skills_button;
 
 //general globals
-int autonomousSelected{4};
+int autonomousSelected{2};
 bool shouldRecord{false};
 int mogoVal{0};
 double lastLF = 0;
