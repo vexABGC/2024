@@ -1,5 +1,7 @@
 # ABGC 2024 - 2025
-The Vex Anti Bevel Gear Coalition's code repository and organization hub for 2024
+The Vex Anti Bevel Gear Coalition's code repository and organization hub for 2024.
+
+This code is permissevely licensed under 0BSD, see the license file for the fine print. 
 
 ## Guidelines
 - Comments are brief descriptions or explanations of logic
