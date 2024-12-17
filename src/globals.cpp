@@ -26,7 +26,7 @@ lv_obj_t* lb_button;
 lv_obj_t* skills_button;
 
 //general globals
-int autonomousSelected{2};
+int autonomousSelected{0};
 bool shouldRecord{false};
 int mogoVal{0};
 double lastLF = 0;
@@ -48,7 +48,7 @@ pros::Motor rm_mtr(RM_PRT, pros::E_MOTOR_GEAR_200, true, pros::E_MOTOR_ENCODER_D
 pros::Motor rb_mtr(RB_PRT, pros::E_MOTOR_GEAR_200, true, pros::E_MOTOR_ENCODER_DEGREES);
 pros::Motor_Group left_mtrs({lf_mtr, lm_mtr, lb_mtr});
 pros::Motor_Group right_mtrs({rf_mtr, rm_mtr, rb_mtr});
-pros::Motor intake_top_mtr(INTAKE_TOP_PRT, pros::E_MOTOR_GEAR_600, false, pros::E_MOTOR_ENCODER_DEGREES);
+pros::Motor intake_top_mtr(INTAKE_TOP_PRT, pros::E_MOTOR_GEAR_600, true, pros::E_MOTOR_ENCODER_DEGREES);
 pros::Motor intake_bot_mtr(INTAKE_BOT_PRT, pros::E_MOTOR_GEAR_100, true, pros::E_MOTOR_ENCODER_DEGREES); 
 pros::Motor_Group intake_mtrs({intake_top_mtr, intake_bot_mtr});
 pros::Motor corner_mtr(CORNER_PRT, pros::E_MOTOR_GEAR_200, true, pros::E_MOTOR_ENCODER_DEGREES);
