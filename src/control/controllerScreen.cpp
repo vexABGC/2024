@@ -31,7 +31,7 @@ std::queue<controllerWarning> currentControllerWarnings;
 // This function should be run by opcontrol as part of its loop.
 // Updates the controller text to match the line strings
 void updateControllerScreen() {
-    if (loopCount % 80 == 0) master.clear();
+    if (loopCount % 80 == 0) {master.clear(); updateLines();}
     else if (loopCount % 80 == 1) partner.clear();
     else if (loopCount % 8 == 2) master.set_text(0, 0, lineone);
     else if (loopCount % 8 == 3) partner.set_text(0, 0, lineone);
@@ -87,6 +87,7 @@ std::vector<std::string> getOverheatingMotors() {
     return overheatingMotorsList;
 }
 
+// Function to add a controller warning to the list to be displayed
 void raiseControllerWarning(std::string line1, std::string line2, char* vibration, int duration) {
     currentControllerWarnings.push({line1, line2, vibration, duration});
 }
