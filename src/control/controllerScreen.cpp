@@ -8,10 +8,11 @@
 // Number of iterations on the controller update loop
 int loopCount = 0;
 
-// Stores each line of the screen to be displayed
+// Stores each line of the screen to be displayed and vibration
 std::string lineone;
 std::string linetwo;
 std::string linethree;
+char* controllerRumble;
 
 // List of overheating motors
 std::vector<std::string> overheatingMotorsList;
@@ -31,14 +32,16 @@ std::queue<controllerWarning> currentControllerWarnings;
 // This function should be run by opcontrol as part of its loop.
 // Updates the controller text to match the line strings
 void updateControllerScreen() {
-    if (loopCount % 80 == 0) {master.clear(); updateLines();}
-    else if (loopCount % 80 == 1) partner.clear();
-    else if (loopCount % 8 == 2) master.set_text(0, 0, lineone);
-    else if (loopCount % 8 == 3) partner.set_text(0, 0, lineone);
-    else if (loopCount % 8 == 4) master.set_text(1, 0, linetwo);
-    else if (loopCount % 8 == 5) partner.set_text(1, 0, linetwo);
-    else if (loopCount % 8 == 6) master.set_text(2, 0, linethree);
-    else if (loopCount % 8 == 7) partner.set_text(2, 0, linethree);
+    if (loopCount % 100 == 0) {master.clear(); updateLines();}
+    else if (loopCount % 100 == 1) partner.clear();
+    else if (loopCount % 10 == 2) master.set_text(0, 0, lineone);
+    else if (loopCount % 10 == 3) partner.set_text(0, 0, lineone);
+    else if (loopCount % 10 == 4) master.set_text(1, 0, linetwo);
+    else if (loopCount % 10 == 5) partner.set_text(1, 0, linetwo);
+    else if (loopCount % 10 == 6) master.set_text(2, 0, linethree);
+    else if (loopCount % 10 == 7) partner.set_text(2, 0, linethree);
+    else if (loopCount % 10 == 8) master.rumble(controllerRumble);
+    else if (loopCount % 10 == 9) partner.rumble(controllerRumble);
 }
 
 // Function to update the line strings with any faults
@@ -47,13 +50,14 @@ void updateLines() {
     lineone = "No detected faults";
     linetwo = "";
     linethree = "";
+    controllerRumble = "";
     
     // Display any current warnings one by one
     if (currentControllerWarnings.size() > 0) {
         lineone = "Warning " + currentControllerWarnings.size();
         linetwo = currentControllerWarnings.front().line1;
         linethree = currentControllerWarnings.front().line2;
-        master.rumble(currentControllerWarnings.front().vibration);
+        controllerRumble = currentControllerWarnings.front().vibration;
         currentControllerWarnings.front().duration --;
         if (currentControllerWarnings.front().duration == 0) currentControllerWarnings.pop();
         return; // don't draw overheating motors on top of warnings
