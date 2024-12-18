@@ -35,10 +35,18 @@ void updateLines() {
     }
 }
 
-//
+// Checks the overheating status of each motor and adds the shorthand of
+// any overheated motors to a list
 std::vector<std::string> getOverheatingMotors() {
     std::vector<std::string> overheatingMotorsList;
-    if (lf_mtr.is_over_temp()) overheatingMotorsList.push_back("LF");
+    if (lf_mtr.is_over_temp()) overheatingMotorsList.push_back("LF ");
+    if (lm_mtr.is_over_temp()) overheatingMotorsList.push_back("LM ");    
+    if (lb_mtr.is_over_temp()) overheatingMotorsList.push_back("LB ");
+    if (rf_mtr.is_over_temp()) overheatingMotorsList.push_back("RF ");    
+    if (rm_mtr.is_over_temp()) overheatingMotorsList.push_back("RM ");
+    if (rb_mtr.is_over_temp()) overheatingMotorsList.push_back("RB ");
+    if (intake_top_mtr.is_over_temp()) overheatingMotorsList.push_back("iT");
+    if (intake_bot_mtr.is_over_temp()) overheatingMotorsList.push_back("iB");
     // TODO: #3 Finish adding an overheat check for each motor
     return overheatingMotorsList;
 }
