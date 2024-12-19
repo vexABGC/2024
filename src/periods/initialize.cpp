@@ -1,4 +1,5 @@
 //includes
+#include "lemlib/api.hpp" // IWYU pragma: keep
 #include "main.h"
 #include "../src/globals.hpp"
 #include "../src/control/buttonMethod.hpp"
@@ -10,6 +11,9 @@
  * to keep execution time for this mode under a few seconds.
  */
 void initialize() {
+    //Calibrate
+    chassis.calibrate();
+    
     //GUI Setup
     //Setup main page
     main_page_style = lv_style_t();

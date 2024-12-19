@@ -1,16 +1,9 @@
 //includes
+#include "lemlib/api.hpp" // IWYU pragma: keep
 #include "main.h"
 #include "../src/globals.hpp"
 #include "../src/control/movement.hpp"
 #include <fstream>
-using namespace okapi;
-
-//auton constants
-#define INPUT_COUNT 300
-#define PI 3.141592653589793
-#define WHEEL_DIAMETER 4.125
-#define WHEEL_TREAD 15.25
-#define TURN_ERROR 300
 
 /**
  * Runs the user autonomous code. This function will be started in its own task
@@ -24,164 +17,49 @@ using namespace okapi;
  * from where it left off.
  */
 void autonomous() {
-    //Setup odom
-    left_mtrs.move_velocity(0);
-    right_mtrs.move_velocity(0);
-    std::shared_ptr<OdomChassisController> chassis = ChassisControllerBuilder()
-        //Green inserts, 4.125" omni wheels, 15" wheel track
-        .withMotors({LF_PRT, LM_PRT, LB_PRT}, {RF_PRT, RM_PRT, RB_PRT})
-        .withGains(
-            //KP,     KI,      KD
-            {0.0055, 0.00015, 0.0002}, //Distance gain
-            {0.0055, 0.00018, 0.0003}, //Turn gains
-            {0.0030, 0.00000, 0.0000}  //Angle gains
-        )
-        .withDimensions(AbstractMotor::gearset::green, {{104.775_mm, 400_mm}, imev5GreenTPR})
-        .withOdometry()
-        .buildOdometry();
-    
-    
-    chassis->setMaxVelocity(50);
-
     //Auton select
     if (autonomousSelected == 0){
-        //Left red
-        chassis->setState({0_in, 0_in, 180_deg});
-        //mogo mech up
-        mogo_piston.set_value(0);
-        //reverse chain intake
-        intake_top_mtr.move(-127);
-        pros::delay(300);
-        intake_top_mtr.move(0);
-        //grab mogo
-        chassis->driveToPoint({380_mm,0_mm}, true);
-        chassis->driveToPoint({920_mm,300_mm}, true);
-        mogo_piston.set_value(1);
-
-        //grab first ring, and dump preload onto mogo
-        intake_top_mtr.move(105);
-        intake_bot_mtr.move(127);
-        chassis->turnToPoint({920_mm,-70_mm});
-        chassis->driveToPoint({920_mm,-70_mm});
+        //Left red (tuning)
+        chassis.turnToHeading(180, 1000, {.maxSpeed = 160}, false);
+        chassis.moveToPoint(0, 23.622, 1000, {.forwards = true, .maxSpeed = 160}, false);
+        return;
     }
     else if (autonomousSelected == 1){
         //Right blue
-        chassis->setState({0_in, 0_in, 180_deg});
-        //mogo mech up
-        mogo_piston.set_value(0);
-        //reverse chain intake
-        intake_top_mtr.move(-127);
-        pros::delay(300);
-        intake_top_mtr.move(0);
-        //grab mogo
-        chassis->driveToPoint({380_mm,0_mm}, true);
-        chassis->driveToPoint({920_mm,-300_mm}, true);
-        mogo_piston.set_value(1);
-
-        //grab first ring, and dump preload onto mogo
-        intake_top_mtr.move(105);
-        intake_bot_mtr.move(127);
-        chassis->turnToPoint({920_mm,70_mm});
-        chassis->driveToPoint({920_mm,70_mm});
     }
     else if (autonomousSelected == 2){
         //Right red
-        chassis->setState({0_in, 0_in, 180_deg});
-        //mogo mech up
-        mogo_piston.set_value(0);
-        //reverse chain intake
-        intake_top_mtr.move(-127);
-        pros::delay(300);
-        intake_top_mtr.move(0);
-        //grab mogo
-        chassis->driveToPoint({380_mm,0_mm}, true);
-        chassis->driveToPoint({920_mm,-300_mm}, true);
-        mogo_piston.set_value(1);
-
-        //grab first ring, and dump preload onto mogo
-        intake_top_mtr.move(105);
-        intake_bot_mtr.move(127);
-        chassis->turnToPoint({920_mm,70_mm});
-        chassis->driveToPoint({920_mm,70_mm});
     }
     else if (autonomousSelected == 3){
         //Left blue
-        chassis->setState({0_in, 0_in, 180_deg});
-        //mogo mech up
-        mogo_piston.set_value(0);
-        //reverse chain intake
-        intake_top_mtr.move(-127);
-        pros::delay(300);
-        intake_top_mtr.move(0);
-        //grab mogo
-        chassis->driveToPoint({380_mm,0_mm}, true);
-        chassis->driveToPoint({920_mm,300_mm}, true);
-        mogo_piston.set_value(1);
-
-        //grab first ring, and dump preload onto mogo
-        intake_top_mtr.move(105);
-        intake_bot_mtr.move(127);
-        chassis->turnToPoint({920_mm,-70_mm});
-        chassis->driveToPoint({920_mm,-70_mm});
     }
     else if (autonomousSelected == 4){
         //Skills
-        chassis->setState({0_in, 0_in, 0_deg});
-        //mogo mech up
+        //Origin
+        chassis.setPose(-62.2, 0, 180);
         mogo_piston.set_value(0);
-        //reverse chain intake
         intake_top_mtr.move(-127);
         pros::delay(300);
         intake_top_mtr.move(0);
-        //grab mogo
-        chassis->driveToPoint({320_mm,0_mm});
-        chassis->turnToPoint({320_mm,-600_mm});
-        chassis->driveToPoint({320_mm,650_mm}, true);
-        mogo_piston.set_value(1);
-        pros::delay(300);
-        chassis->driveToPoint({320_mm,600_mm});
 
-        //score preload, and pick up first two rings
-        intake_top_mtr.move(90);
+        //Mogo 1
+        chassis.moveToPose(-47.2, -23.6, -90, 2000, {.forwards=false, .maxSpeed=160});
+        mogo_piston.set_value(1);
+        intake_top_mtr.move(105);
         intake_bot_mtr.move(127);
-        pros::delay(300);
-        chassis->turnToPoint({320_mm,1200_mm});
-        chassis->driveToPoint({320_mm,1350_mm});
-        pros::delay(700);
 
-        //move back to where mogo was
-        chassis->turnToPoint({320_mm,1600_mm});
-        chassis->driveToPoint({320_mm,600_mm}, true);
+        //First 5 rings to pick up
+        chassis.moveToPoint(-30.6, -23.6, 2000, {.forwards=true, .maxSpeed=160}, false); //1 ring
+        chassis.moveToPoint(-05.0, -54.0, 2000, {.forwards=true, .maxSpeed=160}, false); //1 ring
+        chassis.moveToPoint(-18.6, -52.2, 2000, {.forwards=true, .maxSpeed=160}, false); //1 ring
+        chassis.moveToPoint(-54, -47.8, 2000, {.forwards=true, .maxSpeed=160}, false); //2 rings
 
-        //pick up ring to front-left
-        chassis->turnToPoint({920_mm,1200_mm});
-        chassis->driveToPoint({920_mm,1200_mm});
-        chassis->moveDistance(50_mm);
-
-        //pick up ring even more to front-left
-        chassis->turnToPoint({1520_mm,1500_mm});
-        chassis->driveToPoint({1520_mm,1500_mm});
-        chassis->moveDistance(50_mm);
-
-        //move back to 1st ring pick up area
-        chassis->driveToPoint({320_mm,1200_mm}, true);
-
-        //move to corner
-        chassis->driveToPoint({65_mm,1455_mm}, true);
-        
-        //drop mogo mech
-        mogo_piston.set_value(0);
-        pros::delay(300);
-        mogo_piston.set_value(1);
-        pros::delay(300);
-        mogo_piston.set_value(0);
-
-        //jiggle out mogo mech
-        chassis->moveDistance(100_mm);
-        chassis->moveDistance(-100_mm);
-        chassis->moveDistance(100_mm);
-        chassis->moveDistance(-100_mm);
-        chassis->moveDistance(100_mm);
+        //Deposit in corner
+        chassis.moveToPoint(-47.8, -47.8, 2000, {.forwards=false, .maxSpeed=160}, false);
+        intake_top_mtr.move(0);
+        intake_bot_mtr.move(0);
+        chassis.turnToPoint(-59, -59, 2000, {.forwards=false, .maxSpeed=160}, false);
+        chassis.moveToPoint(-52, -52, 2000, {.forwards=false, .maxSpeed=160}, false);
     }
     else if (autonomousSelected == 5){
         //Replay
@@ -211,7 +89,4 @@ void autonomous() {
         //Disabled auton
         master.rumble(".-.-");
     }
-    pros::delay(1000);
-    chassis->stop();
-    pros::delay(5000);
 }

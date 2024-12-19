@@ -1,4 +1,5 @@
 //includes
+#include "lemlib/api.hpp"
 #include "main.h"
 #include "../src/globals.hpp"
 
@@ -53,3 +54,21 @@ pros::Motor intake_bot_mtr(INTAKE_BOT_PRT, pros::E_MOTOR_GEAR_100, true, pros::E
 pros::Motor_Group intake_mtrs({intake_top_mtr, intake_bot_mtr});
 pros::Motor corner_mtr(CORNER_PRT, pros::E_MOTOR_GEAR_200, true, pros::E_MOTOR_ENCODER_DEGREES);
 pros::ADIDigitalOut mogo_piston(MOGO_PISTON_PRT);
+
+//Setup PID
+//KP   - proportional gain
+//KI   - integral gain
+//KD   - derivative gain
+//AW   - Anti Windup
+//SE   - Small Error
+//SET  - Small Error Timeout
+//LE   - Large Error
+//LET  - Large Error Timeout
+//SLEW - Acceleration                        KP, KI, KD, AW, SE, SET, LE, LET, SLEW
+lemlib::ControllerSettings lateral_controller(10, 0 , 3 , 3 , 1 , 100, 3 , 500, 20  );
+lemlib::ControllerSettings angular_controller(2 , 0 , 10, 3 , 1 , 100, 3 , 500, 0   );
+
+//Setup drive train, sensors, and chassis
+lemlib::Drivetrain drive_train(&left_mtrs, &right_mtrs, 15.25, 4.125, 200, 2);
+lemlib::OdomSensors sensors(nullptr, nullptr, nullptr, nullptr, nullptr);
+lemlib::Chassis chassis(drive_train, lateral_controller, angular_controller, sensors);
