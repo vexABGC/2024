@@ -2,6 +2,7 @@
 #include "main.h"
 #include "../src/globals.hpp"
 #include "../src/control/movement.hpp"
+#include "../src/control/controllerScreen.hpp"
 #include <sstream>
 #include <fstream>
 #include <iomanip>
@@ -156,6 +157,9 @@ void opcontrol() {
             }
             recordCount++;
         }
+
+        updateLines(); // Update the controller screen
+
         pros::delay(50);
         loopCount++;
     }
