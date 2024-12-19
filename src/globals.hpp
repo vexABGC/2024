@@ -37,6 +37,7 @@ extern double lastRB;
 extern int cornerAngle;
 
 //settings
+#define INPUT_COUNT 300
 #define DEAD_ZONE 5
 #define SPEED_MULTIPLIER 0.8
 #define BRAKE_MULTIPLIER 0.6
@@ -75,3 +76,12 @@ extern pros::Motor intake_bot_mtr;
 extern pros::Motor_Group intake_mtrs;
 extern pros::Motor corner_mtr;
 extern pros::ADIDigitalOut mogo_piston;
+
+//Setup PID
+extern lemlib::ControllerSettings lateral_controller;
+extern lemlib::ControllerSettings angular_controller;
+
+//Setup drive train, sensors, and chassis
+extern lemlib::Drivetrain drive_train;
+extern lemlib::OdomSensors sensors;
+extern lemlib::Chassis chassis;
