@@ -95,3 +95,7 @@ std::vector<std::string> getOverheatingMotors() {
 void raiseControllerWarning(std::string line1, std::string line2, char* vibration, int duration) {
     currentControllerWarnings.push({line1, line2, vibration, duration});
 }
+// Also a simple version that only needs one input
+void raiseControllerWarning(std::string errorText) {
+    currentControllerWarnings.push({errorText, "", "", 5});
+}
