@@ -163,7 +163,7 @@ void opcontrol() {
             recordCount++;
         }
         // Autospotter
-        if (COMPETITION_CONNECTED && !autospotterTriggered && autospotterTimer.getTimeSet() > 20000) {
+        if (COMPETITION_CONNECTED && !autospotterTriggered && autospotterTimer.getTimeSet() < 20000) {
             autospotterTriggered = true;
             raiseControllerWarning("Autospotter","Last 20 seconds!",". . .",5);
         }
