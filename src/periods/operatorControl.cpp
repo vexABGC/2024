@@ -6,6 +6,7 @@
 #include <sstream>
 #include <fstream>
 #include <iomanip>
+#include <../include/lemlib/timer.hpp>
 
 //big globals
 char inputsRecord[4200] = {};
@@ -27,12 +28,16 @@ void opcontrol() {
     //Local globals
     int loopCount{0};
     int recordCount{0};
+    bool autospotterTriggered = false;
     lastLF = lf_mtr.get_position();
     lastLM = lm_mtr.get_position();
     lastLB = lb_mtr.get_position();
     lastRF = rf_mtr.get_position();
     lastRM = rm_mtr.get_position();
     lastRB = rb_mtr.get_position();
+
+    // Timer for autospotter set for 1:45
+    lemlib::Timer autospotterTimer = lemlib::Timer(105000);
 
     //Main loop
     while (true){
@@ -156,6 +161,11 @@ void opcontrol() {
                 lv_btn_set_style(record_button, LV_BTN_STYLE_REL, &record_button_style);
             }
             recordCount++;
+        }
+        // Autospotter
+        if (COMPETITION_CONNECTED && !autospotterTriggered && autospotterTimer.getTimeSet() > 20000) {
+            autospotterTriggered = true;
+            raiseControllerWarning("Autospotter","Last 20 seconds!",". . .",5);
         }
 
         updateLines(); // Update the controller screen
