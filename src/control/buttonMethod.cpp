@@ -52,8 +52,11 @@ lv_res_t buttonMethod(lv_obj_t* btn){
                 raiseControllerWarning("Autonomous Disabled");
                 autonomousSelected = 6;
                 sortingEnabled = 0;
+                sortingEnabled = 0;
             }else{
                 //Regular
+                color = 0;
+                sortingEnabled = 1;
                 color = 0;
                 sortingEnabled = 1;
                 lv_btn_set_style(lr_button, LV_BTN_STYLE_REL, &location_button_style_pr);
@@ -82,8 +85,11 @@ lv_res_t buttonMethod(lv_obj_t* btn){
                 raiseControllerWarning("Auton disabled");
                 autonomousSelected = 6;
                 sortingEnabled = 0;
+                sortingEnabled = 0;
             }else{
                 //Regular
+                color = 1;
+                sortingEnabled = 1;
                 color = 1;
                 sortingEnabled = 1;
                 lv_btn_set_style(rb_button, LV_BTN_STYLE_REL, &location_button_style_pr);
@@ -112,8 +118,11 @@ lv_res_t buttonMethod(lv_obj_t* btn){
                 raiseControllerWarning("Auton disabled");  
                 autonomousSelected = 6;
                 sortingEnabled = 0;
+                sortingEnabled = 0;
             }else{
                 //Regular
+                color = 0;
+                sortingEnabled = 1;
                 color = 0;
                 sortingEnabled = 1;
                 lv_btn_set_style(rr_button, LV_BTN_STYLE_REL, &location_button_style_pr);
@@ -142,8 +151,11 @@ lv_res_t buttonMethod(lv_obj_t* btn){
                 raiseControllerWarning("Auton disabled");
                 autonomousSelected = 6;
                 sortingEnabled = 0;
+                sortingEnabled = 0;
             }else{
                 //Regular
+                color = 1;
+                sortingEnabled = 1;
                 color = 1;
                 sortingEnabled = 1;
                 lv_btn_set_style(lb_button, LV_BTN_STYLE_REL, &location_button_style_pr);
@@ -172,8 +184,11 @@ lv_res_t buttonMethod(lv_obj_t* btn){
                 raiseControllerWarning("Auton disabled");
                 autonomousSelected = 6;
                 sortingEnabled = 0;
+                sortingEnabled = 0;
             }else{
                 //Regular
+                color = 0;
+                sortingEnabled = 1;
                 color = 0;
                 sortingEnabled = 1;
                 lv_btn_set_style(skills_button, LV_BTN_STYLE_REL, &location_button_style_pr);
