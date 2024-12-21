@@ -85,8 +85,8 @@ std::vector<std::string> getOverheatingMotors() {
     if (rf_mtr.is_over_temp()) overheatingMotorsList.push_back("RF ");    
     if (rm_mtr.is_over_temp()) overheatingMotorsList.push_back("RM ");
     if (rb_mtr.is_over_temp()) overheatingMotorsList.push_back("RB ");
-    if (intake_top_mtr.is_over_temp()) overheatingMotorsList.push_back("iT");
-    if (intake_bot_mtr.is_over_temp()) overheatingMotorsList.push_back("iB");
+    if (intake_top_mtr.is_over_temp()) overheatingMotorsList.push_back("iT ");
+    if (intake_bot_mtr.is_over_temp()) overheatingMotorsList.push_back("iB ");
     
     return overheatingMotorsList;
 }
