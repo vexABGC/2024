@@ -156,6 +156,10 @@ void initialize() {
     lv_obj_set_free_num(skills_button, 7);
     lv_btn_set_action(skills_button, LV_BTN_ACTION_CLICK, buttonMethod);
 
+    //Intake setup (set active with red)
+    color = 0;
+    sortingEnabled = true;
+
     //Motor and piston setup
     lf_mtr.tare_position();
     lm_mtr.tare_position();

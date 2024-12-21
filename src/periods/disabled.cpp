@@ -9,6 +9,9 @@
  * the robot is enabled, this task will exit.
  */
 void disabled() {
+    //Destroy intake thread
+    intakeThread.remove();
+    
     //End movement
     int inputs[14] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0};
     movement(inputs);

@@ -1,6 +1,7 @@
 //includes
 #include "main.h"
 #include "../src/globals.hpp"
+#include "../src/control/intakeController.hpp"
 #include "../src/control/movement.hpp"
 #include <sstream>
 #include <fstream>
@@ -32,6 +33,9 @@ void opcontrol() {
     lastRF = rf_mtr.get_position();
     lastRM = rm_mtr.get_position();
     lastRB = rb_mtr.get_position();
+
+    //Spawn intake thread
+    intakeThread.create(intakeHandler, "Intake Handler");
 
     //Main loop
     while (true){

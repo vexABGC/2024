@@ -101,21 +101,22 @@ void movement(int inputs[14]){
         mogo_piston.set_value(mogoVal % 2);
     }
 
+    //Sorting
+    if (masterNewB || partnerNewB){
+        sortingEnabled = !sortingEnabled;
+    }
+
     //Intake top
     if (masterCurR1 || masterCurR2){
         //Master control
-        intake_top_mtr.move(127 * (
-            masterCurR1 - masterCurR2
-        ));
+        intakeTopAmount = 127 * (masterCurR1 - masterCurR2);
     }else if (partnerCurR1 || partnerCurR2){
         //Partner control
-        intake_top_mtr.move(127 * (
-            partnerCurR1 - partnerCurR2
-        ));
+        intakeTopAmount = 127 * (partnerCurR1 - partnerCurR2);
     }else if (partnerRightY != 0){
-        intake_top_mtr.move(partnerRightY);
+        intakeTopAmount = partnerRightY;
     }else{
-        intake_top_mtr.move(0);
+        intakeTopAmount = 0;
     }
 
     //Intake bottom
