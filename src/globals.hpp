@@ -1,5 +1,7 @@
 //include
 #include "main.h"
+#include <atomic>
+#include <memory>
 
 //GUI style/object declarations
 extern lv_style_t main_page_style;
@@ -35,6 +37,10 @@ extern double lastRF;
 extern double lastRM;
 extern double lastRB;
 extern int cornerAngle;
+extern int color;
+extern std::atomic<bool> sortingEnabled;
+extern std::atomic<int> intakeTopAmount;
+extern pros::Task intakeThread;
 
 //settings
 #define INPUT_COUNT 300
@@ -58,6 +64,7 @@ extern int cornerAngle;
 #define INTAKE_TOP_PRT 4
 #define INTAKE_BOT_PRT 3
 #define CORNER_PRT 2
+#define COLOR_SENSOR_PRT 1
 #define MOGO_PISTON_PRT 'A'
 
 //electronics
@@ -76,6 +83,7 @@ extern pros::Motor intake_bot_mtr;
 extern pros::Motor_Group intake_mtrs;
 extern pros::Motor corner_mtr;
 extern pros::ADIDigitalOut mogo_piston;
+extern pros::Optical color_sensor;
 
 //Setup PID
 extern lemlib::ControllerSettings lateral_controller;

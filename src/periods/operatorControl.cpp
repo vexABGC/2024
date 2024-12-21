@@ -1,6 +1,7 @@
 //includes
 #include "main.h"
 #include "../src/globals.hpp"
+#include "../src/control/intakeController.hpp"
 #include "../src/control/movement.hpp"
 #include "../src/control/controllerScreen.hpp"
 #include <sstream>
@@ -35,6 +36,9 @@ void opcontrol() {
     lastRF = rf_mtr.get_position();
     lastRM = rm_mtr.get_position();
     lastRB = rb_mtr.get_position();
+
+    //Spawn intake thread
+    intakeThread.create(intakeHandler, "Intake Handler");
 
     // Timer for autospotter set for 1:45
     lemlib::Timer autospotterTimer = lemlib::Timer(105000);

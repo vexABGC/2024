@@ -2,6 +2,9 @@
 #include "lemlib/api.hpp"
 #include "main.h"
 #include "../src/globals.hpp"
+#include <atomic>
+#include <memory>
+
 
 //GUI style/object declarations
 lv_style_t main_page_style;
@@ -37,6 +40,10 @@ double lastRF = 0;
 double lastRM = 0;
 double lastRB = 0;
 int cornerAngle = 0;
+int color = 0;
+std::atomic<bool> sortingEnabled = true;
+std::atomic<int> intakeTopAmount = 0;
+pros::Task intakeThread();
 
 //electronics
 pros::Controller master(pros::E_CONTROLLER_MASTER);
@@ -50,9 +57,10 @@ pros::Motor rb_mtr(RB_PRT, pros::E_MOTOR_GEAR_200, true, pros::E_MOTOR_ENCODER_D
 pros::Motor_Group left_mtrs({lf_mtr, lm_mtr, lb_mtr});
 pros::Motor_Group right_mtrs({rf_mtr, rm_mtr, rb_mtr});
 pros::Motor intake_top_mtr(INTAKE_TOP_PRT, pros::E_MOTOR_GEAR_600, true, pros::E_MOTOR_ENCODER_DEGREES);
-pros::Motor intake_bot_mtr(INTAKE_BOT_PRT, pros::E_MOTOR_GEAR_100, true, pros::E_MOTOR_ENCODER_DEGREES); 
+pros::Motor intake_bot_mtr(INTAKE_BOT_PRT, pros::E_MOTOR_GEAR_200, true, pros::E_MOTOR_ENCODER_DEGREES); 
 pros::Motor_Group intake_mtrs({intake_top_mtr, intake_bot_mtr});
 pros::Motor corner_mtr(CORNER_PRT, pros::E_MOTOR_GEAR_200, true, pros::E_MOTOR_ENCODER_DEGREES);
+pros::Optical color_sensor(COLOR_SENSOR_PRT);
 pros::ADIDigitalOut mogo_piston(MOGO_PISTON_PRT);
 
 //Setup PID

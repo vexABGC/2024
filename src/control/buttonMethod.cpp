@@ -51,8 +51,11 @@ lv_res_t buttonMethod(lv_obj_t* btn){
                 lv_btn_set_style(lr_button, LV_BTN_STYLE_REL, &location_button_style_rel);
                 raiseControllerWarning("Autonomous Disabled");
                 autonomousSelected = 6;
+                sortingEnabled = 0;
             }else{
                 //Regular
+                color = 0;
+                sortingEnabled = 1;
                 lv_btn_set_style(lr_button, LV_BTN_STYLE_REL, &location_button_style_pr);
                 raiseControllerWarning("Auton left red");
                 LV_IMG_DECLARE(field_regular);
@@ -75,10 +78,14 @@ lv_res_t buttonMethod(lv_obj_t* btn){
                 LV_IMG_DECLARE(red_x_regular);
                 lv_img_set_src(map_image, &red_x_regular);
                 lv_btn_set_style(rb_button, LV_BTN_STYLE_REL, &location_button_style_rel); 
+                lv_btn_set_style(skills_button, LV_BTN_STYLE_REL, &location_button_style_rel);
                 raiseControllerWarning("Auton disabled");
                 autonomousSelected = 6;
+                sortingEnabled = 0;
             }else{
                 //Regular
+                color = 1;
+                sortingEnabled = 1;
                 lv_btn_set_style(rb_button, LV_BTN_STYLE_REL, &location_button_style_pr);
                 raiseControllerWarning("Auton right blue");
                 LV_IMG_DECLARE(field_regular);
@@ -104,8 +111,11 @@ lv_res_t buttonMethod(lv_obj_t* btn){
                 lv_btn_set_style(rr_button, LV_BTN_STYLE_REL, &location_button_style_rel); 
                 raiseControllerWarning("Auton disabled");  
                 autonomousSelected = 6;
+                sortingEnabled = 0;
             }else{
                 //Regular
+                color = 0;
+                sortingEnabled = 1;
                 lv_btn_set_style(rr_button, LV_BTN_STYLE_REL, &location_button_style_pr);
                 raiseControllerWarning("Auton right red");
                 LV_IMG_DECLARE(field_regular);
@@ -131,8 +141,11 @@ lv_res_t buttonMethod(lv_obj_t* btn){
                 lv_btn_set_style(lb_button, LV_BTN_STYLE_REL, &location_button_style_rel); 
                 raiseControllerWarning("Auton disabled");
                 autonomousSelected = 6;
+                sortingEnabled = 0;
             }else{
                 //Regular
+                color = 1;
+                sortingEnabled = 1;
                 lv_btn_set_style(lb_button, LV_BTN_STYLE_REL, &location_button_style_pr);
                 raiseControllerWarning("Auton left blue");
                 LV_IMG_DECLARE(field_regular);
@@ -158,8 +171,11 @@ lv_res_t buttonMethod(lv_obj_t* btn){
                 lv_btn_set_style(skills_button, LV_BTN_STYLE_REL, &location_button_style_rel); 
                 raiseControllerWarning("Auton disabled");
                 autonomousSelected = 6;
+                sortingEnabled = 0;
             }else{
                 //Regular
+                color = 0;
+                sortingEnabled = 1;
                 lv_btn_set_style(skills_button, LV_BTN_STYLE_REL, &location_button_style_pr);
                 raiseControllerWarning("Skills Auton");
                 LV_IMG_DECLARE(field_skills);
