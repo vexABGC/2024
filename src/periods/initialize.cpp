@@ -3,6 +3,7 @@
 #include "main.h"
 #include "../src/globals.hpp"
 #include "../src/control/buttonMethod.hpp"
+#include "../src/control/controllerScreen.hpp"
 
 /**
  * Runs initialization code. This occurs as soon as the program is started.
@@ -173,7 +174,5 @@ void initialize() {
     lastRF = 0;
     lastRM = 0;
     lastRB = 0;
-    master.set_text(0, 0, "Auton left red");
-    pros::delay(50);
-    master.set_text(0, 0, "Auton left red");
+    raiseControllerWarning("Auton left red");
 }

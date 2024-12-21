@@ -43,15 +43,6 @@ void opcontrol() {
     // Timer for autospotter set for 1:45
     lemlib::Timer autospotterTimer = lemlib::Timer(105000);
 
-    //Spawn intake thread
-    intakeThread.create(intakeHandler, "Intake Handler");
-
-<<<<<<< HEAD
-    // Timer for autospotter set for 1:45
-    lemlib::Timer autospotterTimer = lemlib::Timer(105000);
-
-=======
->>>>>>> origin/master
     //Main loop
     while (true){
 
