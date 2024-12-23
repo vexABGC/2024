@@ -3,9 +3,11 @@
 #include "../src/globals.hpp"
 #include "../src/control/intakeController.hpp"
 #include "../src/control/movement.hpp"
+#include "../src/control/controllerScreen.hpp"
 #include <sstream>
 #include <fstream>
 #include <iomanip>
+#include <../include/lemlib/timer.hpp>
 
 //big globals
 char inputsRecord[4200] = {};
@@ -27,6 +29,7 @@ void opcontrol() {
     //Local globals
     int loopCount{0};
     int recordCount{0};
+    bool autospotterTriggered = false;
     lastLF = lf_mtr.get_position();
     lastLM = lm_mtr.get_position();
     lastLB = lb_mtr.get_position();
@@ -37,52 +40,11 @@ void opcontrol() {
     //Spawn intake thread
     intakeThread.create(intakeController, "Intake Handler");
 
+    // Timer for autospotter set for 1:45
+    lemlib::Timer autospotterTimer = lemlib::Timer(105000);
+
     //Main loop
     while (true){
-        //Controller screen overheat display (staggered to not violate 50ms in between updates)
-        if (loopCount % 80 == 0){
-            master.clear();
-        }
-        else if (loopCount % 80 == 1){
-            partner.clear();
-        }
-        else if (loopCount % 8 == 2){
-            std::stringstream line("");
-            line << "LF-" << (lf_mtr.is_over_temp() != 0) << " ";
-            line << "LM-" << (lm_mtr.is_over_temp() != 0) << " ";
-            line << "LB-" << (lb_mtr.is_over_temp() != 0);
-            master.set_text(0, 0, line.str());
-        }else if (loopCount % 8 == 3){
-            std::stringstream line("");
-            line << "LF-" << (lf_mtr.is_over_temp() != 0) << " ";
-            line << "LM-" << (lm_mtr.is_over_temp() != 0) << " ";
-            line << "LB-" << (lb_mtr.is_over_temp() != 0);
-            partner.set_text(0, 0, line.str());
-        }else if (loopCount % 8 == 4){
-            std::stringstream line("");
-            line << "RF-" << (rf_mtr.is_over_temp() != 0) << " ";
-            line << "RM-" << (rm_mtr.is_over_temp() != 0) << " ";
-            line << "RB-" << (rb_mtr.is_over_temp() != 0);
-            master.set_text(1, 0, line.str());
-        }else if (loopCount % 8 == 5){
-            std::stringstream line("");
-            line << "RF-" << (rf_mtr.is_over_temp() != 0) << " ";
-            line << "RM-" << (rm_mtr.is_over_temp() != 0) << " ";
-            line << "RB-" << (rb_mtr.is_over_temp() != 0);
-            partner.set_text(1, 0, line.str());
-        }else if (loopCount % 8 == 6){
-            std::stringstream line("");
-            line << "BOT-" << (intake_bot_mtr.is_over_temp() != 0) << " ";
-            line << "TOP-" << (intake_top_mtr.is_over_temp() != 0) << " ";
-            line << "MC-" << mogoVal;
-            master.set_text(2, 0, line.str());
-        }else if (loopCount % 8 == 7){
-            std::stringstream line("");
-            line << "BOT-" << (intake_bot_mtr.is_over_temp() != 0) << " ";
-            line << "TOP-" << (intake_top_mtr.is_over_temp() != 0) << " ";
-            line << "MC-" << mogoVal;
-            partner.set_text(2, 0, line.str());
-        }
 
         //Take inputs
         char triggersMaster =
@@ -204,6 +166,14 @@ void opcontrol() {
             }
             recordCount++;
         }
+        // Autospotter
+        if (COMPETITION_CONNECTED && !autospotterTriggered && autospotterTimer.getTimeSet() < 20000) {
+            autospotterTriggered = true;
+            raiseControllerWarning("Autospotter","Last 20 seconds!",". . .",5);
+        }
+
+        updateLines(); // Update the controller screen
+
         pros::delay(50);
         loopCount++;
     }
