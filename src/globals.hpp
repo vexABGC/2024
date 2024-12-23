@@ -1,4 +1,5 @@
 //include
+#include "lemlib/api.hpp"
 #include "main.h"
 #include <atomic>
 #include <memory>
@@ -65,6 +66,9 @@ extern pros::Task intakeThread;
 #define INTAKE_BOT_PRT 3
 #define CORNER_PRT 2
 #define COLOR_SENSOR_PRT 1
+#define V_ENCODER_PRT 11
+#define H_ENCODER_PRT 12
+#define IMU_PRT 13
 #define MOGO_PISTON_PRT 'A'
 
 //electronics
@@ -82,14 +86,19 @@ extern pros::Motor intake_top_mtr;
 extern pros::Motor intake_bot_mtr;
 extern pros::Motor_Group intake_mtrs;
 extern pros::Motor corner_mtr;
-extern pros::ADIDigitalOut mogo_piston;
 extern pros::Optical color_sensor;
+extern pros::Rotation v_encoder;
+extern pros::Rotation h_encoder;
+extern pros::Imu imu;
+extern pros::ADIDigitalOut mogo_piston;
 
-//Setup PID
+//setup PID
 extern lemlib::ControllerSettings lateral_controller;
 extern lemlib::ControllerSettings angular_controller;
 
-//Setup drive train, sensors, and chassis
+//setup drive train, sensors, and chassis
 extern lemlib::Drivetrain drive_train;
+extern lemlib::TrackingWheel v_tracking_wheel;
+extern lemlib::TrackingWheel h_tracking_wheel;
 extern lemlib::OdomSensors sensors;
 extern lemlib::Chassis chassis;

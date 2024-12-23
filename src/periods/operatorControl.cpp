@@ -35,7 +35,7 @@ void opcontrol() {
     lastRB = rb_mtr.get_position();
 
     //Spawn intake thread
-    intakeThread.create(intakeHandler, "Intake Handler");
+    intakeThread.create(intakeController, "Intake Handler");
 
     //Main loop
     while (true){

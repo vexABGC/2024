@@ -20,12 +20,33 @@ void autonomous() {
     //Auton select
     if (autonomousSelected == 0){
         //Left red (tuning)
+        chassis.setPose(0, 0 ,0);
         chassis.turnToHeading(180, 1000, {.maxSpeed = 160}, false);
         chassis.moveToPoint(0, 23.622, 1000, {.forwards = true, .maxSpeed = 160}, false);
         return;
     }
     else if (autonomousSelected == 1){
-        //Right blue
+        //Right blue (demo)
+        chassis.setPose(0, 0, 0);
+        //top left
+        chassis.moveToPoint(0,47.244,5000, {.forwards = true, .maxSpeed = 400});
+
+        //top right
+        chassis.turnToPoint(118.11,47.244,5000, {.forwards = true, .maxSpeed = 400});
+        chassis.moveToPoint(118.11,47.244,5000, {.forwards = true, .maxSpeed = 400});
+
+        //bottom right backwards
+        chassis.turnToPoint(118.11,0,5000, {.forwards = false, .maxSpeed = 400});
+        chassis.moveToPoint(118.11,0,5000, {.forwards = false, .maxSpeed = 400});
+
+        //top left backwards
+        chassis.turnToPoint(0,47.244,5000, {.forwards = false, .maxSpeed = 400});
+        chassis.moveToPoint(0,47.244,5000, {.forwards = false, .maxSpeed = 400});
+
+        //return to start pose (backwards)
+        chassis.turnToPoint(0,0,5000, {.forwards = false, .maxSpeed = 400});
+        chassis.moveToPoint(0,0,5000, {.forwards = false, .maxSpeed = 400});
+        chassis.turnToHeading(0,5000, {.maxSpeed = 400});
     }
     else if (autonomousSelected == 2){
         //Right red

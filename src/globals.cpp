@@ -43,7 +43,7 @@ int cornerAngle = 0;
 int color = 0;
 std::atomic<bool> sortingEnabled = true;
 std::atomic<int> intakeTopAmount = 0;
-pros::Task intakeThread();
+pros::Task intakeThread = NULL;
 
 //electronics
 pros::Controller master(pros::E_CONTROLLER_MASTER);
@@ -61,9 +61,12 @@ pros::Motor intake_bot_mtr(INTAKE_BOT_PRT, pros::E_MOTOR_GEAR_200, true, pros::E
 pros::Motor_Group intake_mtrs({intake_top_mtr, intake_bot_mtr});
 pros::Motor corner_mtr(CORNER_PRT, pros::E_MOTOR_GEAR_200, true, pros::E_MOTOR_ENCODER_DEGREES);
 pros::Optical color_sensor(COLOR_SENSOR_PRT);
+pros::Rotation v_encoder(V_ENCODER_PRT);
+pros::Rotation h_encoder(H_ENCODER_PRT);
+pros::Imu imu(IMU_PRT);
 pros::ADIDigitalOut mogo_piston(MOGO_PISTON_PRT);
 
-//Setup PID
+//setup PID
 //KP   - proportional gain
 //KI   - integral gain
 //KD   - derivative gain
@@ -76,7 +79,9 @@ pros::ADIDigitalOut mogo_piston(MOGO_PISTON_PRT);
 lemlib::ControllerSettings lateral_controller(10, 0 , 3 , 3 , 1 , 100, 3 , 500, 20  );
 lemlib::ControllerSettings angular_controller(2 , 0 , 10, 3 , 1 , 100, 3 , 500, 0   );
 
-//Setup drive train, sensors, and chassis
-lemlib::Drivetrain drive_train(&left_mtrs, &right_mtrs, 15.25, 4.125, 200, 2);
-lemlib::OdomSensors sensors(nullptr, nullptr, nullptr, nullptr, nullptr);
+//setup drive train, sensors, and chassis
+lemlib::Drivetrain drive_train(&left_mtrs, &right_mtrs, 15.25, 3.25, 450, 8);
+lemlib::TrackingWheel v_tracking_wheel(&v_encoder, 3.25, 0);
+lemlib::TrackingWheel h_tracking_wheel(&h_encoder, 3.25, 0);
+lemlib::OdomSensors sensors(&v_tracking_wheel, nullptr, &h_tracking_wheel, nullptr, &imu);
 lemlib::Chassis chassis(drive_train, lateral_controller, angular_controller, sensors);
