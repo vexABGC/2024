@@ -1,13 +1,12 @@
 //includes
 #include "main.h"
+#include "../../include/lemlib/timer.hpp"
 #include "../src/globals.hpp"
-#include "../src/control/intakeController.hpp"
 #include "../src/control/movement.hpp"
 #include "../src/control/controllerScreen.hpp"
 #include <sstream>
 #include <fstream>
 #include <iomanip>
-#include <../include/lemlib/timer.hpp>
 
 //big globals
 char inputsRecord[4200] = {};
@@ -37,10 +36,7 @@ void opcontrol() {
     lastRM = rm_mtr.get_position();
     lastRB = rb_mtr.get_position();
 
-    //Spawn intake thread
-    intakeThread.create(intakeController, "Intake Handler");
-
-    // Timer for autospotter set for 1:45
+    //Timer for autospotter set for 1:45
     lemlib::Timer autospotterTimer = lemlib::Timer(105000);
 
     //Main loop

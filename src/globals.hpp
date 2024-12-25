@@ -39,9 +39,8 @@ extern double lastRM;
 extern double lastRB;
 extern int cornerAngle;
 extern int color;
-extern std::atomic<bool> sortingEnabled;
-extern std::atomic<int> intakeTopAmount;
-extern pros::Task intakeThread;
+extern bool sortingEnabled;
+extern int intakeReversedTime;
 
 //settings
 #define INPUT_COUNT 300

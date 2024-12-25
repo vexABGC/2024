@@ -1,4 +1,5 @@
 #include "main.h"
+#include "../src/control/controllerScreen.hpp"
 #include "../src/globals.hpp"
 #include "../src/control/movement.hpp"
 #include <string>
@@ -12,7 +13,7 @@ int loopCount = 0;
 std::string lineone;
 std::string linetwo;
 std::string linethree;
-char* controllerRumble;
+std::string controllerRumble;
 
 // List of overheating motors
 std::vector<std::string> overheatingMotorsList;
@@ -21,7 +22,7 @@ std::vector<std::string> overheatingMotorsList;
 struct controllerWarning {
     std::string line1;
     std::string line2;
-    char* vibration;
+    std::string vibration;
     int duration;
 };
 
@@ -40,8 +41,8 @@ void updateControllerScreen() {
     else if (loopCount % 10 == 5) partner.set_text(1, 0, linetwo);
     else if (loopCount % 10 == 6) master.set_text(2, 0, linethree);
     else if (loopCount % 10 == 7) partner.set_text(2, 0, linethree);
-    else if (loopCount % 10 == 8) master.rumble(controllerRumble);
-    else if (loopCount % 10 == 9) partner.rumble(controllerRumble);
+    else if (loopCount % 10 == 8) master.rumble(controllerRumble.c_str());
+    else if (loopCount % 10 == 9) partner.rumble(controllerRumble.c_str());
 }
 
 // Function to update the line strings with any faults
@@ -92,7 +93,7 @@ std::vector<std::string> getOverheatingMotors() {
 }
 
 // Function to add a controller warning to the list to be displayed
-void raiseControllerWarning(std::string line1, std::string line2, char* vibration, int duration) {
+void raiseControllerWarning(std::string line1, std::string line2, std::string vibration, int duration) {
     currentControllerWarnings.push({line1, line2, vibration, duration});
 }
 // Also a simple version that only needs one input

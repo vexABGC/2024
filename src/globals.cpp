@@ -41,9 +41,8 @@ double lastRM = 0;
 double lastRB = 0;
 int cornerAngle = 0;
 int color = 0;
-std::atomic<bool> sortingEnabled = true;
-std::atomic<int> intakeTopAmount = 0;
-pros::Task intakeThread = NULL;
+bool sortingEnabled = true;
+int intakeReversedTime = 0;
 
 //electronics
 pros::Controller master(pros::E_CONTROLLER_MASTER);
