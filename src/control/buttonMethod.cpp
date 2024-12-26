@@ -1,10 +1,10 @@
-//includes
+//Includes
 #include "main.h"
 #include "../src/control/buttonMethod.hpp"
 #include "../src/globals.hpp"
 #include "../src/control/controllerScreen.hpp"
 
-//method definition
+//Method definition
 lv_res_t buttonMethod(lv_obj_t* btn){
 	int id = lv_obj_get_free_num(btn);
     std::cout << id << std::endl;

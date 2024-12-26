@@ -1,5 +1,4 @@
-//includes
-#include "lemlib/api.hpp"
+//Includes
 #include "main.h"
 #include "../src/globals.hpp"
 #include <atomic>
@@ -29,7 +28,7 @@ lv_obj_t* rr_button;
 lv_obj_t* lb_button;
 lv_obj_t* skills_button;
 
-//general globals
+//General globals
 int autonomousSelected{0};
 bool shouldRecord{false};
 int mogoVal{0};
@@ -43,7 +42,7 @@ int cornerAngle = 0;
 std::atomic<int> color = 0;
 std::atomic<bool> sortingEnabled = true;
 
-//electronics
+//Electronics
 pros::Controller master(pros::E_CONTROLLER_MASTER);
 pros::Controller partner(pros::E_CONTROLLER_PARTNER);
 pros::Motor lf_mtr(LF_PRT, pros::E_MOTOR_GEAR_200, false, pros::E_MOTOR_ENCODER_DEGREES);
@@ -64,7 +63,7 @@ pros::Rotation h_encoder(H_ENCODER_PRT);
 pros::Imu imu(IMU_PRT);
 pros::ADIDigitalOut mogo_piston(MOGO_PISTON_PRT);
 
-//setup PID
+//Setup PID
 //KP   - proportional gain
 //KI   - integral gain
 //KD   - derivative gain
@@ -77,7 +76,7 @@ pros::ADIDigitalOut mogo_piston(MOGO_PISTON_PRT);
 lemlib::ControllerSettings lateral_controller(10, 0 , 3 , 3 , 1 , 100, 3 , 500, 20  );
 lemlib::ControllerSettings angular_controller(2 , 0 , 10, 3 , 1 , 100, 3 , 500, 0   );
 
-//setup drive train, sensors, and chassis
+//Setup drive train, sensors, and chassis
 lemlib::Drivetrain drive_train(&left_mtrs, &right_mtrs, 15.25, 3.25, 450, 8);
 lemlib::TrackingWheel v_tracking_wheel(&v_encoder, 3.25, 0);
 lemlib::TrackingWheel h_tracking_wheel(&h_encoder, 3.25, 0);

@@ -1,5 +1,4 @@
-//include
-#include "lemlib/api.hpp"
+//Include
 #include "main.h"
 #include <atomic>
 
@@ -26,7 +25,7 @@ extern lv_obj_t* rr_button;
 extern lv_obj_t* lb_button;
 extern lv_obj_t* skills_button;
 
-//general globals
+//General globals
 extern int autonomousSelected;
 extern bool shouldRecord;
 extern int mogoVal;
@@ -40,7 +39,7 @@ extern int cornerAngle;
 extern std::atomic<int> color;
 extern std::atomic<bool> sortingEnabled;
 
-//settings
+//Settings
 #define INPUT_COUNT 300
 #define DEAD_ZONE 5
 #define SPEED_MULTIPLIER 0.8
@@ -52,7 +51,7 @@ extern std::atomic<bool> sortingEnabled;
 #define ARM_VELOCITY_MOVE 60
 #define ARM_VELOCITY_BRAKE 20
 
-//ports
+//Ports
 #define LF_PRT 10
 #define LM_PRT 9
 #define LB_PRT 8
@@ -68,7 +67,7 @@ extern std::atomic<bool> sortingEnabled;
 #define IMU_PRT 13
 #define MOGO_PISTON_PRT 'A'
 
-//electronics
+//Electronics
 extern pros::Controller master;
 extern pros::Controller partner;
 extern pros::Motor lf_mtr;
@@ -89,11 +88,11 @@ extern pros::Rotation h_encoder;
 extern pros::Imu imu;
 extern pros::ADIDigitalOut mogo_piston;
 
-//setup PID
+//Setup PID
 extern lemlib::ControllerSettings lateral_controller;
 extern lemlib::ControllerSettings angular_controller;
 
-//setup drive train, sensors, and chassis
+//Setup drive train, sensors, and chassis
 extern lemlib::Drivetrain drive_train;
 extern lemlib::TrackingWheel v_tracking_wheel;
 extern lemlib::TrackingWheel h_tracking_wheel;

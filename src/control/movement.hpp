@@ -1,5 +1,5 @@
-//includes
+//Includes
 #include "main.h"
 
-//method declaration
+//Method declaration
 void movement(int inputs[14]);

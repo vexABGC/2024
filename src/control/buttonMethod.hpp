@@ -1,5 +1,5 @@
-//includes
+//Includes
 #include "main.h"
 
-//method declaration
+//Method declaration
 lv_res_t buttonMethod(lv_obj_t* btn);

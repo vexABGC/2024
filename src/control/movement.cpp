@@ -95,7 +95,7 @@ void movement(int inputs[14]){
         rb_mtr.move_absolute(lastRB, 200 * BRAKE_MULTIPLIER);
     }
 
-    //Pneumatics
+    //Mogo mech
     if (masterNewY || partnerNewY){
         mogoVal++;
         mogo_piston.set_value(mogoVal % 2);

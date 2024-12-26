@@ -1,3 +1,4 @@
+//Includes
 #include "main.h"
 #include "../src/control/controllerScreen.hpp"
 #include "../src/globals.hpp"
@@ -6,19 +7,19 @@
 #include <tuple>
 #include <queue>
 
-// Number of iterations on the controller update loop
+//Number of iterations on the controller update loop
 int loopCount = 0;
 
-// Stores each line of the screen to be displayed and vibration
+//Stores each line of the screen to be displayed and vibration
 std::string lineone;
 std::string linetwo;
 std::string linethree;
 std::string controllerRumble;
 
-// List of overheating motors
+//List of overheating motors
 std::vector<std::string> overheatingMotorsList;
 
-// Format for a controller popup warning
+//Format for a controller popup warning
 struct controllerWarning {
     std::string line1;
     std::string line2;
@@ -26,12 +27,12 @@ struct controllerWarning {
     int duration;
 };
 
-// List of current errors
+//List of current errors
 std::queue<controllerWarning> currentControllerWarnings;
 
 
-// This function should be run by opcontrol as part of its loop.
-// Updates the controller text to match the line strings
+//This function should be run by opcontrol as part of its loop.
+//Updates the controller text to match the line strings
 void updateControllerScreen() {
     if (loopCount % 100 == 0) {master.clear(); updateLines();}
     else if (loopCount % 100 == 1) partner.clear();
@@ -45,15 +46,15 @@ void updateControllerScreen() {
     else if (loopCount % 10 == 9) partner.rumble(controllerRumble.c_str());
 }
 
-// Function to update the line strings with any faults
+//Function to update the line strings with any faults
 void updateLines() {
-    // Default line values
+    //Default line values
     lineone = "No detected faults";
     linetwo = "";
     linethree = "";
     controllerRumble = "";
     
-    // Display any current warnings one by one
+    //Display any current warnings one by one
     if (currentControllerWarnings.size() > 0) {
         lineone = "Warning " + currentControllerWarnings.size();
         linetwo = currentControllerWarnings.front().line1;
@@ -61,10 +62,10 @@ void updateLines() {
         controllerRumble = currentControllerWarnings.front().vibration;
         currentControllerWarnings.front().duration --;
         if (currentControllerWarnings.front().duration == 0) currentControllerWarnings.pop();
-        return; // don't draw overheating motors on top of warnings
+        return; //Don't draw overheating motors on top of warnings
     }
 
-    // Display any overheating motors if present 
+    //Display any overheating motors if present 
     overheatingMotorsList = getOverheatingMotors();
     if (overheatingMotorsList.size() > 0) {
         lineone = "Overheated Motors---";
@@ -75,8 +76,8 @@ void updateLines() {
     }
 }
 
-// Checks the overheating status of each motor and adds the shorthand of
-// any overheated motors to a list
+//Checks the overheating status of each motor and adds the shorthand of
+//any overheated motors to a list
 std::vector<std::string> getOverheatingMotors() {
     std::vector<std::string> overheatingMotorsList;
 
@@ -92,11 +93,11 @@ std::vector<std::string> getOverheatingMotors() {
     return overheatingMotorsList;
 }
 
-// Function to add a controller warning to the list to be displayed
+//Function to add a controller warning to the list to be displayed
 void raiseControllerWarning(std::string line1, std::string line2, std::string vibration, int duration) {
     currentControllerWarnings.push({line1, line2, vibration, duration});
 }
-// Also a simple version that only needs one input
+//Also a simple version that only needs one input
 void raiseControllerWarning(std::string errorText) {
     currentControllerWarnings.push({errorText, "", "", 5});
 }

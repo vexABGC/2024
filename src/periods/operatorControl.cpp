@@ -1,4 +1,4 @@
-//includes
+//Includes
 #include "main.h"
 #include "../../include/lemlib/timer.hpp"
 #include "../src/globals.hpp"
@@ -8,7 +8,7 @@
 #include <fstream>
 #include <iomanip>
 
-//big globals
+//Big globals
 char inputsRecord[4200] = {};
 
 /**

@@ -1,4 +1,4 @@
-//includes
+//Includes
 #include "main.h"
 #include "../src/control/movement.hpp"
 #include "../src/globals.hpp"

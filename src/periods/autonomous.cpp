@@ -1,5 +1,4 @@
-//includes
-#include "lemlib/api.hpp" // IWYU pragma: keep
+//Includes
 #include "main.h"
 #include "../src/globals.hpp"
 #include "../src/control/movement.hpp"
@@ -28,22 +27,23 @@ void autonomous() {
     else if (autonomousSelected == 1){
         //Right blue (demo)
         chassis.setPose(0, 0, 0);
-        //top left
+
+        //Top left
         chassis.moveToPoint(0,47.244,5000, {.forwards = true, .maxSpeed = 400});
 
-        //top right
+        //Top right
         chassis.turnToPoint(118.11,47.244,5000, {.forwards = true, .maxSpeed = 400});
         chassis.moveToPoint(118.11,47.244,5000, {.forwards = true, .maxSpeed = 400});
 
-        //bottom right backwards
+        //Bottom right backwards
         chassis.turnToPoint(118.11,0,5000, {.forwards = false, .maxSpeed = 400});
         chassis.moveToPoint(118.11,0,5000, {.forwards = false, .maxSpeed = 400});
 
-        //top left backwards
+        //Top left backwards
         chassis.turnToPoint(0,47.244,5000, {.forwards = false, .maxSpeed = 400});
         chassis.moveToPoint(0,47.244,5000, {.forwards = false, .maxSpeed = 400});
 
-        //return to start pose (backwards)
+        //Return to start pose (backwards)
         chassis.turnToPoint(0,0,5000, {.forwards = false, .maxSpeed = 400});
         chassis.moveToPoint(0,0,5000, {.forwards = false, .maxSpeed = 400});
         chassis.turnToHeading(0,5000, {.maxSpeed = 400});

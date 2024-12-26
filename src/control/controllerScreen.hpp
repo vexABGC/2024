@@ -1,7 +1,7 @@
-// Includes
+//Includes
 #include "main.h"
 
-// Method Declaration
+//Method Declaration
 void raiseControllerWarning(std::string line1, std::string line2, std::string vibration, int duration);
 void raiseControllerWarning(std::string errorText);
 void updateLines();
