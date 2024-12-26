@@ -40,9 +40,8 @@ double lastRF = 0;
 double lastRM = 0;
 double lastRB = 0;
 int cornerAngle = 0;
-int color = 0;
-bool sortingEnabled = true;
-int intakeReversedTime = 0;
+std::atomic<int> color = 0;
+std::atomic<bool> sortingEnabled = true;
 
 //electronics
 pros::Controller master(pros::E_CONTROLLER_MASTER);

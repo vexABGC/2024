@@ -106,66 +106,6 @@ void movement(int inputs[14]){
         sortingEnabled = !sortingEnabled;
     }
 
-    //Intake top
-    //Get amount desired
-    int intakeTopAmount = 0;
-    if (masterCurR1 || masterCurR2){
-        //Master control
-        intakeTopAmount = 127 * (masterCurR1 - masterCurR2);
-    }else if (partnerCurR1 || partnerCurR2){
-        //Partner control
-        intakeTopAmount = 127 * (partnerCurR1 - partnerCurR2);
-    }else if (partnerRightY != 0){
-        intakeTopAmount = partnerRightY;
-    }
-
-    //Update intake
-    //Check if sorting enabled
-    if (sortingEnabled){
-        //Sorting enabled
-        int detectedColor = 3; //Error color
-
-        //Check if ring is near
-        if (color_sensor.get_proximity() > 150){
-            //Check ring color 
-            if (color_sensor.get_hue() < 30 || color_sensor.get_hue() > 330){
-                //Red ring
-                detectedColor = 0;
-            }else if(color_sensor.get_hue() > 150 && color_sensor.get_hue() < 270){
-                //Blue ring
-                detectedColor = 1;
-            }else if(color_sensor.get_hue() > 30 && color_sensor.get_hue() < 60){
-                //Teammate's hand
-                detectedColor = 2;
-            }
-        }
-
-        //Update direction if wrong color
-        if((detectedColor + 1) % 2 == color){
-            //Wrong ring, force a 300ms reversal
-            intakeReversedTime = pros::millis() + 300;
-            intake_top_mtr.move(-127);
-        }else if(pros::millis() < intakeReversedTime){
-            //Wrong ring less than 300ms ago, force reverse
-            intake_top_mtr.move(-127);
-        }else if (detectedColor == 3){
-            //Error color, allow input as normal
-            intake_top_mtr.move(intakeTopAmount);
-        }else if(detectedColor == 2){
-            //Shred teammate's hand
-            intake_top_mtr.move(0.8 * 127);
-        }else if (detectedColor == color){
-            //Correct ring, allow input as normal
-            intake_top_mtr.move(intakeTopAmount);
-        }else{
-            //Error, should not occur, just allow normal input
-            intake_top_mtr.move(intakeTopAmount);
-        }
-    }else {
-        //Sorting disabled
-        intake_top_mtr.move(intakeTopAmount);
-    }
-
     //Intake bottom
     if (masterCurL1 || masterCurL2){
         //Master control

@@ -4,6 +4,7 @@
 #include "../src/globals.hpp"
 #include "../src/control/buttonMethod.hpp"
 #include "../src/control/controllerScreen.hpp"
+#include "../src/control/intakeController.hpp"
 
 /**
  * Runs initialization code. This occurs as soon as the program is started.
@@ -157,9 +158,8 @@ void initialize() {
     lv_obj_set_free_num(skills_button, 7);
     lv_btn_set_action(skills_button, LV_BTN_ACTION_CLICK, buttonMethod);
 
-    //Intake setup (set active with red)
-    color = 0;
-    sortingEnabled = true;
+    //Intake thread setup
+    pros::Task intakeThread(intakeController);
 
     //Motor and piston setup
     lf_mtr.tare_position();

@@ -2,7 +2,6 @@
 #include "lemlib/api.hpp"
 #include "main.h"
 #include <atomic>
-#include <memory>
 
 //GUI style/object declarations
 extern lv_style_t main_page_style;
@@ -38,9 +37,8 @@ extern double lastRF;
 extern double lastRM;
 extern double lastRB;
 extern int cornerAngle;
-extern int color;
-extern bool sortingEnabled;
-extern int intakeReversedTime;
+extern std::atomic<int> color;
+extern std::atomic<bool> sortingEnabled;
 
 //settings
 #define INPUT_COUNT 300
