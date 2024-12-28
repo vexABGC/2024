@@ -5,6 +5,8 @@
 
 //Method definition
 void intakeController(){
+    //Set color sensor mode
+    color_sensor.disable_gesture();
     //Main loop
     while (true){
         //Check if auton or op control
@@ -17,11 +19,45 @@ void intakeController(){
 
         //Check if sorting enabled
         if (sortingEnabled.load()){
-            //Sorting enabled, not implemented, just run
-            intake_top_mtr.move(0.8 * 127);
+            //Sorting enabled
+            //Check if color detected is close enough
+            if(color_sensor.get_proximity() < 50){
+                //Not close enough, just keep running
+                intake_top_mtr.move(INTAKE_TOP_MULTIPLIER * 127);
+                continue;
+            }
+
+            //Check color, and respond
+            if (color_sensor.get_hue() < 30 || color_sensor.get_hue() > 330){
+                //Red ring detected, check selected color and respond
+                if (color.load() == 0){
+                    //Red ring is enabled, keep moving
+                    intake_top_mtr.move(INTAKE_TOP_MULTIPLIER * 127);
+                }else{
+                    //Blue ring is enabled, expel
+                    intake_top_mtr.move(INTAKE_TOP_MULTIPLIER * -127);
+                    pros::delay(300);
+                }
+            }else if(color_sensor.get_hue() > 150 && color_sensor.get_hue() < 270){
+                //Blue ring, check selected color and respond
+                if (color.load() == 1){
+                    //Blue ring is enabled, keep moving
+                    intake_top_mtr.move(INTAKE_TOP_MULTIPLIER * 127);
+                }else{
+                    //Red ring is enabled, expel
+                    intake_top_mtr.move(INTAKE_TOP_MULTIPLIER * -127);
+                    pros::delay(300);
+                }
+            }else{
+                //Error color, just keep running
+                intake_top_mtr.move(INTAKE_TOP_MULTIPLIER * 127);
+            }
         }else{
             //Sorting not enabled, just run
-            intake_top_mtr.move(0.8 * 127);
+            intake_top_mtr.move(INTAKE_TOP_MULTIPLIER * 127);
         }
+
+        //Standard delay
+        pros::delay(50);
     }
 }
