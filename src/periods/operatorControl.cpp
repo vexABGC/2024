@@ -4,9 +4,8 @@
 #include "../src/globals.hpp"
 #include "../src/control/movement.hpp"
 #include "../src/control/controllerScreen.hpp"
-#include <sstream>
+#include "pros/misc.hpp"
 #include <fstream>
-#include <iomanip>
 
 //Big globals
 char inputsRecord[4200] = {};
@@ -163,7 +162,7 @@ void opcontrol() {
             recordCount++;
         }
         // Autospotter
-        if (COMPETITION_CONNECTED && !autospotterTriggered && autospotterTimer.getTimeSet() < 20000) {
+        if (pros::competition::is_connected() && !autospotterTriggered && autospotterTimer.getTimeSet() < 20000) {
             autospotterTriggered = true;
             raiseControllerWarning("Autospotter","Last 20 seconds!",". . .",5);
         }

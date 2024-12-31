@@ -1,10 +1,8 @@
 //Includes
-#include "main.h"
 #include "../src/control/controllerScreen.hpp"
 #include "../src/globals.hpp"
 #include "../src/control/movement.hpp"
 #include <string>
-#include <tuple>
 #include <queue>
 
 //Number of iterations on the controller update loop
@@ -56,7 +54,7 @@ void updateLines() {
     
     //Display any current warnings one by one
     if (currentControllerWarnings.size() > 0) {
-        lineone = "Warning " + currentControllerWarnings.size();
+        lineone = &"Warning " [ currentControllerWarnings.size()];
         linetwo = currentControllerWarnings.front().line1;
         linethree = currentControllerWarnings.front().line2;
         controllerRumble = currentControllerWarnings.front().vibration;

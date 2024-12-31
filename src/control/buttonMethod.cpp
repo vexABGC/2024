@@ -1,5 +1,4 @@
 //Includes
-#include "main.h"
 #include "../src/control/buttonMethod.hpp"
 #include "../src/globals.hpp"
 #include "../src/control/controllerScreen.hpp"

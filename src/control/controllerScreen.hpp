@@ -1,5 +1,6 @@
 //Includes
-#include "main.h"
+#include <string>
+#include <vector>
 
 //Method Declaration
 void raiseControllerWarning(std::string line1, std::string line2, std::string vibration, int duration);

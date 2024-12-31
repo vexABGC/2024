@@ -1,5 +1,4 @@
 //Includes
-#include "main.h"
 #include "../src/control/movement.hpp"
 #include "../src/globals.hpp"
 
@@ -126,8 +125,7 @@ void movement(int inputs[14]){
     //Corner mech
     if (masterNewRight){
         cornerAngle = (cornerAngle + 170) % 340;
-    }else 
-    if (partnerNewRight){
+    }else if (partnerNewRight){
         cornerAngle = (cornerAngle + 170) % 340;
     }
     corner_mtr.move_absolute(cornerAngle, 50);

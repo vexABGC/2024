@@ -1,5 +1,5 @@
 //Include
-#include "main.h"
+#include "main.h" // IWYU pragma: keep
 #include <atomic>
 
 //GUI style/object declarations

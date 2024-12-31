@@ -1,8 +1,7 @@
 //Includes
-#include "main.h"
+#include "main.h" // IWYU pragma: keep
 #include "../src/globals.hpp"
 #include <atomic>
-#include <memory>
 
 
 //GUI style/object declarations
@@ -58,8 +57,8 @@ pros::Motor intake_bot_mtr(INTAKE_BOT_PRT, pros::E_MOTOR_GEAR_200, true, pros::E
 pros::Motor_Group intake_mtrs({intake_top_mtr, intake_bot_mtr});
 pros::Motor corner_mtr(CORNER_PRT, pros::E_MOTOR_GEAR_200, true, pros::E_MOTOR_ENCODER_DEGREES);
 pros::Optical color_sensor(COLOR_SENSOR_PRT);
-pros::Rotation lv_encoder_(LV_ENCODER_PRT);
-pros::Rotation rv_encoder_(RV_ENCODER_PRT);
+pros::Rotation lv_encoder(LV_ENCODER_PRT);
+pros::Rotation rv_encoder(RV_ENCODER_PRT);
 pros::Rotation h_encoder(H_ENCODER_PRT);
 pros::Imu imu(IMU_PRT);
 pros::ADIDigitalOut mogo_piston(MOGO_PISTON_PRT);
