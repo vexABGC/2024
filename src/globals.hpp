@@ -65,8 +65,7 @@ extern std::atomic<bool> sortingEnabled;
 #define COLOR_SENSOR_PRT 1
 #define LV_ENCODER_PRT 11
 #define RV_ENCODER_PRT 12
-#define H_ENCODER_PRT 13
-#define IMU_PRT 14
+#define IMU_PRT 13
 #define MOGO_PISTON_PRT 'A'
 
 //Electronics
@@ -87,7 +86,6 @@ extern pros::Motor corner_mtr;
 extern pros::Optical color_sensor;
 extern pros::Rotation lv_encoder;
 extern pros::Rotation rv_encoder;
-extern pros::Rotation h_encoder;
 extern pros::Imu imu;
 extern pros::ADIDigitalOut mogo_piston;
 
@@ -99,6 +97,5 @@ extern lemlib::ControllerSettings angular_controller;
 extern lemlib::Drivetrain drive_train;
 extern lemlib::TrackingWheel lv_tracking_wheel;
 extern lemlib::TrackingWheel rv_tracking_wheel;
-extern lemlib::TrackingWheel h_tracking_wheel;
 extern lemlib::OdomSensors sensors;
 extern lemlib::Chassis chassis;
