@@ -21,6 +21,10 @@ double toInch(double mm){
  * from where it left off.
  */
 void autonomous() {
+    //Intake off, and mogo up
+    intakeDirection = 0;
+    mogo_piston.set_value(0);
+
     //Auton select
     if (autonomousSelected == 0){
         //Left red (tuning)
@@ -31,9 +35,11 @@ void autonomous() {
     }
     else if (autonomousSelected == 1){
         //Right blue
-        //Starting position
+        //Starting position, drop intake
         chassis.setPose(toInch(1200), toInch(900), 0);
-        mogo_piston.set_value(0);
+        intakeDirection = -1;
+        pros::delay(400);
+        intakeDirection = 0;
 
         //Pick up mogo
         chassis.moveToPoint(toInch(900), toInch(900), 2000, {.forwards = false, .maxSpeed = 450}, false);
@@ -43,6 +49,8 @@ void autonomous() {
 
         //Pick up first ring
         chassis.turnToPoint(toInch(600), toInch(100), 2000, {.forwards = true, .maxSpeed = 450}, false);
+        intakeDirection = 1;
+        intake_bot_mtr.move(0.7 * 127);
         chassis.moveToPoint(toInch(600), toInch(100), 2000, {.forwards = true, .maxSpeed = 450}, false);
 
         //Pick second/third rings
@@ -55,6 +63,7 @@ void autonomous() {
         //Contact elevation bar
         chassis.moveToPoint(toInch(600), toInch(600), 2000, {.forwards = false, .maxSpeed=450}, false);
         chassis.turnToPoint(toInch(600), toInch(0), 2000, {.forwards = true, .maxSpeed=450}, false);
+        intakeDirection = 0;
         chassis.moveToPoint(toInch(600), toInch(0) + 8, 2000, {.forwards = true, .maxSpeed=450}, false);
     }
     else if (autonomousSelected == 2){
@@ -85,7 +94,6 @@ void autonomous() {
         //Left blue
         //Starting position
         chassis.setPose(toInch(1200), toInch(-900), 0);
-        mogo_piston.set_value(0);
 
         //Pick up mogo
         chassis.moveToPoint(toInch(900), toInch(-900), 2000, {.forwards = false, .maxSpeed = 450}, false);
@@ -105,7 +113,6 @@ void autonomous() {
         //Skills
         //Origin
         chassis.setPose(-62.2, 0, 180);
-        mogo_piston.set_value(0);
         intake_top_mtr.move(-127);
         pros::delay(300);
         intake_top_mtr.move(0);

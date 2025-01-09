@@ -38,13 +38,14 @@ extern double lastRB;
 extern int cornerAngle;
 extern std::atomic<int> color;
 extern std::atomic<bool> sortingEnabled;
+extern std::atomic<int> intakeDirection;
 
 //Settings
 #define INPUT_COUNT 300
 #define DEAD_ZONE 5
 #define SPEED_MULTIPLIER 0.8
 #define BRAKE_MULTIPLIER 0.6
-#define INTAKE_TOP_MULTIPLIER 0.8
+#define INTAKE_TOP_MULTIPLIER 1
 #define ARM_RATIO 5
 #define ARM_LOW_ANGLE 8.92
 #define ARM_MID_ANGLE 80

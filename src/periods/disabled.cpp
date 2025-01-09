@@ -12,4 +12,7 @@ void disabled() {
     //End movement
     int inputs[14] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0};
     movement(inputs);
+
+    //Force reenable intake
+    intakeDirection = 1;
 }

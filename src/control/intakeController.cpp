@@ -6,12 +6,29 @@
 void intakeController(){
     //Set color sensor mode
     color_sensor.disable_gesture();
+
     //Main loop
     while (true){
         //Check if auton or op control
         if (pros::competition::is_disabled()){
             //Disabled, don't run intake
             intake_top_mtr.move(0);
+            pros::delay(50);
+            continue;
+        }
+
+        //Check if off
+        if (intakeDirection.load() == 0){
+            //Intake off, don't run intake
+            intake_top_mtr.move(0);
+            pros::delay(50);
+            continue;
+        }
+
+        //Check if reversed (only used in auton for dropping intake)
+        if (intakeDirection.load() == 0){
+            //Intake reversed, run backwards, no sorting
+            intake_top_mtr.move(-127 * INTAKE_TOP_MULTIPLIER);
             pros::delay(50);
             continue;
         }

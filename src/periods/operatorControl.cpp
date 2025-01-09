@@ -38,6 +38,9 @@ void opcontrol() {
     //Timer for autospotter set for 1:45
     lemlib::Timer autospotterTimer = lemlib::Timer(105000);
 
+    //Force reenable intake
+    intakeDirection = 1;
+
     //Main loop
     while (true){
 

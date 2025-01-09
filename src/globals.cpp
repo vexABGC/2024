@@ -40,6 +40,7 @@ double lastRB = 0;
 int cornerAngle = 0;
 std::atomic<int> color = 0;
 std::atomic<bool> sortingEnabled = false;
+std::atomic<int> intakeDirection = true;
 
 //Electronics
 pros::Controller master(pros::E_CONTROLLER_MASTER);
