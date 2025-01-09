@@ -4,6 +4,11 @@
 #include "../src/control/movement.hpp"
 #include <fstream>
 
+//Methods
+double toInch(double mm){
+    return mm/25.4;
+}
+
 /**
  * Runs the user autonomous code. This function will be started in its own task
  * with the default priority and stack size whenever the robot is enabled via
@@ -25,7 +30,35 @@ void autonomous() {
         return;
     }
     else if (autonomousSelected == 1){
-        //Right blue (demo)
+        //Right blue
+        //Starting position
+        chassis.setPose(toInch(1200), toInch(900), 0);
+        mogo_piston.set_value(0);
+
+        //Pick up mogo
+        chassis.moveToPoint(toInch(900), toInch(900), 2000, {.forwards = false, .maxSpeed = 450}, false);
+        chassis.turnToPoint(toInch(600), toInch(600), 2000, {.forwards = false, .maxSpeed = 450}, false);
+        chassis.moveToPoint(toInch(600), toInch(600), 2000, {.forwards = false, .maxSpeed = 450}, false);
+        mogo_piston.set_value(1);
+
+        //Pick up first ring
+        chassis.turnToPoint(toInch(600), toInch(100), 2000, {.forwards = true, .maxSpeed = 450}, false);
+        chassis.moveToPoint(toInch(600), toInch(100), 2000, {.forwards = true, .maxSpeed = 450}, false);
+
+        //Pick second/third rings
+        chassis.turnToPoint(toInch(0) + 12.5, toInch(1200) - 12.5, 2000, {.forwards = true, .maxSpeed = 450}, false);
+        chassis.moveToPoint(toInch(0) + 12.5, toInch(1200) - 12.5, 2000, {.forwards = true, .maxSpeed = 450}, false);
+        chassis.moveToPoint(toInch(300), toInch(900), 2000, {.forwards = false, .maxSpeed = 450}, false);
+        chassis.turnToPoint(toInch(0) + 12.5, toInch(1200) - 5.5, 2000, {.forwards = true, .maxSpeed = 450}, false);
+        chassis.moveToPoint(toInch(0) + 12.5, toInch(1200) - 5.5, 2000, {.forwards = true, .maxSpeed = 450}, false);
+
+        //Contact elevation bar
+        chassis.moveToPoint(toInch(600), toInch(600), 2000, {.forwards = false, .maxSpeed=450}, false);
+        chassis.turnToPoint(toInch(600), toInch(0), 2000, {.forwards = true, .maxSpeed=450}, false);
+        chassis.moveToPoint(toInch(600), toInch(0) + 8, 2000, {.forwards = true, .maxSpeed=450}, false);
+    }
+    else if (autonomousSelected == 2){
+        //Right red (demo)
         chassis.setPose(0, 0, 0);
 
         //Top left
@@ -48,11 +81,25 @@ void autonomous() {
         chassis.moveToPoint(0,0,5000, {.forwards = false, .maxSpeed = 400});
         chassis.turnToHeading(0,5000, {.maxSpeed = 400});
     }
-    else if (autonomousSelected == 2){
-        //Right red
-    }
     else if (autonomousSelected == 3){
         //Left blue
+        //Starting position
+        chassis.setPose(toInch(1200), toInch(-900), 0);
+        mogo_piston.set_value(0);
+
+        //Pick up mogo
+        chassis.moveToPoint(toInch(900), toInch(-900), 2000, {.forwards = false, .maxSpeed = 450}, false);
+        chassis.turnToPoint(toInch(600), toInch(-600), 2000, {.forwards = false, .maxSpeed = 450}, false);
+        chassis.moveToPoint(toInch(600), toInch(-600), 2000, {.forwards = false, .maxSpeed = 450}, false);
+        mogo_piston.set_value(1);
+
+        //Pick up first ring
+        chassis.turnToPoint(toInch(600), toInch(-100), 2000, {.forwards = true, .maxSpeed = 450}, false);
+        chassis.moveToPoint(toInch(600), toInch(-100), 2000, {.forwards = true, .maxSpeed = 450}, false);
+
+        //Contact elevation bar
+        chassis.turnToPoint(toInch(60), toInch(0), 2000, {.forwards = true, .maxSpeed=450}, false);
+        chassis.moveToPoint(toInch(60), toInch(0) - 8, 2000, {.forwards = true, .maxSpeed=450}, false);
     }
     else if (autonomousSelected == 4){
         //Skills
