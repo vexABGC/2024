@@ -58,8 +58,8 @@ pros::Motor intake_bot_mtr(INTAKE_BOT_PRT, pros::E_MOTOR_GEAR_200, true, pros::E
 pros::Motor_Group intake_mtrs({intake_top_mtr, intake_bot_mtr});
 pros::Motor corner_mtr(CORNER_PRT, pros::E_MOTOR_GEAR_200, true, pros::E_MOTOR_ENCODER_DEGREES);
 pros::Optical color_sensor(COLOR_SENSOR_PRT);
-pros::Rotation lv_encoder(LV_ENCODER_PRT);
-pros::Rotation rv_encoder(RV_ENCODER_PRT);
+pros::Rotation v_encoder(V_ENCODER_PRT);
+pros::Rotation h_encoder(H_ENCODER_PRT);
 pros::Imu imu(IMU_PRT);
 pros::ADIDigitalOut mogo_piston(MOGO_PISTON_PRT);
 
@@ -78,7 +78,7 @@ lemlib::ControllerSettings angular_controller(2 , 0 , 10, 3 , 1 , 100, 3 , 500, 
 
 //Setup drive train, sensors, and chassis
 lemlib::Drivetrain drive_train(&left_mtrs, &right_mtrs, 15.25, 3.25, 450, 8);
-lemlib::TrackingWheel lv_tracking_wheel(&lv_encoder, 3.25, -2);
-lemlib::TrackingWheel rv_tracking_wheel(&rv_encoder, 3.25, 2);
-lemlib::OdomSensors sensors(&lv_tracking_wheel, &rv_tracking_wheel, nullptr, nullptr, &imu);
+lemlib::TrackingWheel v_tracking_wheel(&v_encoder, 3.25, -2);
+lemlib::TrackingWheel h_tracking_wheel(&h_encoder, 3.25, 2);
+lemlib::OdomSensors sensors(&v_tracking_wheel, nullptr , &h_tracking_wheel, nullptr, &imu);
 lemlib::Chassis chassis(drive_train, lateral_controller, angular_controller, sensors);

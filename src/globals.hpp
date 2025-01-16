@@ -64,8 +64,8 @@ extern std::atomic<int> intakeDirection;
 #define INTAKE_BOT_PRT 3
 #define CORNER_PRT 2
 #define COLOR_SENSOR_PRT 1
-#define LV_ENCODER_PRT 11
-#define RV_ENCODER_PRT 12
+#define V_ENCODER_PRT 11
+#define H_ENCODER_PRT 12
 #define IMU_PRT 13
 #define MOGO_PISTON_PRT 'A'
 
@@ -85,8 +85,8 @@ extern pros::Motor intake_bot_mtr;
 extern pros::Motor_Group intake_mtrs;
 extern pros::Motor corner_mtr;
 extern pros::Optical color_sensor;
-extern pros::Rotation lv_encoder;
-extern pros::Rotation rv_encoder;
+extern pros::Rotation v_encoder;
+extern pros::Rotation h_encoder;
 extern pros::Imu imu;
 extern pros::ADIDigitalOut mogo_piston;
 
@@ -96,7 +96,7 @@ extern lemlib::ControllerSettings angular_controller;
 
 //Setup drive train, sensors, and chassis
 extern lemlib::Drivetrain drive_train;
-extern lemlib::TrackingWheel lv_tracking_wheel;
-extern lemlib::TrackingWheel rv_tracking_wheel;
+extern lemlib::TrackingWheel v_tracking_wheel;
+extern lemlib::TrackingWheel h_tracking_wheel;
 extern lemlib::OdomSensors sensors;
 extern lemlib::Chassis chassis;
