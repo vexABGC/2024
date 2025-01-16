@@ -74,25 +74,9 @@ void movement(int inputs[14]){
     partnerRightX = (abs(partnerRightX) < DEAD_ZONE) ? 0 : partnerRightX;
     partnerRightY = (abs(partnerRightY) < DEAD_ZONE) ? 0 : partnerRightY;
 
-    //Movement (manual override to remove position lock to prevent motors from fighting)
-    if (masterLeftY != 0 || masterRightX != 0 || true){
-        left_mtrs.move(SPEED_MULTIPLIER * (masterLeftY + masterRightX));
-        right_mtrs.move(SPEED_MULTIPLIER * (masterLeftY - masterRightX));
-        lastLF = lf_mtr.get_position();
-        lastLM = lm_mtr.get_position();
-        lastLB = lb_mtr.get_position();
-        lastRF = rf_mtr.get_position();
-        lastRM = rm_mtr.get_position();
-        lastRB = rb_mtr.get_position();
-
-    }else{
-        lf_mtr.move_absolute(lastLF, 200 * BRAKE_MULTIPLIER);
-        lm_mtr.move_absolute(lastLM, 200 * BRAKE_MULTIPLIER);
-        lb_mtr.move_absolute(lastLB, 200 * BRAKE_MULTIPLIER);
-        rf_mtr.move_absolute(lastRF, 200 * BRAKE_MULTIPLIER);
-        rm_mtr.move_absolute(lastRM, 200 * BRAKE_MULTIPLIER);
-        rb_mtr.move_absolute(lastRB, 200 * BRAKE_MULTIPLIER);
-    }
+    //Movement
+    left_mtrs.move(SPEED_MULTIPLIER * (masterLeftY + masterRightX));
+    right_mtrs.move(SPEED_MULTIPLIER * (masterLeftY - masterRightX));
 
     //Mogo mech
     if (masterNewY || partnerNewY){

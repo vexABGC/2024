@@ -28,12 +28,6 @@ void opcontrol() {
     int loopCount{0};
     int recordCount{0};
     bool autospotterTriggered = false;
-    lastLF = lf_mtr.get_position();
-    lastLM = lm_mtr.get_position();
-    lastLB = lb_mtr.get_position();
-    lastRF = rf_mtr.get_position();
-    lastRM = rm_mtr.get_position();
-    lastRB = rb_mtr.get_position();
 
     //Timer for autospotter set for 1:45
     lemlib::Timer autospotterTimer = lemlib::Timer(105000);
