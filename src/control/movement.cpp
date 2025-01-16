@@ -107,7 +107,7 @@ void movement(int inputs[14]){
     }
 
     //Corner mech
-    if (masterNewY || partnerNewY){
+    if (masterNewRight || partnerNewRight){
         cornerVal++;
         corner_piston.set_value(cornerVal % 2);
     }
