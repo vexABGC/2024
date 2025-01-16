@@ -29,7 +29,7 @@ extern lv_obj_t* skills_button;
 extern int autonomousSelected;
 extern bool shouldRecord;
 extern int mogoVal;
-extern int cornerAngle;
+extern int cornerVal;
 extern std::atomic<int> color;
 extern std::atomic<bool> sortingEnabled;
 extern std::atomic<int> intakeDirection;
@@ -56,12 +56,12 @@ extern std::atomic<int> intakeDirection;
 #define RB_PRT 5
 #define INTAKE_TOP_PRT 4
 #define INTAKE_BOT_PRT 3
-#define CORNER_PRT 2
-#define COLOR_SENSOR_PRT 1
-#define V_ENCODER_PRT 11
-#define H_ENCODER_PRT 12
-#define IMU_PRT 13
+#define COLOR_SENSOR_PRT 11
+#define V_ENCODER_PRT 12
+#define H_ENCODER_PRT 13
+#define IMU_PRT 14
 #define MOGO_PISTON_PRT 'A'
+#define CORNER_PISTON_PRT 'B'
 
 //Electronics
 extern pros::Controller master;
@@ -76,13 +76,12 @@ extern pros::Motor_Group left_mtrs;
 extern pros::Motor_Group right_mtrs;
 extern pros::Motor intake_top_mtr;
 extern pros::Motor intake_bot_mtr;
-extern pros::Motor_Group intake_mtrs;
-extern pros::Motor corner_mtr;
 extern pros::Optical color_sensor;
 extern pros::Rotation v_encoder;
 extern pros::Rotation h_encoder;
 extern pros::Imu imu;
 extern pros::ADIDigitalOut mogo_piston;
+extern pros::ADIDigitalOut corner_piston;
 
 //Setup PID
 extern lemlib::ControllerSettings lateral_controller;

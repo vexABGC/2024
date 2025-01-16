@@ -31,7 +31,7 @@ lv_obj_t* skills_button;
 int autonomousSelected{0};
 bool shouldRecord{false};
 int mogoVal{0};
-int cornerAngle = 0;
+int cornerVal{0};
 std::atomic<int> color = 0;
 std::atomic<bool> sortingEnabled = false;
 std::atomic<int> intakeDirection = true;
@@ -48,14 +48,13 @@ pros::Motor rb_mtr(RB_PRT, pros::E_MOTOR_GEAR_200, true, pros::E_MOTOR_ENCODER_D
 pros::Motor_Group left_mtrs({lf_mtr, lm_mtr, lb_mtr});
 pros::Motor_Group right_mtrs({rf_mtr, rm_mtr, rb_mtr});
 pros::Motor intake_top_mtr(INTAKE_TOP_PRT, pros::E_MOTOR_GEAR_600, true, pros::E_MOTOR_ENCODER_DEGREES);
-pros::Motor intake_bot_mtr(INTAKE_BOT_PRT, pros::E_MOTOR_GEAR_200, true, pros::E_MOTOR_ENCODER_DEGREES); 
-pros::Motor_Group intake_mtrs({intake_top_mtr, intake_bot_mtr});
-pros::Motor corner_mtr(CORNER_PRT, pros::E_MOTOR_GEAR_200, true, pros::E_MOTOR_ENCODER_DEGREES);
+pros::Motor intake_bot_mtr(INTAKE_BOT_PRT, pros::E_MOTOR_GEAR_200, true, pros::E_MOTOR_ENCODER_DEGREES);
 pros::Optical color_sensor(COLOR_SENSOR_PRT);
 pros::Rotation v_encoder(V_ENCODER_PRT);
 pros::Rotation h_encoder(H_ENCODER_PRT);
 pros::Imu imu(IMU_PRT);
 pros::ADIDigitalOut mogo_piston(MOGO_PISTON_PRT);
+pros::ADIDigitalOut corner_piston(CORNER_PISTON_PRT);
 
 //Setup PID
 //KP   - proportional gain
