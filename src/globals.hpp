@@ -48,20 +48,21 @@ extern std::atomic<int> intakeDirection;
 #define ARM_VELOCITY_BRAKE 20
 
 //Ports
-#define LF_PRT 10
-#define LM_PRT 9
-#define LB_PRT 8
-#define RF_PRT 7
-#define RM_PRT 6
-#define RB_PRT 5
-#define INTAKE_TOP_PRT 4
-#define INTAKE_BOT_PRT 3
-#define COLOR_SENSOR_PRT 11
-#define V_ENCODER_PRT 12
-#define H_ENCODER_PRT 13
-#define IMU_PRT 14
+#define LF_PRT 11
+#define LM_PRT 12
+#define LB_PRT 13
+#define RF_PRT 14
+#define RM_PRT 15
+#define RB_PRT 16
+#define INTAKE_TOP_PRT 17
+#define INTAKE_BOT_PRT 18
+#define COLOR_SENSOR_PRT 10
+#define V_ENCODER_PRT 19
+#define H_ENCODER_PRT 8
+#define IMU_PRT 20
 #define MOGO_PISTON_PRT 'A'
-#define CORNER_PISTON_PRT 'B'
+#define CORNER_PISTON_A_PRT 'B'
+#define CORNER_PISTON_B_PRT 'C'
 
 //Electronics
 extern pros::Controller master;
@@ -81,7 +82,8 @@ extern pros::Rotation v_encoder;
 extern pros::Rotation h_encoder;
 extern pros::Imu imu;
 extern pros::ADIDigitalOut mogo_piston;
-extern pros::ADIDigitalOut corner_piston;
+extern pros::ADIDigitalOut corner_piston_a;
+extern pros::ADIDigitalOut corner_piston_b;
 
 //Setup PID
 extern lemlib::ControllerSettings lateral_controller;

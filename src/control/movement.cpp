@@ -89,6 +89,9 @@ void movement(int inputs[14]){
         sortingEnabled = !sortingEnabled;
     }
 
+    //Intake top
+    intakeDirection = masterCurDown || partnerCurDown;
+
     //Intake bottom
     if (masterCurL1 || masterCurL2){
         //Master control
@@ -109,6 +112,7 @@ void movement(int inputs[14]){
     //Corner mech
     if (masterNewRight || partnerNewRight){
         cornerVal++;
-        corner_piston.set_value(cornerVal % 2);
+        corner_piston_a.set_value(cornerVal % 2);
+        corner_piston_b.set_value((cornerVal + 1) % 2 );
     }
 }

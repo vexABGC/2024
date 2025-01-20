@@ -51,7 +51,10 @@ void intakeController(){
                     intake_top_mtr.move(INTAKE_TOP_MULTIPLIER * 127);
                 }else{
                     //Blue ring is enabled, expel
-                    intake_top_mtr.move(INTAKE_TOP_MULTIPLIER * -127);
+                    pros::delay(700);
+                    intake_top_mtr.move(0);
+                    pros::delay(300);
+                    intake_top_mtr.move(127);
                     pros::delay(300);
                 }
             }else if(color_sensor.get_hue() > 150 && color_sensor.get_hue() < 270){
@@ -61,7 +64,10 @@ void intakeController(){
                     intake_top_mtr.move(INTAKE_TOP_MULTIPLIER * 127);
                 }else{
                     //Red ring is enabled, expel
-                    intake_top_mtr.move(INTAKE_TOP_MULTIPLIER * -127);
+                    pros::delay(700);
+                    intake_top_mtr.move(0);
+                    pros::delay(300);
+                    intake_top_mtr.move(127);
                     pros::delay(300);
                 }
             }else{

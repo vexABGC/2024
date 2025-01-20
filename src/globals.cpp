@@ -33,18 +33,18 @@ bool shouldRecord{false};
 int mogoVal{0};
 int cornerVal{0};
 std::atomic<int> color = 0;
-std::atomic<bool> sortingEnabled = false;
+std::atomic<bool> sortingEnabled = true;
 std::atomic<int> intakeDirection = true;
 
 //Electronics
 pros::Controller master(pros::E_CONTROLLER_MASTER);
 pros::Controller partner(pros::E_CONTROLLER_PARTNER);
-pros::Motor lf_mtr(LF_PRT, pros::E_MOTOR_GEAR_200, true, pros::E_MOTOR_ENCODER_DEGREES);
-pros::Motor lm_mtr(LM_PRT, pros::E_MOTOR_GEAR_200, false, pros::E_MOTOR_ENCODER_DEGREES);
-pros::Motor lb_mtr(LB_PRT, pros::E_MOTOR_GEAR_200, false, pros::E_MOTOR_ENCODER_DEGREES);
-pros::Motor rf_mtr(RF_PRT, pros::E_MOTOR_GEAR_200, false, pros::E_MOTOR_ENCODER_DEGREES);
-pros::Motor rm_mtr(RM_PRT, pros::E_MOTOR_GEAR_200, true, pros::E_MOTOR_ENCODER_DEGREES);
-pros::Motor rb_mtr(RB_PRT, pros::E_MOTOR_GEAR_200, true, pros::E_MOTOR_ENCODER_DEGREES);
+pros::Motor lf_mtr(LF_PRT, pros::E_MOTOR_GEAR_200, false, pros::E_MOTOR_ENCODER_DEGREES);
+pros::Motor lm_mtr(LM_PRT, pros::E_MOTOR_GEAR_200, true, pros::E_MOTOR_ENCODER_DEGREES);
+pros::Motor lb_mtr(LB_PRT, pros::E_MOTOR_GEAR_200, true, pros::E_MOTOR_ENCODER_DEGREES);
+pros::Motor rf_mtr(RF_PRT, pros::E_MOTOR_GEAR_200, true, pros::E_MOTOR_ENCODER_DEGREES);
+pros::Motor rm_mtr(RM_PRT, pros::E_MOTOR_GEAR_200, false, pros::E_MOTOR_ENCODER_DEGREES);
+pros::Motor rb_mtr(RB_PRT, pros::E_MOTOR_GEAR_200, false, pros::E_MOTOR_ENCODER_DEGREES);
 pros::Motor_Group left_mtrs({lf_mtr, lm_mtr, lb_mtr});
 pros::Motor_Group right_mtrs({rf_mtr, rm_mtr, rb_mtr});
 pros::Motor intake_top_mtr(INTAKE_TOP_PRT, pros::E_MOTOR_GEAR_600, true, pros::E_MOTOR_ENCODER_DEGREES);
@@ -54,7 +54,8 @@ pros::Rotation v_encoder(V_ENCODER_PRT);
 pros::Rotation h_encoder(H_ENCODER_PRT);
 pros::Imu imu(IMU_PRT);
 pros::ADIDigitalOut mogo_piston(MOGO_PISTON_PRT);
-pros::ADIDigitalOut corner_piston(CORNER_PISTON_PRT);
+pros::ADIDigitalOut corner_piston_a(CORNER_PISTON_A_PRT);
+pros::ADIDigitalOut corner_piston_b(CORNER_PISTON_B_PRT);
 
 //Setup PID
 //KP   - proportional gain
