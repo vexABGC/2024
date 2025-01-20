@@ -1,5 +1,7 @@
 //Includes
 #include "main.h" // IWYU pragma: keep
+#include "pros/abstract_motor.hpp"
+#include "pros/adi.hpp"
 #include "../src/globals.hpp"
 #include <atomic>
 
@@ -39,23 +41,17 @@ std::atomic<int> intakeDirection = true;
 //Electronics
 pros::Controller master(pros::E_CONTROLLER_MASTER);
 pros::Controller partner(pros::E_CONTROLLER_PARTNER);
-pros::Motor lf_mtr(LF_PRT, pros::E_MOTOR_GEAR_200, false, pros::E_MOTOR_ENCODER_DEGREES);
-pros::Motor lm_mtr(LM_PRT, pros::E_MOTOR_GEAR_200, true, pros::E_MOTOR_ENCODER_DEGREES);
-pros::Motor lb_mtr(LB_PRT, pros::E_MOTOR_GEAR_200, true, pros::E_MOTOR_ENCODER_DEGREES);
-pros::Motor rf_mtr(RF_PRT, pros::E_MOTOR_GEAR_200, true, pros::E_MOTOR_ENCODER_DEGREES);
-pros::Motor rm_mtr(RM_PRT, pros::E_MOTOR_GEAR_200, false, pros::E_MOTOR_ENCODER_DEGREES);
-pros::Motor rb_mtr(RB_PRT, pros::E_MOTOR_GEAR_200, false, pros::E_MOTOR_ENCODER_DEGREES);
-pros::Motor_Group left_mtrs({lf_mtr, lm_mtr, lb_mtr});
-pros::Motor_Group right_mtrs({rf_mtr, rm_mtr, rb_mtr});
-pros::Motor intake_top_mtr(INTAKE_TOP_PRT, pros::E_MOTOR_GEAR_600, true, pros::E_MOTOR_ENCODER_DEGREES);
-pros::Motor intake_bot_mtr(INTAKE_BOT_PRT, pros::E_MOTOR_GEAR_200, true, pros::E_MOTOR_ENCODER_DEGREES);
+pros::MotorGroup left_mtrs({LF_PRT, -LM_PRT, -LB_PRT}, pros::v5::MotorGears::rpm_600, pros::v5::MotorUnits::degrees);
+pros::MotorGroup right_mtrs({-RF_PRT, RM_PRT, RB_PRT}, pros::v5::MotorGears::rpm_600, pros::v5::MotorUnits::degrees);
+pros::Motor intake_top_mtr(-INTAKE_TOP_PRT, pros::v5::MotorGears::rpm_200);
+pros::Motor intake_bot_mtr(-INTAKE_BOT_PRT, pros::v5::MotorGears::rpm_200);
 pros::Optical color_sensor(COLOR_SENSOR_PRT);
 pros::Rotation v_encoder(V_ENCODER_PRT);
 pros::Rotation h_encoder(H_ENCODER_PRT);
 pros::Imu imu(IMU_PRT);
-pros::ADIDigitalOut mogo_piston(MOGO_PISTON_PRT);
-pros::ADIDigitalOut corner_piston_a(CORNER_PISTON_A_PRT);
-pros::ADIDigitalOut corner_piston_b(CORNER_PISTON_B_PRT);
+pros::adi::Pneumatics mogo_piston(MOGO_PISTON_PRT, false);
+pros::adi::Pneumatics corner_piston_a(CORNER_PISTON_A_PRT, false);
+pros::adi::Pneumatics corner_piston_b(CORNER_PISTON_B_PRT, false);
 
 //Setup PID
 //KP   - proportional gain

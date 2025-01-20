@@ -1,5 +1,5 @@
 //Includes
-#include "main.h"
+#include "main.h" // IWYU pragma: keep
 #include "../src/control/controllerScreen.hpp"
 #include "../src/control/movement.hpp"
 #include "../src/globals.hpp"

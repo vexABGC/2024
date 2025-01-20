@@ -67,23 +67,17 @@ extern std::atomic<int> intakeDirection;
 //Electronics
 extern pros::Controller master;
 extern pros::Controller partner;
-extern pros::Motor lf_mtr;
-extern pros::Motor lm_mtr;
-extern pros::Motor lb_mtr;
-extern pros::Motor rf_mtr;
-extern pros::Motor rm_mtr;
-extern pros::Motor rb_mtr;
-extern pros::Motor_Group left_mtrs;
-extern pros::Motor_Group right_mtrs;
+extern pros::MotorGroup left_mtrs;
+extern pros::MotorGroup right_mtrs;
 extern pros::Motor intake_top_mtr;
 extern pros::Motor intake_bot_mtr;
 extern pros::Optical color_sensor;
 extern pros::Rotation v_encoder;
 extern pros::Rotation h_encoder;
 extern pros::Imu imu;
-extern pros::ADIDigitalOut mogo_piston;
-extern pros::ADIDigitalOut corner_piston_a;
-extern pros::ADIDigitalOut corner_piston_b;
+extern pros::adi::Pneumatics mogo_piston;
+extern pros::adi::Pneumatics corner_piston_a;
+extern pros::adi::Pneumatics corner_piston_b;
 
 //Setup PID
 extern lemlib::ControllerSettings lateral_controller;
