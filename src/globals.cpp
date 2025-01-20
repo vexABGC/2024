@@ -67,12 +67,12 @@ pros::ADIDigitalOut corner_piston_b(CORNER_PISTON_B_PRT);
 //LE   - Large Error
 //LET  - Large Error Timeout
 //SLEW - Acceleration                        KP, KI, KD, AW, SE, SET, LE, LET, SLEW
-lemlib::ControllerSettings lateral_controller(10, 0 , 3 , 3 , 1 , 100, 3 , 500, 20  );
+lemlib::ControllerSettings lateral_controller(40, 0 , 3 , 3 , 1 , 100, 3 , 500, 20  );
 lemlib::ControllerSettings angular_controller(2 , 0 , 10, 3 , 1 , 100, 3 , 500, 0   );
 
 //Setup drive train, sensors, and chassis
 lemlib::Drivetrain drive_train(&left_mtrs, &right_mtrs, 15.25, 3.25, 450, 8);
-lemlib::TrackingWheel v_tracking_wheel(&v_encoder, 3.25, -2);
-lemlib::TrackingWheel h_tracking_wheel(&h_encoder, 3.25, 2);
+lemlib::TrackingWheel v_tracking_wheel(&v_encoder, 3.25, -1.77);
+lemlib::TrackingWheel h_tracking_wheel(&h_encoder, 3.25, 1);
 lemlib::OdomSensors sensors(&v_tracking_wheel, nullptr , &h_tracking_wheel, nullptr, &imu);
 lemlib::Chassis chassis(drive_train, lateral_controller, angular_controller, sensors);

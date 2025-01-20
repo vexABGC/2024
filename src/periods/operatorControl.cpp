@@ -25,7 +25,6 @@ char inputsRecord[4200] = {};
  */
 void opcontrol() {
     //Local globals
-    int loopCount{0};
     int recordCount{0};
     bool autospotterTriggered = false;
 
@@ -164,9 +163,8 @@ void opcontrol() {
             raiseControllerWarning("Autospotter","Last 20 seconds!",". . .",5);
         }
 
-        updateLines(); // Update the controller screen
+        updateControllerScreen(); // Update the controller screen
 
         pros::delay(50);
-        loopCount++;
     }
 }

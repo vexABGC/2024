@@ -57,9 +57,9 @@ extern std::atomic<int> intakeDirection;
 #define INTAKE_TOP_PRT 17
 #define INTAKE_BOT_PRT 18
 #define COLOR_SENSOR_PRT 10
-#define V_ENCODER_PRT 19
+#define V_ENCODER_PRT 20
 #define H_ENCODER_PRT 8
-#define IMU_PRT 20
+#define IMU_PRT 19
 #define MOGO_PISTON_PRT 'A'
 #define CORNER_PISTON_A_PRT 'B'
 #define CORNER_PISTON_B_PRT 'C'

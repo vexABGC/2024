@@ -42,6 +42,7 @@ void updateControllerScreen() {
     else if (loopCount % 10 == 7) partner.set_text(2, 0, linethree);
     else if (loopCount % 10 == 8) master.rumble(controllerRumble.c_str());
     else if (loopCount % 10 == 9) partner.rumble(controllerRumble.c_str());
+    loopCount += 1;
 }
 
 //Function to update the line strings with any faults

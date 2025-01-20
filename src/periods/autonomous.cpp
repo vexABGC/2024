@@ -29,9 +29,8 @@ void autonomous() {
     if (autonomousSelected == 0){
         //Left red (tuning)
         chassis.setPose(0, 0 ,0);
-        chassis.turnToHeading(180, 1000, {.maxSpeed = 160}, false);
-        chassis.moveToPoint(0, 23.622, 1000, {.forwards = true, .maxSpeed = 160}, false);
-        return;
+        //chassis.turnToHeading(180, 1000, {.maxSpeed = 160}, false);
+        chassis.moveToPose(0, 23.622, 0, 2000, {.forwards = true, .maxSpeed = 60}, false);
     }
     else if (autonomousSelected == 1){
         //Right blue
