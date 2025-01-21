@@ -72,23 +72,23 @@ void autonomous() {
         chassis.setPose(0, 0, 0);
 
         //Top left
-        chassis.moveToPose(0,toInch(1200), 0,5000, {.forwards = true, .maxSpeed = 400});
+        chassis.moveToPose(0,toInch(1200), 0,5000, {.forwards = true, .maxSpeed = 80});
 
         //Top right
-        chassis.turnToPoint(toInch(3000), toInch(1200),5000, {.forwards = true, .maxSpeed = 400});
-        chassis.moveToPose(toInch(3000), toInch(1200), 90,5000, {.forwards = true, .maxSpeed = 400});
+        chassis.turnToPoint(toInch(3000), toInch(1200),5000, {.forwards = true, .maxSpeed = 40});
+        chassis.moveToPose(toInch(3000), toInch(1200), 90,5000, {.forwards = true, .maxSpeed = 80});
 
         //Bottom right backwards
-        chassis.turnToPoint(toInch(3000), 0,5000, {.forwards = true, .maxSpeed = 400});
-        chassis.moveToPose(toInch(3000), 0, 0,5000, {.forwards = true, .maxSpeed = 400});
+        chassis.turnToPoint(toInch(3000), 0,5000, {.forwards = true, .maxSpeed = 40});
+        chassis.moveToPose(toInch(3000), 0, 0,5000, {.forwards = true, .maxSpeed = 80});
 
         //Top left backwards
-        chassis.turnToPoint(0,toInch(1200),5000, {.forwards = false, .maxSpeed = 400});
-        chassis.moveToPoint(0,toInch(1200),5000, {.forwards = false, .maxSpeed = 400});
+        chassis.turnToPoint(0,toInch(1200),5000, {.forwards = false, .maxSpeed = 40});
+        chassis.moveToPoint(0,toInch(1200),5000, {.forwards = false, .maxSpeed = 80});
 
         //Return to start pose (backwards)
-        chassis.turnToPoint(0,0,5000, {.forwards = false, .maxSpeed = 400});
-        chassis.moveToPose(0,0,0,5000, {.forwards = false, .maxSpeed = 400});
+        chassis.turnToPoint(0,0,5000, {.forwards = false, .maxSpeed = 40});
+        chassis.moveToPose(0,0,0,5000, {.forwards = false, .maxSpeed = 80});
     }
     else if (autonomousSelected == 3){
         //Left blue
