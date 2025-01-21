@@ -63,8 +63,8 @@ pros::adi::Pneumatics corner_piston_b(CORNER_PISTON_B_PRT, false);
 //LE   - Large Error
 //LET  - Large Error Timeout
 //SLEW - Acceleration                        KP, KI, KD, AW, SE, SET, LE, LET, SLEW
-lemlib::ControllerSettings lateral_controller(100, 0 , 3 , 3 , 1 , 100, 3 , 500, 20  );
-lemlib::ControllerSettings angular_controller(2 , 0 , 10, 3 , 1 , 100, 3 , 500, 0   );
+lemlib::ControllerSettings lateral_controller(10, 0 , 8 , 10 , 1 , 100, 3 , 500, 10  );
+lemlib::ControllerSettings angular_controller(6 , 0 , 20, 5 , 1 , 100, 3 , 500, 20   );
 
 //Setup drive train, sensors, and chassis
 lemlib::Drivetrain drive_train(&left_mtrs, &right_mtrs, 15.25, 3.25, 450, 8);

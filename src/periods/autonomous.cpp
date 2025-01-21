@@ -29,10 +29,10 @@ void autonomous() {
     if (autonomousSelected == 0){
         //Left red (tuning)
         chassis.setPose(0, 0 ,0);
-        //chassis.turnToHeading(180, 1000, {.maxSpeed = 160}, false);
-        chassis.moveToPose(0, 23.622, 0, 2000, {.forwards = true, .maxSpeed = 80}, false);
-        pros::delay(3000);
-        chassis.moveToPose(0, 23.622, 0, 2000, {.forwards = true, .maxSpeed = 80}, false);
+        //chassis.turnToHeading(180, 2000, {.maxSpeed = 80}, false);
+        chassis.moveToPoint(0, 23.622, 2000, {.forwards = true, .maxSpeed = 80}, false);
+        pros::delay(5000);
+        chassis.moveToPose(0, 0, 0, 2000, {.forwards = false, .maxSpeed = 40}, false);
     }
     else if (autonomousSelected == 1){
         //Right blue
@@ -72,24 +72,23 @@ void autonomous() {
         chassis.setPose(0, 0, 0);
 
         //Top left
-        chassis.moveToPoint(0,47.244,5000, {.forwards = true, .maxSpeed = 400});
+        chassis.moveToPose(0,toInch(1200), 0,5000, {.forwards = true, .maxSpeed = 400});
 
         //Top right
-        chassis.turnToPoint(118.11,47.244,5000, {.forwards = true, .maxSpeed = 400});
-        chassis.moveToPoint(118.11,47.244,5000, {.forwards = true, .maxSpeed = 400});
+        chassis.turnToPoint(toInch(3000), toInch(1200),5000, {.forwards = true, .maxSpeed = 400});
+        chassis.moveToPose(toInch(3000), toInch(1200), 90,5000, {.forwards = true, .maxSpeed = 400});
 
         //Bottom right backwards
-        chassis.turnToPoint(118.11,0,5000, {.forwards = false, .maxSpeed = 400});
-        chassis.moveToPoint(118.11,0,5000, {.forwards = false, .maxSpeed = 400});
+        chassis.turnToPoint(toInch(3000), 0,5000, {.forwards = true, .maxSpeed = 400});
+        chassis.moveToPose(toInch(3000), 0, 0,5000, {.forwards = true, .maxSpeed = 400});
 
         //Top left backwards
-        chassis.turnToPoint(0,47.244,5000, {.forwards = false, .maxSpeed = 400});
-        chassis.moveToPoint(0,47.244,5000, {.forwards = false, .maxSpeed = 400});
+        chassis.turnToPoint(0,toInch(1200),5000, {.forwards = false, .maxSpeed = 400});
+        chassis.moveToPoint(0,toInch(1200),5000, {.forwards = false, .maxSpeed = 400});
 
         //Return to start pose (backwards)
         chassis.turnToPoint(0,0,5000, {.forwards = false, .maxSpeed = 400});
-        chassis.moveToPoint(0,0,5000, {.forwards = false, .maxSpeed = 400});
-        chassis.turnToHeading(0,5000, {.maxSpeed = 400});
+        chassis.moveToPose(0,0,0,5000, {.forwards = false, .maxSpeed = 400});
     }
     else if (autonomousSelected == 3){
         //Left blue
