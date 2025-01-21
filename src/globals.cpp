@@ -43,8 +43,8 @@ pros::Controller master(pros::E_CONTROLLER_MASTER);
 pros::Controller partner(pros::E_CONTROLLER_PARTNER);
 pros::MotorGroup left_mtrs({LF_PRT, -LM_PRT, -LB_PRT}, pros::v5::MotorGears::rpm_600, pros::v5::MotorUnits::degrees);
 pros::MotorGroup right_mtrs({-RF_PRT, RM_PRT, RB_PRT}, pros::v5::MotorGears::rpm_600, pros::v5::MotorUnits::degrees);
-pros::Motor intake_top_mtr(-INTAKE_TOP_PRT, pros::v5::MotorGears::rpm_200);
-pros::Motor intake_bot_mtr(-INTAKE_BOT_PRT, pros::v5::MotorGears::rpm_200);
+pros::Motor intake_top_mtr(-INTAKE_TOP_PRT, pros::v5::MotorGears::rpm_200, pros::v5::MotorUnits::degrees);
+pros::Motor intake_bot_mtr(-INTAKE_BOT_PRT, pros::v5::MotorGears::rpm_200, pros::v5::MotorUnits::degrees);
 pros::Optical color_sensor(COLOR_SENSOR_PRT);
 pros::Rotation v_encoder(V_ENCODER_PRT);
 pros::Rotation h_encoder(H_ENCODER_PRT);
@@ -63,7 +63,7 @@ pros::adi::Pneumatics corner_piston_b(CORNER_PISTON_B_PRT, false);
 //LE   - Large Error
 //LET  - Large Error Timeout
 //SLEW - Acceleration                        KP, KI, KD, AW, SE, SET, LE, LET, SLEW
-lemlib::ControllerSettings lateral_controller(40, 0 , 3 , 3 , 1 , 100, 3 , 500, 20  );
+lemlib::ControllerSettings lateral_controller(100, 0 , 3 , 3 , 1 , 100, 3 , 500, 20  );
 lemlib::ControllerSettings angular_controller(2 , 0 , 10, 3 , 1 , 100, 3 , 500, 0   );
 
 //Setup drive train, sensors, and chassis

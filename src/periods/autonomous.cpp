@@ -30,7 +30,9 @@ void autonomous() {
         //Left red (tuning)
         chassis.setPose(0, 0 ,0);
         //chassis.turnToHeading(180, 1000, {.maxSpeed = 160}, false);
-        chassis.moveToPose(0, 23.622, 0, 2000, {.forwards = true, .maxSpeed = 60}, false);
+        chassis.moveToPose(0, 23.622, 0, 2000, {.forwards = true, .maxSpeed = 80}, false);
+        pros::delay(3000);
+        chassis.moveToPose(0, 23.622, 0, 2000, {.forwards = true, .maxSpeed = 80}, false);
     }
     else if (autonomousSelected == 1){
         //Right blue

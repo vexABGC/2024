@@ -63,6 +63,7 @@ lv_res_t buttonMethod(lv_obj_t* btn){
             lv_btn_set_style(rb_button, LV_BTN_STYLE_REL, &location_button_style_rel);
             lv_btn_set_style(rr_button, LV_BTN_STYLE_REL, &location_button_style_rel);
             lv_btn_set_style(lb_button, LV_BTN_STYLE_REL, &location_button_style_rel);
+            lv_btn_set_style(skills_button, LV_BTN_STYLE_REL, &location_button_style_rel);
             replay_button_style.body.main_color = LV_COLOR_BLACK;
             replay_button_style.body.grad_color = LV_COLOR_BLACK;
             lv_btn_set_style(replay_button, LV_BTN_STYLE_REL, &replay_button_style);
