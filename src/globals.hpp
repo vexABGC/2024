@@ -37,7 +37,7 @@ extern std::atomic<int> intakeDirection;
 //Settings
 #define INPUT_COUNT 300
 #define DEAD_ZONE 5
-#define SPEED_MULTIPLIER 0.8
+#define SPEED_MULTIPLIER 1
 #define BRAKE_MULTIPLIER 0.6
 #define INTAKE_TOP_MULTIPLIER 1
 #define ARM_RATIO 5

@@ -32,8 +32,8 @@ std::queue<controllerWarning> currentControllerWarnings;
 //This function should be run by opcontrol as part of its loop.
 //Updates the controller text to match the line strings
 void updateControllerScreen() {
-    if (loopCount % 100 == 0) {master.clear(); updateLines();}
-    else if (loopCount % 100 == 1) partner.clear();
+    if (loopCount % 10 == 0) {master.clear(); updateLines();}
+    else if (loopCount % 10 == 1) partner.clear();
     else if (loopCount % 10 == 2) master.set_text(0, 0, lineone);
     else if (loopCount % 10 == 3) partner.set_text(0, 0, lineone);
     else if (loopCount % 10 == 4) master.set_text(1, 0, linetwo);
@@ -55,10 +55,11 @@ void updateLines() {
     
     //Display any current warnings one by one
     if (currentControllerWarnings.size() > 0) {
-        lineone = &"Warning " [ currentControllerWarnings.size()];
+        lineone = &" Warning " [ currentControllerWarnings.size()];
         linetwo = currentControllerWarnings.front().line1;
         linethree = currentControllerWarnings.front().line2;
         controllerRumble = currentControllerWarnings.front().vibration;
+        currentControllerWarnings.front().vibration = "";
         currentControllerWarnings.front().duration --;
         if (currentControllerWarnings.front().duration == 0) currentControllerWarnings.pop();
         return; //Don't draw overheating motors on top of warnings
@@ -67,7 +68,7 @@ void updateLines() {
     //Display any overheating motors if present 
     overheatingMotorsList = getOverheatingMotors();
     if (overheatingMotorsList.size() > 0) {
-        lineone = "Overheated Motors---";
+        lineone = " Motor Faults:";
         for (std::string overheatingMotor : overheatingMotorsList) {
             if (linetwo.length() < 17) linetwo += overheatingMotor;
             else linethree += overheatingMotor;
@@ -98,5 +99,5 @@ void raiseControllerWarning(std::string line1, std::string line2, std::string vi
 }
 //Also a simple version that only needs one input
 void raiseControllerWarning(std::string errorText) {
-    currentControllerWarnings.push({errorText, "", "", 5});
+    currentControllerWarnings.push({errorText, "", "..", 3});
 }
