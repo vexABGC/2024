@@ -32,6 +32,8 @@ lv_obj_t* skills_button;
 //General globals
 int autonomousSelected{0};
 bool shouldRecord{false};
+int lastL{0};
+int lastR{0};
 int mogoVal{0};
 int cornerVal{0};
 std::atomic<int> color = 0;

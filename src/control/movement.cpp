@@ -75,8 +75,15 @@ void movement(int inputs[14]){
     partnerRightY = (abs(partnerRightY) < DEAD_ZONE) ? 0 : partnerRightY;
 
     //Movement
-    left_mtrs.move(SPEED_MULTIPLIER * (masterLeftY + masterRightX));
-    right_mtrs.move(SPEED_MULTIPLIER * (masterLeftY - masterRightX));
+    if (masterLeftY != 0 || masterRightX != 0){
+        left_mtrs.move(SPEED_MULTIPLIER * (masterLeftY + masterRightX));
+        right_mtrs.move(SPEED_MULTIPLIER * (masterLeftY - masterRightX));
+        lastL = left_mtrs.get_position();
+        lastR = right_mtrs.get_position();
+    }else{
+        left_mtrs.move_absolute(lastL, 200 * BRAKE_MULTIPLIER);
+        right_mtrs.move_absolute(lastR, 200 * BRAKE_MULTIPLIER);
+    }
 
     //Mogo mech
     if (masterNewY || partnerNewY){

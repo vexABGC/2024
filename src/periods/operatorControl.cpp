@@ -34,6 +34,12 @@ void opcontrol() {
     //Force reenable intake
     intakeDirection = 1;
 
+    //Motor tare
+    left_mtrs.tare_position_all();
+    right_mtrs.tare_position_all();
+    lastL = 0;
+    lastR = 0;
+
     //Main loop
     while (true){
 

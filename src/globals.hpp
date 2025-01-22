@@ -28,6 +28,8 @@ extern lv_obj_t* skills_button;
 //General globals
 extern int autonomousSelected;
 extern bool shouldRecord;
+extern int lastL;
+extern int lastR;
 extern int mogoVal;
 extern int cornerVal;
 extern std::atomic<int> color;
