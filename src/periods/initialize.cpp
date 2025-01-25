@@ -157,8 +157,10 @@ void initialize() {
     lv_obj_set_free_num(skills_button, 7);
     lv_btn_set_action(skills_button, LV_BTN_ACTION_CLICK, buttonMethod);
 
-    //Intake thread setup
+    //Intake thread setup, and motor tare
     pros::Task intakeThread(intakeController);
+    lady_brown_mtr.tare_position();
+    ladyBrownAngle = 0;
 
     //Controller warning auton
     raiseControllerWarning("Auton left red");

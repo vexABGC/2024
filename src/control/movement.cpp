@@ -75,7 +75,7 @@ void movement(int inputs[14]){
     partnerRightY = (abs(partnerRightY) < DEAD_ZONE) ? 0 : partnerRightY;
 
     //Movement
-    if (masterLeftY != 0 || masterRightX != 0){
+    if (masterLeftY != 0 || masterRightX != 0 || true){
         left_mtrs.move(SPEED_MULTIPLIER * (masterLeftY + masterRightX));
         right_mtrs.move(SPEED_MULTIPLIER * (masterLeftY - masterRightX));
         lastL = left_mtrs.get_position();
@@ -97,7 +97,7 @@ void movement(int inputs[14]){
     }
 
     //Intake top
-    intakeDirection = masterCurDown || partnerCurDown;
+    intakeDirection = ((masterCurDown || partnerCurDown) - (masterCurB || partnerCurB)) * (1 - 0.75 * (masterCurA || partnerCurA));
 
     //Intake bottom
     if (masterCurL1 || masterCurL2){
@@ -121,5 +121,38 @@ void movement(int inputs[14]){
         cornerVal++;
         corner_piston_a.set_value(cornerVal % 2);
         corner_piston_b.set_value((cornerVal + 1) % 2 );
+    }
+
+    //Lady brown
+    if(lady_brown_mtr.get_position() > LADY_BROWN_SCORE_ANGLE * LADY_BROWN_RATIO && lady_brown_mtr.get_direction() == 1){
+        //Wants to go over size
+        ladyBrownAngle = LADY_BROWN_SCORE_ANGLE * LADY_BROWN_RATIO;
+        lady_brown_mtr.move_absolute(ladyBrownAngle, LADY_BROWN_BRAKE_VELOCITY);
+    }else if (masterCurR1 || masterCurR2){
+        //Master manual digital
+        lady_brown_mtr.move(127 * LADY_BROWN_MOVE_MULTIPLIER * (masterCurR1 - masterCurR2));
+        ladyBrownAngle = lady_brown_mtr.get_position();
+    }else if (partnerCurR1 || partnerCurR2){
+        //Partner manual digital
+        lady_brown_mtr.move(127 * LADY_BROWN_MOVE_MULTIPLIER * (partnerCurR1 - partnerCurR2));
+        ladyBrownAngle = lady_brown_mtr.get_position();
+    }else if (partnerRightY != 0){
+        //Partner manual anologue
+        lady_brown_mtr.move(LADY_BROWN_MOVE_MULTIPLIER * partnerRightY);
+        ladyBrownAngle = lady_brown_mtr.get_position();
+    }else if (masterCurLeft || partnerCurLeft){
+        //Low load position
+        ladyBrownAngle = LADY_BROWN_LOW_LOAD_ANGLE * LADY_BROWN_RATIO;
+        lady_brown_mtr.move_absolute(ladyBrownAngle, LADY_BROWN_BRAKE_VELOCITY);
+    }else if (masterCurUp || partnerCurUp){
+        //High load position
+        ladyBrownAngle = LADY_BROWN_HIGH_LOAD_ANGLE * LADY_BROWN_RATIO;
+        lady_brown_mtr.move_absolute(ladyBrownAngle, LADY_BROWN_BRAKE_VELOCITY);
+    }else if (masterCurX || partnerCurX){
+        //Score position
+        ladyBrownAngle = LADY_BROWN_SCORE_ANGLE * LADY_BROWN_RATIO;
+        lady_brown_mtr.move_absolute(ladyBrownAngle, LADY_BROWN_BRAKE_VELOCITY);
+    }else{
+        lady_brown_mtr.move_absolute(ladyBrownAngle, LADY_BROWN_BRAKE_VELOCITY);
     }
 }

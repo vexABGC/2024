@@ -32,9 +32,10 @@ extern int lastL;
 extern int lastR;
 extern int mogoVal;
 extern int cornerVal;
+extern int ladyBrownAngle;
 extern std::atomic<int> color;
 extern std::atomic<bool> sortingEnabled;
-extern std::atomic<int> intakeDirection;
+extern std::atomic<double> intakeDirection;
 
 //Settings
 #define INPUT_COUNT 300
@@ -42,12 +43,12 @@ extern std::atomic<int> intakeDirection;
 #define SPEED_MULTIPLIER 1
 #define BRAKE_MULTIPLIER 0.6
 #define INTAKE_TOP_MULTIPLIER 1
-#define ARM_RATIO 5
-#define ARM_LOW_ANGLE 8.92
-#define ARM_MID_ANGLE 80
-#define ARM_HIGH_ANGLE 120
-#define ARM_VELOCITY_MOVE 60
-#define ARM_VELOCITY_BRAKE 20
+#define LADY_BROWN_RATIO 5
+#define LADY_BROWN_LOW_LOAD_ANGLE 10
+#define LADY_BROWN_HIGH_LOAD_ANGLE 20
+#define LADY_BROWN_SCORE_ANGLE 115
+#define LADY_BROWN_MOVE_MULTIPLIER 0.8
+#define LADY_BROWN_BRAKE_VELOCITY 100
 
 //Ports
 #define LF_PRT 11
@@ -58,6 +59,7 @@ extern std::atomic<int> intakeDirection;
 #define RB_PRT 16
 #define INTAKE_TOP_PRT 17
 #define INTAKE_BOT_PRT 18
+#define LADY_BROWN_PRT 7
 #define COLOR_SENSOR_PRT 10
 #define V_ENCODER_PRT 20
 #define H_ENCODER_PRT 8
@@ -73,6 +75,7 @@ extern pros::MotorGroup left_mtrs;
 extern pros::MotorGroup right_mtrs;
 extern pros::Motor intake_top_mtr;
 extern pros::Motor intake_bot_mtr;
+extern pros::Motor lady_brown_mtr;
 extern pros::Optical color_sensor;
 extern pros::Rotation v_encoder;
 extern pros::Rotation h_encoder;

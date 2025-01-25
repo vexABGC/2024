@@ -36,9 +36,10 @@ int lastL{0};
 int lastR{0};
 int mogoVal{0};
 int cornerVal{0};
+int ladyBrownAngle{0};
 std::atomic<int> color = 0;
 std::atomic<bool> sortingEnabled = true;
-std::atomic<int> intakeDirection = true;
+std::atomic<double> intakeDirection = 1;
 
 //Electronics
 pros::Controller master(pros::E_CONTROLLER_MASTER);
@@ -47,6 +48,7 @@ pros::MotorGroup left_mtrs({LF_PRT, -LM_PRT, -LB_PRT}, pros::v5::MotorGears::rpm
 pros::MotorGroup right_mtrs({-RF_PRT, RM_PRT, RB_PRT}, pros::v5::MotorGears::rpm_600, pros::v5::MotorUnits::degrees);
 pros::Motor intake_top_mtr(-INTAKE_TOP_PRT, pros::v5::MotorGears::rpm_200, pros::v5::MotorUnits::degrees);
 pros::Motor intake_bot_mtr(-INTAKE_BOT_PRT, pros::v5::MotorGears::rpm_200, pros::v5::MotorUnits::degrees);
+pros::Motor lady_brown_mtr(LADY_BROWN_PRT, pros::v5::MotorGears::rpm_200, pros::v5::MotorUnits::degrees);
 pros::Optical color_sensor(COLOR_SENSOR_PRT);
 pros::Rotation v_encoder(V_ENCODER_PRT);
 pros::Rotation h_encoder(H_ENCODER_PRT);

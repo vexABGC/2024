@@ -23,13 +23,12 @@ void intakeController(){
         if (intakeDirection.load() == 0){
             //Intake off, don't run intake
             intake_top_mtr.move(0);
-            std::cout << color_sensor.get_proximity() << " " << color_sensor.get_hue() << std::endl;
             pros::delay(50);
             continue;
         }
 
-        //Check if reversed (only used in auton for dropping intake)
-        if (intakeDirection.load() == 0){
+        //Check if super reversed (ignore sort)
+        if (intakeDirection.load() == -2){
             //Intake reversed, run backwards, no sorting
             intake_top_mtr.move(-127 * INTAKE_TOP_MULTIPLIER);
             pros::delay(50);
@@ -42,7 +41,7 @@ void intakeController(){
             //Check if color detected is close enough
             if(color_sensor.get_proximity() < 255){
                 //Not close enough, just keep running
-                intake_top_mtr.move(INTAKE_TOP_MULTIPLIER * 127);
+                intake_top_mtr.move(intakeDirection * INTAKE_TOP_MULTIPLIER * 127);
                 continue;
             }
 
@@ -51,7 +50,7 @@ void intakeController(){
                 //Red ring detected, check selected color and respond
                 if (color.load() == 0){
                     //Red ring is enabled, keep moving
-                    intake_top_mtr.move(INTAKE_TOP_MULTIPLIER * 127);
+                    intake_top_mtr.move(intakeDirection * INTAKE_TOP_MULTIPLIER * 127);
                 }else{
                     //Blue ring is enabled, expel
                     intake_top_mtr.tare_position();
@@ -69,7 +68,7 @@ void intakeController(){
                 //Blue ring, check selected color and respond
                 if (color.load() == 1){
                     //Blue ring is enabled, keep moving
-                    intake_top_mtr.move(INTAKE_TOP_MULTIPLIER * 127);
+                    intake_top_mtr.move(intakeDirection * INTAKE_TOP_MULTIPLIER * 127);
                 }else{
                     //Red ring is enabled, expel
                     intake_top_mtr.tare_position();
@@ -85,11 +84,11 @@ void intakeController(){
                 }
             }else{
                 //Error color, just keep running
-                intake_top_mtr.move(INTAKE_TOP_MULTIPLIER * 127);
+                intake_top_mtr.move(intakeDirection * INTAKE_TOP_MULTIPLIER * 127);
             }
         }else{
             //Sorting not enabled, just run
-            intake_top_mtr.move(INTAKE_TOP_MULTIPLIER * 127);
+            intake_top_mtr.move(intakeDirection * INTAKE_TOP_MULTIPLIER * 127);
         }
 
         //Standard delay
