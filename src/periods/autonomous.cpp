@@ -32,8 +32,26 @@ void autonomous() {
         chassis.setPose(toInch(-135), toInch(-105), 180);
 
         //Rewind intake, and move up lady brown
-        lady_brown_mtr.move_absolute(40 * LADY_BROWN_RATIO, 100);
+        lady_brown_mtr.move_absolute(50 * LADY_BROWN_RATIO, 100);
         intake_top_mtr.move_relative(-320, 200);
+
+        //Grab mogo
+        chassis.moveToPose(0, toInch(600), 225, 3000, {.forwards = false}, false);
+        mogo_piston.extend();
+
+        //Dump preload, and grab 1st ring
+        chassis.turnToHeading(270, 3000);
+        intakeDirection = 1;
+        chassis.moveToPoint(-toInch(400), toInch(600), 3000, {.forwards = true}, false);
+
+        //Grab 2nd and 3rd rings
+        chassis.moveToPoint(-toInch(550), toInch(900), 3000, {.forwards = true}, false);
+        chassis.moveToPoint(-toInch(650), toInch(900), 3000, {.forwards = true}, false);
+
+        //Touch ladder
+        chassis.moveToPoint(0,toInch(600), 3000, {.forwards = false}, false);
+        chassis.turnToPoint(toInch(800), toInch(800), 3000, {.forwards = true}, false);
+        chassis.moveToPoint(toInch(800),toInch(800), 3000, {.forwards = true}, false);
     }
     else if (autonomousSelected == 1){
         //Right blue
@@ -42,6 +60,24 @@ void autonomous() {
         //Rewind intake, and move up lady brown
         lady_brown_mtr.move_absolute(40 * LADY_BROWN_RATIO, 100);
         intake_top_mtr.move_relative(-320, 200 * INTAKE_TOP_MULTIPLIER);
+
+        //Grab mogo
+        chassis.moveToPose(0, toInch(600), 225, 3000, {.forwards = false}, false);
+        mogo_piston.extend();
+
+        //Dump preload, and grab 1st ring
+        chassis.turnToHeading(90, 3000);
+        intakeDirection = 1;
+        chassis.moveToPoint(toInch(400), toInch(600), 3000, {.forwards = true}, false);
+
+        //Grab 2nd and 3rd rings
+        chassis.moveToPoint(toInch(550), toInch(900), 3000, {.forwards = true}, false);
+        chassis.moveToPoint(toInch(650), toInch(900), 3000, {.forwards = true}, false);
+
+        //Touch ladder
+        chassis.moveToPoint(0,toInch(600), 3000, {.forwards = false}, false);
+        chassis.turnToPoint(-toInch(800), toInch(800), 3000, {.forwards = true}, false);
+        chassis.moveToPoint(-toInch(800),toInch(800), 3000, {.forwards = true}, false);
     }
     else if (autonomousSelected == 2){
         //Right red
@@ -50,14 +86,32 @@ void autonomous() {
         //Rewind intake, and move up lady brown
         lady_brown_mtr.move_absolute(40 * LADY_BROWN_RATIO, 100);
         intake_top_mtr.move_relative(-320, 200 * INTAKE_TOP_MULTIPLIER);
+
+        //Grab mogo
+        chassis.moveToPose(0, toInch(600), 225, 3000, {.forwards = false}, false);
+        mogo_piston.extend();
+
+        //Dump preload, and grab 1st ring
+        chassis.turnToHeading(90, 3000);
+        intakeDirection = 1;
+        chassis.moveToPoint(toInch(400), toInch(600), 3000, {.forwards = true}, false);
     }
     else if (autonomousSelected == 3){
         //Left blue
         chassis.setPose(toInch(-135), toInch(-105), 180);
 
         //Rewind intake, and move up lady brown
-        lady_brown_mtr.move_absolute(40 * LADY_BROWN_RATIO, 100);
-        intake_top_mtr.move_relative(-320, 200 * INTAKE_TOP_MULTIPLIER);
+        lady_brown_mtr.move_absolute(50 * LADY_BROWN_RATIO, 100);
+        intake_top_mtr.move_relative(-320, 200);
+
+        //Grab mogo
+        chassis.moveToPose(0, toInch(600), 225, 3000, {.forwards = false}, false);
+        mogo_piston.extend();
+
+        //Dump preload, and grab 1st ring
+        chassis.turnToHeading(270, 3000);
+        intakeDirection = 1;
+        chassis.moveToPoint(-toInch(400), toInch(600), 3000, {.forwards = true}, false);
     }
     else if (autonomousSelected == 4){
         //Skills
