@@ -63,6 +63,7 @@ extern std::atomic<double> intakeDirection;
 #define COLOR_SENSOR_PRT 10
 #define V_ENCODER_PRT 20
 #define H_ENCODER_PRT 8
+#define CONVEYOR_ENCODER_PRT 6
 #define IMU_PRT 19
 #define MOGO_PISTON_PRT 'A'
 #define CORNER_PISTON_A_PRT 'B'
@@ -79,12 +80,16 @@ extern pros::Motor lady_brown_mtr;
 extern pros::Optical color_sensor;
 extern pros::Rotation v_encoder;
 extern pros::Rotation h_encoder;
+extern pros::Rotation conveyor_encoder;
 extern pros::Imu imu;
 extern pros::adi::Pneumatics mogo_piston;
 extern pros::adi::Pneumatics corner_piston_a;
 extern pros::adi::Pneumatics corner_piston_b;
 
-//Setup PID
+//Other pid
+extern lemlib::PID conveyor_pid;
+
+//Setup drive PID
 extern lemlib::ControllerSettings lateral_controller;
 extern lemlib::ControllerSettings angular_controller;
 
