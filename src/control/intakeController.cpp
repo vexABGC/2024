@@ -10,7 +10,7 @@ void intakeController(){
     color_sensor.set_led_pwm(100);
 
     //Tare position
-    intake_top_mtr.set_zero_position(230);
+    intake_top_mtr.set_zero_position(260);
 
     //Main loop
     while (true){
@@ -40,6 +40,7 @@ void intakeController(){
         //Check if sorting enabled
         if (sortingEnabled.load()){
             //Sorting enabled
+            std::cout << color_sensor.get_proximity() << " " << intake_top_mtr.get_position() << std::endl;
             //Check if color detected is close enough
             if(color_sensor.get_proximity() < 255){
                 //Not close enough, just keep running
@@ -58,13 +59,9 @@ void intakeController(){
                     //Get position, and make target pos round up to nearest multiple of distance between hooks
                     double currentPos = intake_top_mtr.get_position();
                     double targetPos = DISTANCE_BETWEEN_HOOKS * ceil(currentPos / DISTANCE_BETWEEN_HOOKS);
-                    double deltaPos = targetPos - currentPos;
-
                     //Move to target pos
-                    while (deltaPos > 10){
-                        std::cout << conveyor_pid.update(deltaPos) << std::endl;
-                    }
-                    pros::delay(1000);
+                    intake_top_mtr.move_absolute(targetPos, 200);
+                    pros::delay(3000);
                 }
             }else if(color_sensor.get_hue() > 180 && color_sensor.get_hue() < 270){
                 //Blue ring, check selected color and respond
@@ -74,24 +71,11 @@ void intakeController(){
                 }else{
                     //Red ring is enabled, expel
                     //Get position, and make target pos round up to nearest multiple of distance between hooks
-                    double currentPos = conveyor_encoder.get_position() / 100;
+                    double currentPos = intake_top_mtr.get_position();
                     double targetPos = DISTANCE_BETWEEN_HOOKS * ceil(currentPos / DISTANCE_BETWEEN_HOOKS);
-                    double deltaPos = targetPos - currentPos;;
-                    double output = conveyor_pid.update(deltaPos);
-                    double startTime = pros::millis();
-                    intake_top_mtr.move(0);
-
                     //Move to target pos
-                    while ((deltaPos > 5 || intake_top_mtr.get_actual_velocity() > 5) && pros::millis() - startTime < 4500){
-                        intake_top_mtr.move(output);
-                        std::cout << currentPos << " " << targetPos << " " << deltaPos << " " << output << std::endl;
-                        pros::delay(25);
-                        currentPos = conveyor_encoder.get_position() / 100;
-                        deltaPos = targetPos - currentPos;
-                        output = conveyor_pid.update(deltaPos);
-                    }
-                    intake_top_mtr.move(0);
-                    pros::delay(1000);
+                    intake_top_mtr.move_absolute(targetPos, 200);
+                    pros::delay(3000);
                 }
             }else{
                 //Error color, just keep running

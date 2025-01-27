@@ -80,14 +80,10 @@ extern pros::Motor lady_brown_mtr;
 extern pros::Optical color_sensor;
 extern pros::Rotation v_encoder;
 extern pros::Rotation h_encoder;
-extern pros::Rotation conveyor_encoder;
 extern pros::Imu imu;
 extern pros::adi::Pneumatics mogo_piston;
 extern pros::adi::Pneumatics corner_piston_a;
 extern pros::adi::Pneumatics corner_piston_b;
-
-//Other pid
-extern lemlib::PID conveyor_pid;
 
 //Setup drive PID
 extern lemlib::ControllerSettings lateral_controller;
