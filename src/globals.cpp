@@ -30,7 +30,7 @@ lv_obj_t* lb_button;
 lv_obj_t* skills_button;
 
 //General globals
-int autonomousSelected{4};
+int autonomousSelected{0};
 bool shouldRecord{false};
 int lastL{0};
 int lastR{0};
@@ -58,17 +58,8 @@ pros::adi::Pneumatics corner_piston_a(CORNER_PISTON_A_PRT, false);
 pros::adi::Pneumatics corner_piston_b(CORNER_PISTON_B_PRT, false);
 
 //Setup PID
-//KP   - proportional gain
-//KI   - integral gain
-//KD   - derivative gain
-//AW   - Anti Windup
-//SE   - Small Error
-//SET  - Small Error Timeout
-//LE   - Large Error
-//LET  - Large Error Timeout
-//SLEW - Acceleration                        KP, KI, KD, AW, SE, SET, LE, LET, SLEW
-lemlib::ControllerSettings lateral_controller(10, 0 , 5, 5 , 1 , 100, 2, 1000, 6  );
-lemlib::ControllerSettings angular_controller(6 , 0 , 10, 5 , 1, 100, 2, 1000, 20   );
+lemlib::ControllerSettings lateral_controller(4.5, 0, 6, 3, 1, 10, 3, 500, 20);
+lemlib::ControllerSettings angular_controller(3.25, 0, 23.5, 3, 1, 100, 3, 500, 0);
 
 //Setup drive train, sensors, and chassis
 lemlib::Drivetrain drive_train(&left_mtrs, &right_mtrs, 15.25, 3.25, 450, 8);

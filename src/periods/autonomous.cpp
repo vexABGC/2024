@@ -22,8 +22,9 @@ double toInch(double mm){
  */
 void autonomous() {
     //Intake off, and mogo up
-    intakeDirection = 0;
+    intakeDirection = -2;
     mogo_piston.set_value(0);
+    pros::delay(100);
 
     //Auton select
     if (autonomousSelected == 0){
@@ -32,19 +33,7 @@ void autonomous() {
 
         //Rewind intake, and move up lady brown
         lady_brown_mtr.move_absolute(40 * LADY_BROWN_RATIO, 100);
-        intakeDirection = -2;
-        pros::delay(300);
-        intakeDirection = 0;
-
-        //Mogo
-        chassis.moveToPoint(toInch(0), toInch(300), 2000, {.forwards = false, .maxSpeed = 50, .minSpeed = 20});
-        chassis.turnToHeading(-150, 2000, {.maxSpeed = 40, .minSpeed = 20});
-        chassis.moveToPoint(toInch(200), toInch(800), 2000, {.forwards = false, .maxSpeed = 50}, false);
-        mogo_piston.extend();
-        pros::delay(500);
-
-        //Put pre load on
-        intakeDirection = 1;
+        intake_top_mtr.move_relative(-320, 200);
     }
     else if (autonomousSelected == 1){
         //Right blue
@@ -52,21 +41,7 @@ void autonomous() {
 
         //Rewind intake, and move up lady brown
         lady_brown_mtr.move_absolute(40 * LADY_BROWN_RATIO, 100);
-        intakeDirection = -2;
-        pros::delay(300);
-        intakeDirection = 0;
-
-        //Mogo
-        chassis.moveToPoint(toInch(0), toInch(300), 2000, {.forwards = false, .maxSpeed = 50, .minSpeed = 20});
-        chassis.turnToHeading(150, 2000, {.maxSpeed = 40, .minSpeed = 20});
-        chassis.moveToPoint(toInch(-200), toInch(800), 2000, {.forwards = false, .maxSpeed = 50}, false);
-        mogo_piston.extend();
-        chassis.moveToPoint(toInch(0), toInch(600), 2000, {.forwards = true, .maxSpeed = 50}, false);
-        pros::delay(500);
-
-        //Put pre load on, and grab 2nd ring
-        intakeDirection = 1;
-        chassis.moveToPose(toInch(500), toInch(600), 90, 2000, {.forwards = true, .maxSpeed = 50});
+        intake_top_mtr.move_relative(-320, 200 * INTAKE_TOP_MULTIPLIER);
     }
     else if (autonomousSelected == 2){
         //Right red
@@ -74,20 +49,7 @@ void autonomous() {
 
         //Rewind intake, and move up lady brown
         lady_brown_mtr.move_absolute(40 * LADY_BROWN_RATIO, 100);
-        intakeDirection = -2;
-        pros::delay(300);
-        intakeDirection = 0;
-
-        //Mogo
-        chassis.moveToPoint(toInch(0), toInch(300), 2000, {.forwards = false, .maxSpeed = 50, .minSpeed = 20}, false);
-        chassis.moveToPoint(toInch(-200), toInch(800), 2000, {.forwards = false, .maxSpeed = 50}, false);
-        mogo_piston.extend();
-        chassis.moveToPoint(toInch(0), toInch(600), 2000, {.forwards = true, .maxSpeed = 50}, false);
-        pros::delay(500);
-
-        //Put pre load on, and grab 2nd ring
-        intakeDirection = 1;
-        chassis.moveToPose(toInch(500), toInch(600), 90, 2000, {.forwards = true, .maxSpeed = 50}, false);
+        intake_top_mtr.move_relative(-320, 200 * INTAKE_TOP_MULTIPLIER);
     }
     else if (autonomousSelected == 3){
         //Left blue
@@ -95,20 +57,7 @@ void autonomous() {
 
         //Rewind intake, and move up lady brown
         lady_brown_mtr.move_absolute(40 * LADY_BROWN_RATIO, 100);
-        intakeDirection = -2;
-        pros::delay(300);
-        intakeDirection = 0;
-
-        //Mogo
-        chassis.moveToPoint(-toInch(0), toInch(300), 2000, {.forwards = false, .maxSpeed = 50, .minSpeed = 20}, false);
-        chassis.moveToPoint(-toInch(-200), toInch(800), 2000, {.forwards = false, .maxSpeed = 50}, false);
-        mogo_piston.extend();
-        chassis.moveToPoint(-toInch(0), toInch(600), 2000, {.forwards = true, .maxSpeed = 50}, false);
-        pros::delay(500);
-
-        //Put pre load on, and grab 2nd ring
-        intakeDirection = 1;
-        chassis.moveToPose(-toInch(500), toInch(500), 90, 2000, {.forwards = true, .maxSpeed = 50}, false);
+        intake_top_mtr.move_relative(-320, 200 * INTAKE_TOP_MULTIPLIER);
     }
     else if (autonomousSelected == 4){
         //Skills
@@ -116,9 +65,7 @@ void autonomous() {
 
         //Rewind intake, and move up lady brown
         lady_brown_mtr.move_absolute(40 * LADY_BROWN_RATIO, 100);
-        intakeDirection = -2;
-        pros::delay(700);
-        intakeDirection = 0;
+        intake_top_mtr.move_relative(-320, 200 * INTAKE_TOP_MULTIPLIER);
 
         //Mogo, turn, and score preload
         chassis.moveToPose(0, toInch(500), 180, 3000, {.forwards = false, .maxSpeed = 50}, false);

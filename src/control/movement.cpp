@@ -91,13 +91,13 @@ void movement(int inputs[14]){
         mogo_piston.set_value(mogoVal % 2);
     }
 
-    //Sorting
-    if (masterNewB || partnerNewB){
-        sortingEnabled = !sortingEnabled;
-    }
-
     //Intake top
     intakeDirection = ((masterCurDown || partnerCurDown) - (masterCurB || partnerCurB)) * (1 - 0.75 * (masterCurA || partnerCurA));
+
+    //Sorting disabled
+    if (masterNewLeft || partnerNewLeft){
+        sortingEnabled = !sortingEnabled;
+    }
 
     //Intake bottom
     if (masterCurL1 || masterCurL2){
@@ -140,13 +140,9 @@ void movement(int inputs[14]){
         //Partner manual anologue
         lady_brown_mtr.move(LADY_BROWN_MOVE_MULTIPLIER * partnerRightY);
         ladyBrownAngle = lady_brown_mtr.get_position();
-    }else if (masterCurLeft || partnerCurLeft){
-        //Low load position
-        ladyBrownAngle = LADY_BROWN_LOW_LOAD_ANGLE * LADY_BROWN_RATIO;
-        lady_brown_mtr.move_absolute(ladyBrownAngle, LADY_BROWN_BRAKE_VELOCITY);
     }else if (masterCurUp || partnerCurUp){
-        //High load position
-        ladyBrownAngle = LADY_BROWN_HIGH_LOAD_ANGLE * LADY_BROWN_RATIO;
+        //Load position
+        ladyBrownAngle = LADY_BROWN_LOAD_ANGLE * LADY_BROWN_RATIO;
         lady_brown_mtr.move_absolute(ladyBrownAngle, LADY_BROWN_BRAKE_VELOCITY);
     }else if (masterCurX || partnerCurX){
         //Score position

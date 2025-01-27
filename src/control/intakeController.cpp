@@ -6,11 +6,21 @@
 void intakeController(){
     //Set color sensor mode
     color_sensor.disable_gesture();
-    color_sensor.set_integration_time(3);
+    color_sensor.set_integration_time(50);
     color_sensor.set_led_pwm(100);
+
+    //Tare position
+    intake_top_mtr.set_zero_position(260);
 
     //Main loop
     while (true){
+        //Check if overridden off
+        if (intakeDirection.load() == -2){
+            //Intake to have no updates at all, being managed elsewhere
+            pros::delay(50);
+            continue;
+        }
+
         //Check if auton or op control
         if (pros::competition::is_disabled()){
             //Disabled, don't run intake
@@ -27,17 +37,10 @@ void intakeController(){
             continue;
         }
 
-        //Check if super reversed (ignore sort)
-        if (intakeDirection.load() == -2){
-            //Intake reversed, run backwards, no sorting
-            intake_top_mtr.move(-127 * INTAKE_TOP_MULTIPLIER);
-            pros::delay(50);
-            continue;
-        }
-
         //Check if sorting enabled
         if (sortingEnabled.load()){
             //Sorting enabled
+            std::cout << color_sensor.get_proximity() << " " << intake_top_mtr.get_position() << std::endl;
             //Check if color detected is close enough
             if(color_sensor.get_proximity() < 255){
                 //Not close enough, just keep running
@@ -53,16 +56,12 @@ void intakeController(){
                     intake_top_mtr.move(intakeDirection * INTAKE_TOP_MULTIPLIER * 127);
                 }else{
                     //Blue ring is enabled, expel
-                    intake_top_mtr.tare_position();
-                    int targetPos = intake_top_mtr.get_position() + 220;
+                    //Get position, and make target pos round up to nearest multiple of distance between hooks
+                    double currentPos = intake_top_mtr.get_position();
+                    double targetPos = DISTANCE_BETWEEN_HOOKS * ceil(currentPos / DISTANCE_BETWEEN_HOOKS);
+                    //Move to target pos
                     intake_top_mtr.move_absolute(targetPos, 200);
-                    while (intake_top_mtr.get_actual_velocity() > 5 || fabs(intake_top_mtr.get_position() - targetPos) > 10){
-                        intake_top_mtr.move_absolute(targetPos, 200);
-                        pros::delay(3);
-                    }
-                    targetPos -= 50;
-                    intake_top_mtr.move_absolute(targetPos, 200);
-                    pros::delay(500);
+                    pros::delay(3000);
                 }
             }else if(color_sensor.get_hue() > 180 && color_sensor.get_hue() < 270){
                 //Blue ring, check selected color and respond
@@ -71,16 +70,12 @@ void intakeController(){
                     intake_top_mtr.move(intakeDirection * INTAKE_TOP_MULTIPLIER * 127);
                 }else{
                     //Red ring is enabled, expel
-                    intake_top_mtr.tare_position();
-                    int targetPos = intake_top_mtr.get_position() + 220;
+                    //Get position, and make target pos round up to nearest multiple of distance between hooks
+                    double currentPos = intake_top_mtr.get_position();
+                    double targetPos = DISTANCE_BETWEEN_HOOKS * ceil(currentPos / DISTANCE_BETWEEN_HOOKS);
+                    //Move to target pos
                     intake_top_mtr.move_absolute(targetPos, 200);
-                    while (intake_top_mtr.get_actual_velocity() > 5 || fabs(intake_top_mtr.get_position() - targetPos) > 10){
-                        intake_top_mtr.move_absolute(targetPos, 200);
-                        pros::delay(3);
-                    }
-                    targetPos -= 50;
-                    intake_top_mtr.move_absolute(targetPos, 200);
-                    pros::delay(500);
+                    pros::delay(3000);
                 }
             }else{
                 //Error color, just keep running
@@ -92,6 +87,6 @@ void intakeController(){
         }
 
         //Standard delay
-        pros::delay(3);
+        pros::delay(50);
     }
 }
