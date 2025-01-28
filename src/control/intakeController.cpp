@@ -56,6 +56,13 @@ void intakeController(){
                     intake_top_mtr.move(intakeDirection * INTAKE_TOP_MULTIPLIER * 127);
                 }else{
                     //Blue ring is enabled, expel
+                    //Raise lady brown if down
+                    if (ladyBrownAngle.load() < 40){
+                        ladyBrownAngle = 60 * LADY_BROWN_RATIO;
+                        intake_top_mtr.move_absolute(intake_top_mtr.get_position(), 200);
+                        pros::delay(1000);
+                    }
+                    
                     //Get position, and make target pos round up to nearest multiple of distance between hooks
                     double currentPos = intake_top_mtr.get_position();
                     double targetPos = DISTANCE_BETWEEN_HOOKS * ceil(currentPos / DISTANCE_BETWEEN_HOOKS);
@@ -70,6 +77,13 @@ void intakeController(){
                     intake_top_mtr.move(intakeDirection * INTAKE_TOP_MULTIPLIER * 127);
                 }else{
                     //Red ring is enabled, expel
+                    //Raise lady brown if down
+                    if (ladyBrownAngle.load() < 40){
+                        ladyBrownAngle = 60 * LADY_BROWN_RATIO;
+                        intake_top_mtr.move_absolute(intake_top_mtr.get_position(), 200);
+                        pros::delay(1000);
+                    }
+                    
                     //Get position, and make target pos round up to nearest multiple of distance between hooks
                     double currentPos = intake_top_mtr.get_position();
                     double targetPos = DISTANCE_BETWEEN_HOOKS * ceil(currentPos / DISTANCE_BETWEEN_HOOKS);

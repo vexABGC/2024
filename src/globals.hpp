@@ -32,7 +32,7 @@ extern int lastL;
 extern int lastR;
 extern int mogoVal;
 extern int cornerVal;
-extern int ladyBrownAngle;
+extern std::atomic<int> ladyBrownAngle;
 extern std::atomic<int> color;
 extern std::atomic<bool> sortingEnabled;
 extern std::atomic<double> intakeDirection;

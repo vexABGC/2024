@@ -36,7 +36,7 @@ int lastL{0};
 int lastR{0};
 int mogoVal{0};
 int cornerVal{0};
-int ladyBrownAngle{0};
+std::atomic<int> ladyBrownAngle{0};
 std::atomic<int> color = 0;
 std::atomic<bool> sortingEnabled = true;
 std::atomic<double> intakeDirection = 1;

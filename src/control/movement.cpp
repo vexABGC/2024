@@ -127,7 +127,7 @@ void movement(int inputs[14]){
     if(lady_brown_mtr.get_position() > LADY_BROWN_SCORE_ANGLE * LADY_BROWN_RATIO && lady_brown_mtr.get_direction() == 1){
         //Wants to go over size
         ladyBrownAngle = LADY_BROWN_SCORE_ANGLE * LADY_BROWN_RATIO;
-        lady_brown_mtr.move_absolute(ladyBrownAngle, LADY_BROWN_BRAKE_VELOCITY);
+        lady_brown_mtr.move_absolute(ladyBrownAngle.load(), LADY_BROWN_BRAKE_VELOCITY);
     }else if (masterCurR1 || masterCurR2){
         //Master manual digital
         lady_brown_mtr.move(127 * LADY_BROWN_MOVE_MULTIPLIER * (masterCurR1 - masterCurR2));
@@ -143,12 +143,12 @@ void movement(int inputs[14]){
     }else if (masterCurUp || partnerCurUp){
         //Load position
         ladyBrownAngle = LADY_BROWN_LOAD_ANGLE * LADY_BROWN_RATIO;
-        lady_brown_mtr.move_absolute(ladyBrownAngle, LADY_BROWN_BRAKE_VELOCITY);
+        lady_brown_mtr.move_absolute(ladyBrownAngle.load(), LADY_BROWN_BRAKE_VELOCITY);
     }else if (masterCurX || partnerCurX){
         //Score position
         ladyBrownAngle = LADY_BROWN_SCORE_ANGLE * LADY_BROWN_RATIO;
-        lady_brown_mtr.move_absolute(ladyBrownAngle, LADY_BROWN_BRAKE_VELOCITY);
+        lady_brown_mtr.move_absolute(ladyBrownAngle.load(), LADY_BROWN_BRAKE_VELOCITY);
     }else{
-        lady_brown_mtr.move_absolute(ladyBrownAngle, LADY_BROWN_BRAKE_VELOCITY);
+        lady_brown_mtr.move_absolute(ladyBrownAngle.load(), LADY_BROWN_BRAKE_VELOCITY);
     }
 }
