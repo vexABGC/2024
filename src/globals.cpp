@@ -38,7 +38,7 @@ int mogoVal{0};
 int cornerVal{0};
 std::atomic<int> ladyBrownAngle{0};
 std::atomic<int> color = 0;
-std::atomic<bool> sortingEnabled = true;
+std::atomic<bool> normalLaw = true;
 std::atomic<double> intakeDirection = 1;
 
 //Electronics

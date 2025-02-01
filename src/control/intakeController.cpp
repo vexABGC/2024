@@ -37,9 +37,9 @@ void intakeController(){
             continue;
         }
 
-        //Check if sorting enabled
-        if (sortingEnabled.load()){
-            //Sorting enabled
+        //Check if normal law
+        if (normalLaw.load()){
+            //Normal law
             std::cout << color_sensor.get_proximity() << " " << intake_top_mtr.get_position() << std::endl;
             //Check if color detected is close enough
             if(color_sensor.get_proximity() < 255){
@@ -96,7 +96,7 @@ void intakeController(){
                 intake_top_mtr.move(intakeDirection * INTAKE_TOP_MULTIPLIER * 127);
             }
         }else{
-            //Sorting not enabled, just run
+            //Alternative law, just run
             intake_top_mtr.move(intakeDirection * INTAKE_TOP_MULTIPLIER * 127);
         }
 

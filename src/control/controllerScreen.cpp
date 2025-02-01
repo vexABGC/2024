@@ -48,8 +48,8 @@ void updateControllerScreen() {
 //Function to update the line strings with any faults
 void updateLines() {
     //Default line values
-    lineone = "No detected faults";
-    linetwo = "";
+    lineone = "System OK";
+    linetwo = "Norm law: " + normalLaw;
     linethree = "";
     controllerRumble = "";
     

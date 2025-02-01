@@ -34,7 +34,7 @@ extern int mogoVal;
 extern int cornerVal;
 extern std::atomic<int> ladyBrownAngle;
 extern std::atomic<int> color;
-extern std::atomic<bool> sortingEnabled;
+extern std::atomic<bool> normalLaw;
 extern std::atomic<double> intakeDirection;
 
 //Settings

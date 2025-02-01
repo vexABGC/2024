@@ -75,15 +75,8 @@ void movement(int inputs[14]){
     partnerRightY = (abs(partnerRightY) < DEAD_ZONE) ? 0 : partnerRightY;
 
     //Movement
-    if (masterLeftY != 0 || masterRightX != 0 || true){
-        left_mtrs.move(SPEED_MULTIPLIER * (masterLeftY + masterRightX));
-        right_mtrs.move(SPEED_MULTIPLIER * (masterLeftY - masterRightX));
-        lastL = left_mtrs.get_position();
-        lastR = right_mtrs.get_position();
-    }else{
-        left_mtrs.move_absolute(lastL, 200 * BRAKE_MULTIPLIER);
-        right_mtrs.move_absolute(lastR, 200 * BRAKE_MULTIPLIER);
-    }
+    chassis.arcade(masterLeftY, masterRightX, false);
+    chassis.setBrakeMode(MOTOR_BRAKE_HOLD);
 
     //Mogo mech
     if (masterNewY || partnerNewY){
@@ -96,7 +89,7 @@ void movement(int inputs[14]){
 
     //Sorting disabled
     if (masterNewLeft || partnerNewLeft){
-        sortingEnabled = !sortingEnabled;
+        normalLaw = !normalLaw;
     }
 
     //Intake bottom
