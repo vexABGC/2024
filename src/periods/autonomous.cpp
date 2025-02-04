@@ -122,24 +122,24 @@ void autonomous() {
         intake_top_mtr.move_relative(-320, 200 * INTAKE_TOP_MULTIPLIER);
 
         //Mogo, turn, and score preload
-        chassis.moveToPose(0, toInch(500), 180, 3000, {.forwards = false, .maxSpeed = 50}, false);
+        chassis.moveToPose(0, toInch(500), 180, 3000, {.forwards = false}, false);
         mogo_piston.extend();
         pros::delay(300);
         intakeDirection = 1;
         intake_bot_mtr.move(60);
-        chassis.turnToHeading(0, 5000, {.maxSpeed = 40}, false);
+        chassis.turnToHeading(0, 5000, {}, false);
         
         //Rings 1 - 4
-        chassis.moveToPoint(0, toInch(1250), 5000, {.forwards = true, .maxSpeed = 30}, false); //Ring 1 & 2
-        chassis.moveToPoint(0, toInch(1100), 5000, {.forwards = false, .maxSpeed = 50}, false); //Backwards
-        chassis.turnToPoint(toInch(-600), toInch(1200), 5000, {.forwards=true, .maxSpeed = 30}, false); //Rotate
-        chassis.moveToPoint(toInch(-600), toInch(1200), 5000, {.forwards = true, .maxSpeed = 50}, false); //Ring 3
-        chassis.moveToPoint(toInch(-1050), toInch(1350), 5000, {.forwards = true, .maxSpeed = 50}, false); //Ring 4
+        chassis.moveToPoint(0, toInch(1250), 5000, {.forwards = true}, false); //Ring 1 & 2
+        chassis.moveToPoint(0, toInch(1100), 5000, {.forwards = false}, false); //Backwards
+        chassis.turnToPoint(toInch(-600), toInch(1200), 5000, {.forwards=true}, false); //Rotate
+        chassis.moveToPoint(toInch(-600), toInch(1200), 5000, {.forwards = true}, false); //Ring 3
+        chassis.moveToPoint(toInch(-1050), toInch(1350), 5000, {.forwards = true}, false); //Ring 4
 
         //Corner
-        chassis.moveToPoint(0, toInch(1100), 5000, {.forwards = false, .maxSpeed = 50}, false); //Backwards to line up
-        chassis.turnToPoint(toInch(800), toInch(1800), 5000, {.forwards = false, .maxSpeed = 30}, false); //Rotate
-        chassis.moveToPoint(toInch(800), toInch(1800), 5000, {.forwards = false, .maxSpeed = 80}, false); //Corner final
+        chassis.moveToPoint(0, toInch(1100), 5000, {.forwards = false}, false); //Backwards to line up
+        chassis.turnToPoint(toInch(800), toInch(1800), 5000, {.forwards = false}, false); //Rotate
+        chassis.moveToPoint(toInch(800), toInch(1800), 5000, {.forwards = false}, false); //Corner final
     }
     else if (autonomousSelected == 5){
         //Replay
