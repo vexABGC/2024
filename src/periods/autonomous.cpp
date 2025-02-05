@@ -36,17 +36,19 @@ void autonomous() {
         intake_top_mtr.move_relative(-320, 200);
 
         //Grab mogo
-        chassis.moveToPose(0, toInch(600), 225, 3000, {.forwards = false}, false);
+        chassis.moveToPoint(toInch(270), toInch(670), 3000, {.forwards = false, .maxSpeed=80}, false);
         mogo_piston.extend();
+        pros::delay(200);
 
         //Dump preload, and grab 1st ring
         chassis.turnToHeading(270, 3000);
         intakeDirection = 1;
+        intake_bot_mtr.move(60);
         chassis.moveToPoint(-toInch(400), toInch(600), 3000, {.forwards = true}, false);
 
         //Grab 2nd and 3rd rings
-        chassis.moveToPoint(-toInch(550), toInch(900), 3000, {.forwards = true}, false);
-        chassis.moveToPoint(-toInch(650), toInch(900), 3000, {.forwards = true}, false);
+        chassis.moveToPoint(-toInch(550), toInch(1020), 2000, {.forwards = true}, false);
+        chassis.moveToPoint(-toInch(650), toInch(1020), 1000, {.forwards = true}, false);
 
         //Touch ladder
         chassis.moveToPoint(0,toInch(600), 3000, {.forwards = false}, false);
@@ -58,21 +60,23 @@ void autonomous() {
         chassis.setPose(toInch(135), toInch(-105), 180);
 
         //Rewind intake, and move up lady brown
-        lady_brown_mtr.move_absolute(40 * LADY_BROWN_RATIO, 100);
-        intake_top_mtr.move_relative(-320, 200 * INTAKE_TOP_MULTIPLIER);
+        lady_brown_mtr.move_absolute(50 * LADY_BROWN_RATIO, 100);
+        intake_top_mtr.move_relative(-320, 200);
 
         //Grab mogo
-        chassis.moveToPose(0, toInch(600), 225, 3000, {.forwards = false}, false);
+        chassis.moveToPoint(-toInch(270), toInch(670), 3000, {.forwards = false, .maxSpeed=80}, false);
         mogo_piston.extend();
+        pros::delay(200);
 
         //Dump preload, and grab 1st ring
-        chassis.turnToHeading(90, 3000);
+        chassis.turnToHeading(270, 3000);
         intakeDirection = 1;
+        intake_bot_mtr.move(60);
         chassis.moveToPoint(toInch(400), toInch(600), 3000, {.forwards = true}, false);
 
         //Grab 2nd and 3rd rings
-        chassis.moveToPoint(toInch(550), toInch(900), 3000, {.forwards = true}, false);
-        chassis.moveToPoint(toInch(650), toInch(900), 3000, {.forwards = true}, false);
+        chassis.moveToPoint(toInch(550), toInch(1020), 2000, {.forwards = true}, false);
+        chassis.moveToPoint(toInch(650), toInch(1020), 1000, {.forwards = true}, false);
 
         //Touch ladder
         chassis.moveToPoint(0,toInch(600), 3000, {.forwards = false}, false);
