@@ -33,6 +33,7 @@ void autonomous() {
 
         //Rewind intake, and move up lady brown
         lady_brown_mtr.move_absolute(50 * LADY_BROWN_RATIO, 100);
+        ladyBrownAngle = 50 * LADY_BROWN_RATIO;
         intake_top_mtr.move_relative(-320, 200);
 
         //Grab mogo
@@ -42,11 +43,13 @@ void autonomous() {
 
         //Dump preload, and grab 1st ring
         chassis.turnToHeading(270, 3000);
+        chassis.moveToPoint(-toInch(400), toInch(600), 3000, {.forwards = true}, true);
+        pros::delay(100);
         intakeDirection = 1;
         intake_bot_mtr.move(60);
-        chassis.moveToPoint(-toInch(400), toInch(600), 3000, {.forwards = true}, false);
 
         //Grab 2nd and 3rd rings
+        chassis.waitUntilDone();
         chassis.moveToPoint(-toInch(550), toInch(1020), 2000, {.forwards = true}, false);
         chassis.moveToPoint(-toInch(650), toInch(1020), 1000, {.forwards = true}, false);
 
@@ -61,6 +64,7 @@ void autonomous() {
 
         //Rewind intake, and move up lady brown
         lady_brown_mtr.move_absolute(50 * LADY_BROWN_RATIO, 100);
+        ladyBrownAngle = 50 * LADY_BROWN_RATIO;
         intake_top_mtr.move_relative(-320, 200);
 
         //Grab mogo
@@ -69,14 +73,16 @@ void autonomous() {
         pros::delay(200);
 
         //Dump preload, and grab 1st ring
-        chassis.turnToHeading(270, 3000);
+        chassis.turnToHeading(90, 3000, {}, false);
+        chassis.moveToPoint(toInch(400), toInch(550), 3000, {.forwards = true}, true);
+        pros::delay(100);
         intakeDirection = 1;
         intake_bot_mtr.move(60);
-        chassis.moveToPoint(toInch(400), toInch(600), 3000, {.forwards = true}, false);
 
         //Grab 2nd and 3rd rings
-        chassis.moveToPoint(toInch(550), toInch(1020), 2000, {.forwards = true}, false);
-        chassis.moveToPoint(toInch(650), toInch(1020), 1000, {.forwards = true}, false);
+        chassis.waitUntilDone();
+        chassis.moveToPoint(toInch(550), toInch(1000), 2000, {.forwards = true}, false);
+        chassis.moveToPoint(toInch(650), toInch(1000), 1000, {.forwards = true}, false);
 
         //Touch ladder
         chassis.moveToPoint(0,toInch(600), 3000, {.forwards = false}, false);
@@ -88,17 +94,26 @@ void autonomous() {
         chassis.setPose(toInch(135), toInch(-105), 180);
 
         //Rewind intake, and move up lady brown
-        lady_brown_mtr.move_absolute(40 * LADY_BROWN_RATIO, 100);
-        intake_top_mtr.move_relative(-320, 200 * INTAKE_TOP_MULTIPLIER);
+        lady_brown_mtr.move_absolute(50 * LADY_BROWN_RATIO, 100);
+        ladyBrownAngle = 50 * LADY_BROWN_RATIO;
+        intake_top_mtr.move_relative(-320, 200);
 
         //Grab mogo
-        chassis.moveToPose(0, toInch(600), 225, 3000, {.forwards = false}, false);
+        chassis.moveToPoint(-toInch(270), toInch(670), 3000, {.forwards = false, .maxSpeed=80}, false);
         mogo_piston.extend();
+        pros::delay(200);
 
         //Dump preload, and grab 1st ring
-        chassis.turnToHeading(90, 3000);
+        chassis.turnToHeading(90, 3000, {}, false);
+        chassis.moveToPoint(toInch(400), toInch(550), 3000, {.forwards = true}, true);
+        pros::delay(100);
         intakeDirection = 1;
-        chassis.moveToPoint(toInch(400), toInch(600), 3000, {.forwards = true}, false);
+        intake_bot_mtr.move(60);
+
+        //Touch ladder
+        chassis.moveToPoint(0,toInch(600), 3000, {.forwards = false}, false);
+        chassis.turnToPoint(-toInch(800), toInch(800), 3000, {.forwards = true}, false);
+        chassis.moveToPoint(-toInch(800),toInch(800), 3000, {.forwards = true}, false);
     }
     else if (autonomousSelected == 3){
         //Left blue
@@ -106,44 +121,90 @@ void autonomous() {
 
         //Rewind intake, and move up lady brown
         lady_brown_mtr.move_absolute(50 * LADY_BROWN_RATIO, 100);
+        ladyBrownAngle = 50 * LADY_BROWN_RATIO;
         intake_top_mtr.move_relative(-320, 200);
 
         //Grab mogo
-        chassis.moveToPose(0, toInch(600), 225, 3000, {.forwards = false}, false);
+        chassis.moveToPoint(toInch(270), toInch(670), 3000, {.forwards = false, .maxSpeed=80}, false);
         mogo_piston.extend();
+        pros::delay(200);
 
         //Dump preload, and grab 1st ring
         chassis.turnToHeading(270, 3000);
+        chassis.moveToPoint(-toInch(400), toInch(600), 3000, {.forwards = true}, true);
+        pros::delay(100);
         intakeDirection = 1;
-        chassis.moveToPoint(-toInch(400), toInch(600), 3000, {.forwards = true}, false);
+        intake_bot_mtr.move(60);
+
+        //Touch ladder
+        chassis.moveToPoint(0,toInch(600), 3000, {.forwards = false}, false);
+        chassis.turnToPoint(toInch(800), toInch(800), 3000, {.forwards = true}, false);
+        chassis.moveToPoint(toInch(800),toInch(800), 3000, {.forwards = true}, false);
     }
     else if (autonomousSelected == 4){
         //Skills
-        chassis.setPose(3, 0, 180);
+        chassis.setPose(0, toInch(-325), 0);
 
         //Rewind intake, and move up lady brown
         lady_brown_mtr.move_absolute(40 * LADY_BROWN_RATIO, 100);
         intake_top_mtr.move_relative(-320, 200 * INTAKE_TOP_MULTIPLIER);
+        pros::delay(700);
 
-        //Mogo, turn, and score preload
-        chassis.moveToPose(0, toInch(500), 180, 3000, {.forwards = false}, false);
+        //Score preload on alliance stake
+        intakeDirection = 1;
+        pros::delay(700);
+
+        //Grab mogo and face rings
+        chassis.moveToPoint(0, 0, 3000, {.forwards = true}, false);
+        chassis.turnToHeading(-90, 3000, {}, false);
+        chassis.moveToPoint(toInch(500), 0, 3000, {.forwards = false}, false);
         mogo_piston.extend();
         pros::delay(300);
         intakeDirection = 1;
         intake_bot_mtr.move(60);
-        chassis.turnToHeading(0, 5000, {}, false);
+        chassis.turnToHeading(90, 3000, {}, false);
         
         //Rings 1 - 4
-        chassis.moveToPoint(0, toInch(1250), 5000, {.forwards = true}, false); //Ring 1 & 2
-        chassis.moveToPoint(0, toInch(1100), 5000, {.forwards = false}, false); //Backwards
-        chassis.turnToPoint(toInch(-600), toInch(1200), 5000, {.forwards=true}, false); //Rotate
-        chassis.moveToPoint(toInch(-600), toInch(1200), 5000, {.forwards = true}, false); //Ring 3
-        chassis.moveToPoint(toInch(-1050), toInch(1350), 5000, {.forwards = true}, false); //Ring 4
+        chassis.moveToPoint(toInch(1300), 0, 3000, {.forwards = true}, false); //Ring 1
+        chassis.moveToPoint(toInch(1100), 0, 1000, {.forwards = false}, false); //Backwards
+        chassis.moveToPoint(toInch(1450), 0, 1000, {.forwards = true}, false); //Ring 2
+        chassis.moveToPoint(toInch(1100), 0, 1000, {.forwards = false}, false); //Backwards
+        chassis.turnToPoint(toInch(1200), toInch(600), 1000, {.forwards=true}, false); //Rotate
+        chassis.moveToPoint(toInch(1200), toInch(600), 2000, {.forwards = true}, false); //Ring 3
+        chassis.turnToPoint(toInch(600), toInch(600), 1000, {.forwards=true}, false); //Rotate
+        chassis.moveToPoint(toInch(600), toInch(600), 2000, {.forwards = true}, false); //Ring 4
 
-        //Corner
-        chassis.moveToPoint(0, toInch(1100), 5000, {.forwards = false}, false); //Backwards to line up
-        chassis.turnToPoint(toInch(800), toInch(1800), 5000, {.forwards = false}, false); //Rotate
-        chassis.moveToPoint(toInch(800), toInch(1800), 5000, {.forwards = false}, false); //Corner final
+        //Corner 1
+        chassis.turnToPoint(toInch(1600), toInch(-400), 1000, {.forwards = false}, false);
+        chassis.moveToPoint(toInch(1600), toInch(-400), 3000, {.forwards = false}, false);
+        mogo_piston.retract(); //Dump mogo
+        pros::delay(700);
+        chassis.moveToPoint(toInch(1200), toInch(0), 3000, {.forwards = true}, false); //Drive out of corner
+        chassis.turnToPoint(toInch(-500), 0, 1500, {.forwards = false}, false);
+
+        //Grab mobile goal
+        chassis.moveToPoint(toInch(-500), 0, 3000, {.forwards = false}, false);
+        mogo_piston.extend();
+        pros::delay(300);
+        intakeDirection = 1;
+        intake_bot_mtr.move(60);
+        chassis.turnToHeading(90, 3000, {}, false);
+
+        //Rigns 5 - 8
+        chassis.moveToPoint(toInch(-1300), 0, 3000, {.forwards = true}, false); //Ring 1
+        chassis.moveToPoint(toInch(-1100), 0, 1000, {.forwards = false}, false); //Backwards
+        chassis.moveToPoint(toInch(-1450), 0, 1000, {.forwards = true}, false); //Ring 2
+        chassis.moveToPoint(toInch(-1100), 0, 1000, {.forwards = false}, false); //Backwards
+        chassis.turnToPoint(toInch(-1200), toInch(600), 1000, {.forwards=true}, false); //Rotate
+        chassis.moveToPoint(toInch(-1200), toInch(600), 2000, {.forwards = true}, false); //Ring 3
+        chassis.turnToPoint(toInch(-600), toInch(600), 1000, {.forwards=true}, false); //Rotate
+        chassis.moveToPoint(toInch(-600), toInch(600), 2000, {.forwards = true}, false); //Ring 4
+
+        //Corner 2
+        chassis.turnToPoint(toInch(-1600), toInch(-400), 1000, {.forwards = false}, false);
+        chassis.moveToPoint(toInch(-1600), toInch(-400), 3000, {.forwards = false}, false);
+        mogo_piston.retract(); //Dump mogo
+        pros::delay(700);
     }
     else if (autonomousSelected == 5){
         //Replay
