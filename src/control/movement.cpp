@@ -79,13 +79,13 @@ void movement(int inputs[14]){
     chassis.setBrakeMode(MOTOR_BRAKE_HOLD);
 
     //Mogo mech
-    if (masterNewY || partnerNewY){
+    if (masterNewY || partnerNewA){
         mogoVal++;
         mogo_piston.set_value(mogoVal % 2);
     }
 
     //Intake top
-    intakeDirection = ((masterCurDown || partnerCurDown) - (masterCurB || partnerCurB)) * (1 - 0.75 * (masterCurA || partnerCurA));
+    intakeDirection = ((masterCurDown || partnerCurDown) - (masterCurB || partnerCurB)) * (1 - 0.75 * (masterCurA || partnerCurY));
 
     //Sorting disabled
     if (masterNewLeft || partnerNewLeft){
@@ -110,7 +110,7 @@ void movement(int inputs[14]){
     }
 
     //Corner mech
-    if (masterNewRight || partnerNewRight){
+    if (masterNewRight || partnerNewUp){
         cornerVal++;
         corner_piston_a.set_value(cornerVal % 2);
         corner_piston_b.set_value((cornerVal + 1) % 2 );
@@ -133,7 +133,7 @@ void movement(int inputs[14]){
         //Partner manual anologue
         lady_brown_mtr.move(LADY_BROWN_MOVE_MULTIPLIER * partnerRightY);
         ladyBrownAngle = lady_brown_mtr.get_position();
-    }else if (masterCurUp || partnerCurUp){
+    }else if (masterCurUp || partnerCurRight){
         //Load position
         ladyBrownAngle = LADY_BROWN_LOAD_ANGLE * LADY_BROWN_RATIO;
         lady_brown_mtr.move_absolute(ladyBrownAngle.load(), LADY_BROWN_BRAKE_VELOCITY);
