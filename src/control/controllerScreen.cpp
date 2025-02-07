@@ -69,6 +69,7 @@ void updateLines() {
     overheatingMotorsList = getOverheatingMotors();
     if (overheatingMotorsList.size() > 0) {
         lineone = " Motor Faults:";
+        linetwo= "";
         for (std::string overheatingMotor : overheatingMotorsList) {
             if (linetwo.length() < 17) linetwo += overheatingMotor;
             else linethree += overheatingMotor;
