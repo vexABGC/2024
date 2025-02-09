@@ -48,11 +48,6 @@ void autonomous() {
         intakeDirection = 1;
         intake_bot_mtr.move(60);
 
-        //Grab 2nd and 3rd rings
-        chassis.waitUntilDone();
-        chassis.moveToPoint(-toInch(550), toInch(1020), 2000, {.forwards = true}, false);
-        chassis.moveToPoint(-toInch(650), toInch(1020), 1000, {.forwards = true}, false);
-
         //Touch ladder
         chassis.moveToPoint(0,toInch(600), 3000, {.forwards = false}, false);
         chassis.turnToPoint(toInch(800), toInch(800), 3000, {.forwards = true}, false);
@@ -78,11 +73,6 @@ void autonomous() {
         pros::delay(100);
         intakeDirection = 1;
         intake_bot_mtr.move(60);
-
-        //Grab 2nd and 3rd rings
-        chassis.waitUntilDone();
-        chassis.moveToPoint(toInch(550), toInch(1000), 2000, {.forwards = true}, false);
-        chassis.moveToPoint(toInch(650), toInch(1000), 1000, {.forwards = true}, false);
 
         //Touch ladder
         chassis.moveToPoint(0,toInch(600), 3000, {.forwards = false}, false);
