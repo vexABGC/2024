@@ -36,6 +36,7 @@
 
 #include "api.h" // IWYU pragma: keep
 #include "lemlib/api.hpp" // IWYU pragma: keep
+#include "liblvgl/lvgl.h"
 
 /**
  * You should add more #includes here

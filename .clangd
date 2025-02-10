@@ -1,0 +1,4 @@
+CompileFlags:
+  Add:
+    - "-I/home/angri/2024/include/"
+    - "-I/home/angri/2024/include/liblvgl/"
