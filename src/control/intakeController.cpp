@@ -38,7 +38,7 @@ void intakeController(){
         }
 
         //Check if normal law
-        if (false){
+        if (normalLaw){
             //Normal law
             std::cout << color_sensor.get_proximity() << " " << intake_top_mtr.get_position() << std::endl;
             //Check if color detected is close enough

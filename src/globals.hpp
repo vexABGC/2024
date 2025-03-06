@@ -63,7 +63,6 @@ extern std::atomic<double> intakeDirection;
 #define COLOR_SENSOR_PRT 10
 #define V_ENCODER_PRT 20
 #define H_ENCODER_PRT 8
-#define CONVEYOR_ENCODER_PRT 6
 #define IMU_PRT 19
 #define MOGO_PISTON_PRT 'A'
 #define CORNER_PISTON_A_PRT 'B'
