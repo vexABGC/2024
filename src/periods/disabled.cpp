@@ -18,6 +18,7 @@ void disabled() {
     intakeDirection = 0;
 
     //Update lines
+    return;
     pros::delay(100);
     master.clear();
     while (true){
