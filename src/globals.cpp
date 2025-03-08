@@ -47,7 +47,7 @@ pros::Controller partner(pros::E_CONTROLLER_PARTNER);
 pros::MotorGroup left_mtrs({LF_PRT, -LM_PRT, -LB_PRT}, pros::v5::MotorGears::rpm_600, pros::v5::MotorUnits::degrees);
 pros::MotorGroup right_mtrs({-RF_PRT, RM_PRT, RB_PRT}, pros::v5::MotorGears::rpm_600, pros::v5::MotorUnits::degrees);
 pros::Motor intake_top_mtr(-INTAKE_TOP_PRT, pros::v5::MotorGears::rpm_200, pros::v5::MotorUnits::degrees);
-pros::Motor intake_bot_mtr(-INTAKE_BOT_PRT, pros::v5::MotorGears::rpm_200, pros::v5::MotorUnits::degrees);
+pros::Motor intake_bot_mtr(INTAKE_BOT_PRT, pros::v5::MotorGears::rpm_200, pros::v5::MotorUnits::degrees);
 pros::Motor lady_brown_mtr(LADY_BROWN_PRT, pros::v5::MotorGears::rpm_200, pros::v5::MotorUnits::degrees);
 pros::Optical color_sensor(COLOR_SENSOR_PRT);
 pros::Rotation v_encoder(V_ENCODER_PRT);

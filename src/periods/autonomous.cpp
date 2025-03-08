@@ -147,12 +147,12 @@ void autonomous() {
         //Grab mogo and face rings
         chassis.moveToPoint(0, 0, 3000, {.forwards = true}, false);
         chassis.turnToHeading(-90, 3000, {}, false);
-        chassis.moveToPoint(toInch(500), 0, 3000, {.forwards = false}, false);
+        chassis.moveToPose(toInch(600), 0, -90, 3000, {.forwards = false}, false);
         mogo_piston.extend();
-        pros::delay(300);
+        pros::delay(500);
         intakeDirection = 1;
         intake_bot_mtr.move(60);
-        chassis.turnToHeading(90, 3000, {}, false);
+        chassis.turnToHeading(85, 3000, {}, false);
         
         //Rings 1 - 4
         chassis.moveToPoint(toInch(1300), 0, 3000, {.forwards = true}, false); //Ring 1
@@ -170,17 +170,17 @@ void autonomous() {
         mogo_piston.retract(); //Dump mogo
         pros::delay(700);
         chassis.moveToPoint(toInch(1200), toInch(0), 3000, {.forwards = true}, false); //Drive out of corner
-        chassis.turnToPoint(toInch(-500), 0, 1500, {.forwards = false}, false);
+        chassis.turnToPoint(toInch(-600), toInch(-100), 1500, {.forwards = false}, false);
 
         //Grab mobile goal
-        chassis.moveToPoint(toInch(-500), 0, 3000, {.forwards = false}, false);
+        chassis.moveToPose(toInch(-600), toInch(-100), 90, 3000, {.forwards = false}, false);
         mogo_piston.extend();
         pros::delay(300);
         intakeDirection = 1;
         intake_bot_mtr.move(60);
         chassis.turnToHeading(90, 3000, {}, false);
 
-        //Rigns 5 - 8
+        //Rings 5 - 8
         chassis.moveToPoint(toInch(-1300), 0, 3000, {.forwards = true}, false); //Ring 1
         chassis.moveToPoint(toInch(-1100), 0, 1000, {.forwards = false}, false); //Backwards
         chassis.moveToPoint(toInch(-1450), 0, 1000, {.forwards = true}, false); //Ring 2
@@ -188,13 +188,29 @@ void autonomous() {
         chassis.turnToPoint(toInch(-1200), toInch(600), 1000, {.forwards=true}, false); //Rotate
         chassis.moveToPoint(toInch(-1200), toInch(600), 2000, {.forwards = true}, false); //Ring 3
         chassis.turnToPoint(toInch(-600), toInch(600), 1000, {.forwards=true}, false); //Rotate
-        chassis.moveToPoint(toInch(-600), toInch(600), 2000, {.forwards = true}, false); //Ring 4
+        chassis.moveToPoint(toInch(-520), toInch(600), 2000, {.forwards = true}, false); //Ring 4
 
         //Corner 2
         chassis.turnToPoint(toInch(-1600), toInch(-400), 1000, {.forwards = false}, false);
         chassis.moveToPoint(toInch(-1600), toInch(-400), 3000, {.forwards = false}, false);
         mogo_piston.retract(); //Dump mogo
         pros::delay(700);
+
+        //Move out and slam blue
+        chassis.moveToPoint(toInch(-1200), toInch(0), 2000, {.forwards = true}, false);
+        intakeDirection = 0;
+        chassis.turnToPoint(toInch(-1200), toInch(1200), 2000, {.forwards = true}, false);
+        chassis.moveToPoint(toInch(-1200), toInch(1200), 2000, {.forwards = true}, false);
+        chassis.turnToPoint(toInch(-600), toInch(1800), 2000, {.forwards = true}, false);
+        chassis.moveToPoint(toInch(-600), toInch(1800), 2000, {.forwards = true}, false);
+        chassis.turnToPoint(toInch(-600), toInch(2700), 2000, {.forwards = false}, false);
+        chassis.moveToPose(toInch(-600), toInch(2700), 150, 2000, {.forwards = false}, false);
+        chassis.turnToPoint(toInch(-1600), toInch(2700), 2000, {.forwards = false}, false);
+        chassis.moveToPoint(toInch(-1600), toInch(2700), 2000, {.forwards = false}, false);
+        intake_bot_mtr.move(0);
+
+        //Blue 2
+        chassis.moveToPoint(toInch(1600), toInch(2700), 2000, {.forwards = true, .minSpeed = 90}, false);
     }
     else if (autonomousSelected == 5){
         //Replay
