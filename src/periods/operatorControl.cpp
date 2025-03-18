@@ -1,6 +1,5 @@
 //Includes
 #include "main.h"
-#include "../../include/lemlib/timer.hpp"
 #include "../src/globals.hpp"
 #include "../src/control/movement.hpp"
 #include "../src/control/controllerScreen.hpp"
@@ -26,13 +25,7 @@ char inputsRecord[4200] = {};
 void opcontrol() {
     //Local globals
     int recordCount{0};
-    bool autospotterTriggered = false;
-
-    //Timer for autospotter set for 1:45
-    lemlib::Timer autospotterTimer = lemlib::Timer(105000);
-
-    //Force reenable intake
-    intakeDirection = 1;
+    bool autoSpotterTriggered = false;
 
     //Motor tare
     left_mtrs.tare_position_all();
@@ -162,11 +155,6 @@ void opcontrol() {
                 lv_btn_set_style(record_button, LV_BTN_STYLE_REL, &record_button_style);
             }
             recordCount++;
-        }
-        // Autospotter
-        if (pros::competition::is_connected() && !autospotterTriggered && autospotterTimer.getTimeSet() < 20000) {
-            autospotterTriggered = true;
-            raiseControllerWarning("Autospotter","Last 20 seconds!",". . .",5);
         }
 
         updateControllerScreen(); // Update the controller screen

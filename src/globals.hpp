@@ -1,6 +1,5 @@
 //Include
 #include "main.h" // IWYU pragma: keep
-#include <atomic>
 
 //GUI style/object declarations
 extern lv_style_t main_page_style;
@@ -32,18 +31,13 @@ extern int lastL;
 extern int lastR;
 extern int mogoVal;
 extern int cornerVal;
-extern std::atomic<int> ladyBrownAngle;
-extern std::atomic<int> color;
-extern std::atomic<bool> normalLaw;
-extern std::atomic<double> intakeDirection;
+extern int ladyBrownAngle;
 
 //Settings
 #define INPUT_COUNT 300
 #define DEAD_ZONE 5
 #define SPEED_MULTIPLIER 1
 #define BRAKE_MULTIPLIER 0.6
-#define INTAKE_TOP_MULTIPLIER 1
-#define DISTANCE_BETWEEN_HOOKS 563.972
 #define LADY_BROWN_RATIO 5
 #define LADY_BROWN_LOAD_ANGLE 20
 #define LADY_BROWN_SCORE_ANGLE 115
@@ -76,21 +70,11 @@ extern pros::MotorGroup right_mtrs;
 extern pros::Motor intake_top_mtr;
 extern pros::Motor intake_bot_mtr;
 extern pros::Motor lady_brown_mtr;
-extern pros::Optical color_sensor;
-extern pros::Rotation v_encoder;
-extern pros::Rotation h_encoder;
-extern pros::Imu imu;
 extern pros::adi::Pneumatics mogo_piston;
 extern pros::adi::Pneumatics corner_piston_a;
 extern pros::adi::Pneumatics corner_piston_b;
 
-//Setup drive PID
-extern lemlib::ControllerSettings lateral_controller;
-extern lemlib::ControllerSettings angular_controller;
-
-//Setup drive train, sensors, and chassis
-extern lemlib::Drivetrain drive_train;
-extern lemlib::TrackingWheel v_tracking_wheel;
-extern lemlib::TrackingWheel h_tracking_wheel;
-extern lemlib::OdomSensors sensors;
-extern lemlib::Chassis chassis;
+//Chassis
+extern ez::Drive chassis;
+extern ez::tracking_wheel v_tracker;
+extern ez::tracking_wheel h_tracker;

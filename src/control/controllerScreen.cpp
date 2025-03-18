@@ -49,7 +49,7 @@ void updateControllerScreen() {
 void updateLines() {
     //Default line values
     lineone = "System OK";
-    linetwo = "Norm law: " + normalLaw;
+    linetwo = "";
     linethree = "";
     controllerRumble = "";
     

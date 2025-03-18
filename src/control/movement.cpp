@@ -75,8 +75,8 @@ void movement(int inputs[14]){
     partnerRightY = (abs(partnerRightY) < DEAD_ZONE) ? 0 : partnerRightY;
 
     //Movement
-    chassis.arcade(masterLeftY, masterRightX, false);
-    chassis.setBrakeMode(MOTOR_BRAKE_HOLD);
+    //chassis.arcade(masterLeftY, masterRightX, false);
+    //chassis.setBrakeMode(MOTOR_BRAKE_HOLD);
 
     //Mogo mech
     if (masterNewY || partnerNewA){
@@ -85,12 +85,7 @@ void movement(int inputs[14]){
     }
 
     //Intake top
-    intakeDirection = ((masterCurDown || partnerCurDown) - (masterCurB || partnerCurB)) * (1 - 0.75 * (masterCurA || partnerCurY));
-
-    //Sorting disabled
-    if (masterNewLeft || partnerNewLeft){
-        normalLaw = !normalLaw;
-    }
+    intake_top_mtr.move(((masterCurDown || partnerCurDown) - (masterCurB || partnerCurB)) * (1 - 0.75 * (masterCurA || partnerCurY)) * 127);
 
     //Intake bottom
     if (masterCurL1 || masterCurL2){
@@ -120,7 +115,7 @@ void movement(int inputs[14]){
     if(lady_brown_mtr.get_position() > LADY_BROWN_SCORE_ANGLE * LADY_BROWN_RATIO && lady_brown_mtr.get_direction() == 1){
         //Wants to go over size
         ladyBrownAngle = LADY_BROWN_SCORE_ANGLE * LADY_BROWN_RATIO;
-        lady_brown_mtr.move_absolute(ladyBrownAngle.load(), LADY_BROWN_BRAKE_VELOCITY);
+        lady_brown_mtr.move_absolute(ladyBrownAngle, LADY_BROWN_BRAKE_VELOCITY);
     }else if (masterCurR1 || masterCurR2){
         //Master manual digital
         lady_brown_mtr.move(127 * LADY_BROWN_MOVE_MULTIPLIER * (masterCurR1 - masterCurR2));
@@ -136,12 +131,12 @@ void movement(int inputs[14]){
     }else if (masterCurUp || partnerCurRight){
         //Load position
         ladyBrownAngle = LADY_BROWN_LOAD_ANGLE * LADY_BROWN_RATIO;
-        lady_brown_mtr.move_absolute(ladyBrownAngle.load(), LADY_BROWN_BRAKE_VELOCITY);
+        lady_brown_mtr.move_absolute(ladyBrownAngle, LADY_BROWN_BRAKE_VELOCITY);
     }else if (masterCurX || partnerCurX){
         //Score position
         ladyBrownAngle = LADY_BROWN_SCORE_ANGLE * LADY_BROWN_RATIO;
-        lady_brown_mtr.move_absolute(ladyBrownAngle.load(), LADY_BROWN_BRAKE_VELOCITY);
+        lady_brown_mtr.move_absolute(ladyBrownAngle, LADY_BROWN_BRAKE_VELOCITY);
     }else{
-        lady_brown_mtr.move_absolute(ladyBrownAngle.load(), LADY_BROWN_BRAKE_VELOCITY);
+        lady_brown_mtr.move_absolute(ladyBrownAngle, LADY_BROWN_BRAKE_VELOCITY);
     }
 }

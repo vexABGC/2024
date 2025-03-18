@@ -14,7 +14,7 @@ INCDIR=$(ROOT)/include
 
 WARNFLAGS+=
 EXTRA_CFLAGS=
-EXTRA_CXXFLAGS=
+EXTRA_CXXFLAGS=-Wno-deprecated-enum-enum-conversion
 
 # Set to 1 to enable hot/cold linking
 USE_PACKAGE:=1
@@ -25,9 +25,7 @@ EXCLUDE_COLD_LIBRARIES:=
 
 # Set this to 1 to add additional rules to compile your project as a PROS library template
 IS_LIBRARY:=0
-# TODO: CHANGE THIS! 
-# Be sure that your header files are in the include directory inside of a folder with the
-# same name as what you set LIBNAME to below.
+# TODO: CHANGE THIS!
 LIBNAME:=libbest
 VERSION:=1.0.0
 # EXCLUDE_SRC_FROM_LIB= $(SRCDIR)/unpublishedfile.c
@@ -36,8 +34,8 @@ EXCLUDE_SRC_FROM_LIB+=$(foreach file, $(SRCDIR)/main,$(foreach cext,$(CEXTS),$(f
 
 # files that get distributed to every user (beyond your source archive) - add
 # whatever files you want here. This line is configured to add all header files
-# that are in the directory include/LIBNAME
-TEMPLATE_FILES=$(INCDIR)/$(LIBNAME)/*.h $(INCDIR)/$(LIBNAME)/*.hpp
+# that are in the the include directory get exported
+TEMPLATE_FILES=$(INCDIR)/**/*.h $(INCDIR)/**/*.hpp
 
 .DEFAULT_GOAL=quick
 

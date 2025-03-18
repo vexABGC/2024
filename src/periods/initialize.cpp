@@ -3,7 +3,6 @@
 #include "../src/globals.hpp"
 #include "../src/control/buttonMethod.hpp"
 #include "../src/control/controllerScreen.hpp"
-#include "../src/control/intakeController.hpp"
 
 /**
  * Runs initialization code. This occurs as soon as the program is started.
@@ -13,7 +12,9 @@
  */
 void initialize() {
     //Calibrate
-    chassis.calibrate();
+    chassis.odom_tracker_left_set(&v_tracker);
+    chassis.odom_tracker_front_set(&h_tracker);
+    chassis.initialize();
     
     //GUI Setup
     //Setup main page
@@ -97,7 +98,7 @@ void initialize() {
     lv_obj_set_free_num(replay_button, 2);
     lv_btn_set_action(replay_button, LV_BTN_ACTION_CLICK, buttonMethod);
 
-    //Map & map buttons
+    //Map buttons
     //Style
     location_button_style_rel = lv_style_t();
     location_button_style_rel.body.opa = 0;
@@ -157,11 +158,7 @@ void initialize() {
     lv_obj_set_free_num(skills_button, 7);
     lv_btn_set_action(skills_button, LV_BTN_ACTION_CLICK, buttonMethod);
 
-    //Intake thread setup, and motor tare
-    pros::Task intakeThread(intakeController);
+    //Lady brown setup
     lady_brown_mtr.tare_position();
     ladyBrownAngle = 0;
-
-    //Controller warning auton
-    raiseControllerWarning("Auton left red");
 }

@@ -13,15 +13,4 @@ void disabled() {
     //End movement
     int inputs[14] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0};
     movement(inputs);
-
-    //Force disable intake
-    intakeDirection = 0;
-
-    //Update lines
-    pros::delay(100);
-    master.clear();
-    while (true){
-        updateControllerScreen();
-        pros::delay(50);
-    }
 }
