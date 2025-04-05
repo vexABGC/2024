@@ -22,19 +22,15 @@ void autonomous() {
     //Auton select
     if (autonomousSelected == 0){
         //Left red
-        leftRed();
     }
     else if (autonomousSelected == 1){
         //Right blue
-        rightBlue();
     }
     else if (autonomousSelected == 2){
         //Right red
-        rightRed();
     }
     else if (autonomousSelected == 3){
-        //Left  blue
-        leftBlue();
+        //Left blue
     }
     else if (autonomousSelected == 4){
         //Skills

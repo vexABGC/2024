@@ -1,8 +1,4 @@
 //Method declarations
-void leftRed();
-void rightBlue();
-void rightRed();
-void leftBlue();
 void skills();
 void replay();
 void constants();

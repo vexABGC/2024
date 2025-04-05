@@ -1,6 +1,7 @@
 //Includes
 #include "main.h"
 #include "../src/globals.hpp"
+#include "../src/autons/autons.hpp"
 #include "../src/control/buttonMethod.hpp"
 #include "../src/control/controllerScreen.hpp"
 
@@ -14,6 +15,7 @@ void initialize() {
     //Calibrate
     chassis.odom_tracker_left_set(&v_tracker);
     chassis.odom_tracker_front_set(&h_tracker);
+    constants();
     chassis.initialize();
     
     //GUI Setup
