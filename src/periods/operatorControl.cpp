@@ -124,39 +124,6 @@ void opcontrol() {
         //Movement
         movement(inputs);
 
-        //Recording
-        if(shouldRecord){
-            //Rumble if start of record
-            if (recordCount == 0){
-                master.rumble(". .");
-            }
-
-            //Record
-            for (int i = 0; i < 14; i++){
-                inputsRecord[recordCount*14 + i] = inputs[i];
-            }
-
-            //Save if end of record
-            if (recordCount == 299){
-                //Open file
-                std::ofstream file("/usd/sigma.auton", std::ios::binary);
-
-                for (int i = 0; i < 299*14; i++){
-                    file.write(reinterpret_cast<const char*>(&(inputsRecord[i])), 1);
-                }
-                file.close();
-
-                //End record
-                shouldRecord = false;
-                recordCount = 0;
-                master.rumble("..");
-                record_button_style.body.main_color = LV_COLOR_BLACK;
-                record_button_style.body.grad_color = LV_COLOR_BLACK;
-                lv_btn_set_style(record_button, LV_BTN_STYLE_REL, &record_button_style);
-            }
-            recordCount++;
-        }
-
         updateControllerScreen(); // Update the controller screen
 
         pros::delay(50);

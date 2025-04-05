@@ -1,5 +1,9 @@
 //Method declarations
 void skills();
-void replay();
 void constants();
 void measureOffsets();
+void solo();
+void riskyMogo();
+void riskyRing();
+void safeMogo();
+void safeRing();

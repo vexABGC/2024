@@ -4,32 +4,8 @@
 #include "main.h" // IWYU pragma: keep
 #include "../src/globals.hpp"
 
-//GUI style/object declarations
-lv_style_t main_page_style;
-lv_style_t motor_page_style;
-lv_style_t record_button_style;
-lv_style_t replay_button_style;
-lv_style_t location_button_style_rel;
-lv_style_t location_button_style_pr;
-lv_style_t skills_button_style_pr;
-lv_obj_t* main_page;
-lv_obj_t* motor_page;
-lv_obj_t* main_page_button;
-lv_obj_t* motor_page_button;
-lv_obj_t* record_button;
-lv_obj_t* record_text;
-lv_obj_t* replay_button;
-lv_obj_t* replay_text;
-lv_obj_t* map_image;
-lv_obj_t* lr_button;
-lv_obj_t* rb_button;
-lv_obj_t* rr_button;
-lv_obj_t* lb_button;
-lv_obj_t* skills_button;
-
 //General globals
 int autonomousSelected{0};
-bool shouldRecord{false};
 int lastL{0};
 int lastR{0};
 int mogoVal{0};
