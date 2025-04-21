@@ -12,6 +12,13 @@ int mogoVal{0};
 int cornerVal{0};
 int ladyBrownAngle{0};
 
+//GUI
+lv_obj_t *auto_page;
+lv_style_t auto_page_style;
+lv_obj_t *auto_label;
+lv_style_t auto_btn_style_rel;
+lv_style_t auto_btn_style_pr;
+
 //Electronics
 pros::Controller master(pros::E_CONTROLLER_MASTER);
 pros::Controller partner(pros::E_CONTROLLER_PARTNER);

@@ -4,4 +4,5 @@
 
 //Method definition
 void riskyRing(){
+    std::cout<<"Risky Ring"<<std::endl;
 }

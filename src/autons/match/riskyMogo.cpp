@@ -4,4 +4,5 @@
 
 //Method definition
 void riskyMogo(){
+    std::cout<<"Risky Mogo"<<std::endl;
 }
