@@ -9,13 +9,6 @@ extern int mogoVal;
 extern int cornerVal;
 extern int ladyBrownAngle;
 
-//GUI
-extern lv_obj_t *auto_page;
-extern lv_style_t auto_page_style;
-extern lv_obj_t *auto_label;
-extern lv_style_t auto_btn_style_rel;
-extern lv_style_t auto_btn_style_pr;
-
 //Settings
 #define INPUT_COUNT 300
 #define DEAD_ZONE 5
