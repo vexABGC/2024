@@ -6,4 +6,5 @@
 //Method definition
 void blueSafeRing() {
     std::cout << "Blue Safe Ring" << std::endl;
+    safeRing();
 }

@@ -28,15 +28,15 @@ extern int ladyBrownAngle;
 #define RM_PRT 15
 #define RB_PRT 16
 #define INTAKE_TOP_PRT 17
-#define INTAKE_BOT_PRT 18
-#define LADY_BROWN_PRT 7
+#define INTAKE_BOT_PRT 20
+#define LADY_BROWN_PRT 1
 #define COLOR_SENSOR_PRT 10
-#define V_ENCODER_PRT 20
-#define H_ENCODER_PRT 8
-#define IMU_PRT 19
-#define MOGO_PISTON_PRT 'A'
-#define CORNER_PISTON_A_PRT 'B'
-#define CORNER_PISTON_B_PRT 'C'
+#define V_ENCODER_PRT -9
+#define H_ENCODER_PRT 19
+#define IMU_PRT 18
+#define MOGO_PISTON_PRT 'F'
+#define CORNER_PISTON_A_PRT 'G'
+#define CORNER_PISTON_B_PRT 'H'
 
 //Electronics
 extern pros::Controller master;

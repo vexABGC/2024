@@ -6,4 +6,5 @@
 //Method definition
 void redRiskyMogo() {
     std::cout << "Red Risky Mogo" << std::endl;
+    riskyMogo();
 }

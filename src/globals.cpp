@@ -32,5 +32,5 @@ ez::Drive chassis(
     3.25, //Wheel diameter
     450 //Drive RPM
 );
-ez::tracking_wheel v_tracker(V_ENCODER_PRT, 3.25, -1.8);
-ez::tracking_wheel h_tracker(H_ENCODER_PRT, 3.25, 1);
+ez::tracking_wheel v_tracker(V_ENCODER_PRT, 3.25, 1.3);
+ez::tracking_wheel h_tracker(H_ENCODER_PRT, 3.25, 0.9);

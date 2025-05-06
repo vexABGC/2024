@@ -1,6 +1,7 @@
 //Includes
 #include "../src/control/movement.hpp"
 #include "../src/globals.hpp"
+#include "EZ-Template/util.hpp"
 
 //Method definition
 void movement(int inputs[14]){
@@ -75,8 +76,7 @@ void movement(int inputs[14]){
     partnerRightY = (abs(partnerRightY) < DEAD_ZONE) ? 0 : partnerRightY;
 
     //Movement
-    //chassis.arcade(masterLeftY, masterRightX, false);
-    //chassis.setBrakeMode(MOTOR_BRAKE_HOLD);
+    chassis.opcontrol_arcade_standard(ez::SPLIT);
 
     //Mogo mech
     if (masterNewY || partnerNewA){

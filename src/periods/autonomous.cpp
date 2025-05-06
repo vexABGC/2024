@@ -3,6 +3,8 @@
 #include "../src/globals.hpp"
 #include "../src/autons/autons.hpp"
 #include "../src/graphics/autonPage.hpp"
+#include "../control/toInch.hpp"
+#include "pros/misc.hpp"
 
 /**
  * Runs the user autonomous code. This function will be started in its own task
@@ -21,4 +23,9 @@ void autonomous() {
 
     //Call active tab callback function
     AutonPage::callbacks[lv_tabview_get_tab_act(AutonPage::tabView)]();
+    
+    //Wait
+    while (pros::competition::is_autonomous()){
+        pros::delay(500);
+    }
 }

@@ -1,12 +1,10 @@
 //Includes
-#include "liblvgl/extra/widgets/tabview/lv_tabview.h"
 #include "main.h"
 #include "../src/globals.hpp"
 #include "../src/autons/autons.hpp"
 #include "../src/graphics/autonPage.hpp"
 #include "../src/control/controllerScreen.hpp"
-#include "pros/rtos.hpp"
-#include <cstdio>
+#include "pros/motors.h"
 
 /**
  * Runs initialization code. This occurs as soon as the program is started.
@@ -16,21 +14,16 @@
  */
 void initialize() {
     //Calibrate
-    chassis.odom_tracker_left_set(&v_tracker);
-    chassis.odom_tracker_front_set(&h_tracker);
+    pros::delay(500);
     constants();
-    //ez::as::auton_selector.autons_add({
-    //    {"Measure offsets", measureOffsets},
-    //    {"Risky Mogo Red", riskyMogo},
-    //    {"Risky Mogo Blue", riskyMogo},
-    //    {"Safe Mogo Red", riskyMogo},
-    //    {"Safe Mogo Blue", riskyMogo},
-    //    {"Risky Ring Red", riskyMogo},
-    //    {"Risky Ring Blue", riskyMogo},
-    //    {"Safe Ring Red", riskyMogo},
-    //    {"Safe Ring Blue", riskyMogo},
-    //});
-    //chassis.initialize();
+    chassis.odom_tracker_right_set(&v_tracker);
+    chassis.odom_tracker_back_set(&h_tracker);
+    chassis.drive_brake_set(pros::E_MOTOR_BRAKE_BRAKE);
+
+    //Lady brown setup
+    lady_brown_mtr.tare_position();
+    ladyBrownAngle = 0;
+    chassis.initialize();
 
     //GUI
     AutonPage::initialize(); //Alphabetical order
@@ -43,16 +36,4 @@ void initialize() {
     AutonPage("R S M", "Red Safe Mogo", redSafeMogo);
     AutonPage("R S R", "Red Safe Ring", redSafeRing);
     AutonPage("M O", "Measure Offsets", measureOffsets);
-
-    while (true){
-        //Print act tab number and run its callback function every 1000ms
-        int tab = lv_tabview_get_tab_act(AutonPage::tabView);
-        printf("Tab %d\n", tab);
-        AutonPage::callbacks[tab]();
-        pros::delay(1000);
-    }
-
-    //Lady brown setup
-    lady_brown_mtr.tare_position();
-    ladyBrownAngle = 0;
 }

@@ -6,4 +6,7 @@
 //Method definition
 void redSafeRing() {
     std::cout << "Red Safe Ring" << std::endl;
+    chassis.odom_x_flip();
+    chassis.odom_theta_flip();
+    safeRing();
 }

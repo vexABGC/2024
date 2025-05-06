@@ -6,4 +6,5 @@
 //Method definition
 void redSafeMogo() {
     std::cout << "Red Safe Mogo" << std::endl;
+    safeMogo();
 }
