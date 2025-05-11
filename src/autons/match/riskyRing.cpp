@@ -10,7 +10,13 @@ void riskyRing(){
     lady_brown_mtr.move_absolute(50*5, 60);
     intake_top_mtr.move_relative(-200, 127);
     mogo_piston.retract();
-    chassis.odom_xyt_set(toInch(135), toInch(-105), 180);
+    if (chassis.odom_x_direction_get() == false){
+        //Red
+        chassis.odom_xyt_set(toInch(135), toInch(-105), 180);
+    }else{
+        //Blue
+        chassis.odom_xyt_set(toInch(135), toInch(-105), 180);
+    }
     chassis.pid_odom_set({{toInch(-100), toInch(600), 145}, rev, 70});
     chassis.pid_wait();
     mogo_piston.extend();

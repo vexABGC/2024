@@ -35,5 +35,5 @@ void initialize() {
     AutonPage("R R R", "Red Risky Ring", redRiskyRing);
     AutonPage("R S M", "Red Safe Mogo", redSafeMogo);
     AutonPage("R S R", "Red Safe Ring", redSafeRing);
-    AutonPage("M O", "Measure Offsets", measureOffsets);
+    AutonPage("SL", "Straight line", line);
 }

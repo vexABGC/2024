@@ -5,6 +5,7 @@ void riskyMogo();
 void riskyRing();
 void safeMogo();
 void safeRing();
+void line();
 
 //Colored method declarations
 void blueRiskyMogo();

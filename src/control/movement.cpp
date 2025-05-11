@@ -90,16 +90,16 @@ void movement(int inputs[14]){
     //Intake bottom
     if (masterCurL1 || masterCurL2){
         //Master control
-        intake_bot_mtr.move(127 * (
+        intake_bot_mtr.move(-127 * (
             masterCurL1 - masterCurL2
         ));
     }else if (partnerCurL1 || partnerCurL2){
         //Partner control
-        intake_bot_mtr.move(127 * (
+        intake_bot_mtr.move(-127 * (
             partnerCurL1 - partnerCurL2
         ));
     }else if (partnerLeftY != 0){
-        intake_bot_mtr.move(partnerLeftY);
+        intake_bot_mtr.move(-partnerLeftY);
     }else{
         intake_bot_mtr.move(0);
     }
